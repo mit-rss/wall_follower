@@ -7,7 +7,7 @@ You will also be building a safety controller to prevent your racecar from crash
 ## Disclaimer
 
 The racecar platform is exciting and fast but it is not a toy.
-The hardware we have on board is extremely expensive and it is your responsibility to keep it in good condition for future classes.
+The hardware we have on board is [extremely expensive](https://www.spar3d.com/news/lidar/velodyne-cuts-vlp-16-lidar-price-4k/) and it is your responsibility to keep it in good condition for future classes.
 The racecar can survive a couple light bumps but if it goes flying into a wall it will not survive. The whole frame can split in half, the lidar can get scratched, the TX2 can get damaged, etc. Any one of these repairs can cost hudreds if not thousands of dollars.
 
 If your car develops hardware issues for any reason, please tell the TAs and we will replace your car and then refurbish the damaged one. Most teams will probably have some hardware issue throughout the course and it is typically not a big deal.
@@ -52,7 +52,7 @@ The button should light up green.
 
 With everything powered on, you can connect directly to the car using:
 
-    ssh racecar@[COREY_WHAT_IS_THE_IP]
+    ssh racecar@192.168.0.[CAR_NUMBER]
     
 The password is ```racecar@mit```. If you can't connect make sure you are still on the correct Wi-Fi network.
 
@@ -61,7 +61,7 @@ It should be familiar, but poke around to get comfortable with the structure.
 Just like in the simulator, you will often need multiple terminal windows open in order to launch different ros nodes.
 There are many ways to do this.
 
-- Open multiple windows on your local machine and ```ssh racecar@[COREY_WHAT_IS_THE_IP]``` in each one of them. You can even ssh from multiple computers at the same time but make sure you are communicating with your team members.
+- Open multiple windows on your local machine and ```ssh racecar@192.168.0.[CAR_NUMBER]``` in each one of them. You can even ssh from multiple computers at the same time but make sure you are communicating with your team members.
 - Use [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
 - Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ssh client and have them displayed on your local machine. For example you could run ```xterm &``` to get a new terminal window. Or you could run ```i3 &``` to get a tiling window manager. X11 Forwarding can take up more bandwidth so avoid it if your connection is poor.
 
