@@ -128,13 +128,13 @@ Now that you’ve got your wall follower working we want you to build a safety c
 In future labs the racecar will be moving at high speeds so we need you to build a system that protects it from crashes. 
 
 Create a new package for your safety controller (place it in ```[YOUR_WORKSPACE]/src```).
-In your package make a node that prevents the racecar from crashing into obstacles.
+Your goal is to make a node in this pacakge that prevents the racecar from crashing into obstacles.
 
 We want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of senarioes and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
 
 At the same time your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc. without the racecar freezing in it's tracks. You will be required to run your safety controller in all future labs so don't cripple yourself with something overprotective.
 
-_Please be careful as you are testing_. Always have your joystick ready to stop the racecar and start slow. 
+_Please be careful when you are testing_. Always have your joystick ready to stop the racecar and start very slow. 
 
 ### Muxes
 
@@ -142,7 +142,7 @@ The racecar has a command mux with different levels of priority that you will ne
 
 ![Muxes](https://i.imgur.com/Y8oQCLe.png)
 
-The navigation mux you have been publishing to is an alias for the highest priority navigation mux ([defined here](https://github.mit.edu/2018-RSS/racecar_base_ros_install/blob/vm/racecar/racecar/launch/mux.launch)):
+The navigation topic you have been publishing to is an alias for the highest priority navigation topic in the mux ([defined here](https://github.mit.edu/2018-RSS/racecar_base_ros_install/blob/vm/racecar/racecar/launch/mux.launch)):
 
     /vesc/ackermann_cmd_mux/input/navigation -> /vesc/high_level/ackermann_cmd_mux/input/nav_0
 
@@ -151,7 +151,7 @@ Driving commands sent to ```.../nav_0``` override driving commands sent to ```..
 Likewise driving commands sent to ```.../nav_1``` override driving commands sent to ```.../nav_2```, ```.../nav_3```, etc.
 You can use this structure to layer levels of control.
 
-For example a robot whose job it is to explore randomly and collect minerals as it finds them could use 2 muxes.
+For example, a robot whose job it is to explore randomly and collect minerals as it finds them could use 2 muxes.
 The controller that explores randomly could publish to a lower priotiy topic like ```.../nav_1```.
 Whenever the vision system detects minerals, it could begin to publish commands to a higher priority topic like ```.../nav_0```. ```.../nav_0``` would override ```.../nav_1``` until the minerals have been depleted and commands stopped being published to```.../nav_0```.
 
@@ -168,9 +168,9 @@ This will always have the highest priority.
 
 So for your safety controller this means:
 
-- Subscribe to ```/vesc/high_level/ackermann_cmd_mux/output``` to get inputs to the 
-- Subscribe to sensors like ```/scan```
-- Publish to ```/vesc/low_level/ackermann_cmd_mux/input/safety```
+- Subscribe to ```/vesc/high_level/ackermann_cmd_mux/output``` to intercept the driving command that is being published.
+- Subscribe to sensors like ```/scan```.
+- Publish to ```/vesc/low_level/ackermann_cmd_mux/input/safety```.
 
 ## Deliverables
 
