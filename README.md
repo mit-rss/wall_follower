@@ -111,7 +111,9 @@ If you can, plug in the energizer battery and the motor battery so they will be 
 
 ## Wall Following
 
-Use ```scp``` or ```git clone``` to get one of your team members' wall following code from Lab 2 onto the car. 
+Use ```scp``` or ```git clone``` to get one of your team members' wall following code from Lab 2 onto the car.
+Just like in Lab 2 the wall follower should live in the ```src``` folder of your workspace, ```[YOUR_WORKSPACE]/src/[WALL_FOLLOWER_CODE]```.
+```catkin_make``` to rebuild the workspace.
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal launch
 
     roslaunch wall_follower wall_follower.launch
