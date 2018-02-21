@@ -176,7 +176,7 @@ So for your safety controller this means:
 
 - Subscribe to ```/vesc/high_level/ackermann_cmd_mux/output``` to intercept the driving command that is being published.
 - Subscribe to sensors like ```/scan```.
-- Publish to ```/vesc/low_level/ackermann_cmd_mux/input/safety```.
+- Publish to ```/vesc/low_level/ackermann_cmd_mux/input/safety``` if the command being published to the navigation topic is in danger of crashing the racecar.
 
 ## Deliverables
 
@@ -187,4 +187,4 @@ Make sure that in each you demonstrate your ability to
 - Autonomously drive the racecar with your wall following code.
 - Prevent crashes using your safety controller while maintaining flexibility.
 
-Use of video, screen shots, etc. is highly recommended.
+Use of video, screen shots, etc. is highly recommended. Make quantitative and qualitative evaluations of your resuls.
