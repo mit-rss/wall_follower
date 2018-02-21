@@ -101,6 +101,10 @@ Get the car to a safe place (_not on a table!_) and launch teleop just like in t
 
     roslaunch racecar teleop.launch
 
+Alternatively, if you are using the VM, you can simply do:
+
+	teleop
+
 Now you should be able to move the car around with the joystick!
 Your computer will disconnect from the racecar if it gets too far away from the router, but the code running on it will not be affected.
 
@@ -113,7 +117,7 @@ If you can, plug in the energizer battery and the motor battery so they will be 
 
 Use ```scp``` or ```git clone``` to get one of your team members' wall following code from Lab 2 onto the car.
 Just like in Lab 2 the wall follower should live in the ```src``` folder of your workspace, ```[YOUR_WORKSPACE]/src/[WALL_FOLLOWER_CODE]```.
-```catkin_make``` to rebuild the workspace.
+```catkin_make``` in the root of your workspace to rebuild the workspace.
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal launch
 
     roslaunch wall_follower wall_follower.launch
@@ -121,6 +125,8 @@ Get the car into a safe location and make sure ```teleop``` is running. In anoth
 Hopefully this will work without any changes!
 If nessesary, tune the parameters in the wall follower so that it works well in real life.
 Combine ideas from multiple team members' implimentations of the wall follower to make a more robust controller.
+
+Consider how to quantify how well a controller performs, and techniques to improve controller performance.
 
 ## Safety Controller
 
