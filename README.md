@@ -127,26 +127,50 @@ Combine ideas from multiple team members' implimentations of the wall follower t
 Now that you’ve got your wall follower working we want you to build a safety controller.
 In future labs the racecar will be moving at high speeds so we need you to build a system that protects it from crashes. 
 
-TODO: Redo this section based on conversation with corey and the mux system developed last year
+Create a new package for your safety controller (place it in ```[YOUR_WORKSPACE]/src```).
+In your package make a node that prevents the racecar from crashing into obstacles.
 
-The racecar has a command mux with different levels of priority.
-The navigation mux you have been publishing to has the lowest priority:
-
-    /vesc/ackermann_cmd_mux/input/navigation
-    
-The joystick has higher priority and commands published to this topic will override commands sent to navigation:
-
-    /vesc/ackermann_cmd_mux/input/teleop
-    
-The highest priority mux that we have set up is the safety mux. Commands sent here will override all other steering commands.
-
-    /vesc/ackermann_cmd_mux/input/safety
-    
-Write a node that publishes to the safety mux in order to prevent the racecar from running into obstacles.
-
-We want you to be able to demonstrate that your safety controller is robust. You should be able to use the joystick to attempt to crash the racecar in a variety of senarioes and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. _Please be careful as you are testing; start slow._
+We want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of senarioes and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
 
 At the same time your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc. without the racecar freezing in it's tracks. You will be required to run your safety controller in all future labs so don't cripple yourself with something overprotective.
+
+_Please be careful as you are testing_. Always have your joystick ready to stop the racecar and start slow. 
+
+### Muxes
+
+The racecar has a command mux with different levels of priority that you will need in building your safety controller.
+
+![Muxes](https://i.imgur.com/Y8oQCLe.png)
+
+The navigation mux you have been publishing to is an alias for the highest priority navigation mux ([defined here](https://github.mit.edu/2018-RSS/racecar_base_ros_install/blob/vm/racecar/racecar/launch/mux.launch)):
+
+    /vesc/ackermann_cmd_mux/input/navigation -> /vesc/high_level/ackermann_cmd_mux/input/nav_0
+
+For brevity we will refer to ```/vesc/high_level/ackermann_cmd_mux/input/nav_i``` as ```.../nav_i``` in this handout (_this doesn't work on the actual racecar_).
+Driving commands sent to ```.../nav_0``` override driving commands sent to ```.../nav_1```, ```.../nav_2```, etc.
+Likewise driving commands sent to ```.../nav_1``` override driving commands sent to ```.../nav_2```, ```.../nav_3```, etc.
+You can use this structure to layer levels of control.
+
+For example a robot whose job it is to explore randomly and collect minerals as it finds them could use 2 muxes.
+The controller that explores randomly could publish to a lower priotiy topic like ```.../nav_1```.
+Whenever the vision system detects minerals, it could begin to publish commands to a higher priority topic like ```.../nav_0```. ```.../nav_0``` would override ```.../nav_1``` until the minerals have been depleted and commands stopped being published to```.../nav_0```.
+
+The navigation command with the highest priority is then published to ```/vesc/high_level/ackermann_cmd_mux/output```.
+This topic is then piped to ```/vesc/low_level/ackermann_cmd_mux/input/navigation``` and fed into another mux with the following priorities (from highest to lowest):
+
+    /vesc/low_level/ackermann_cmd_mux/input/teleop
+    /vesc/low_level/ackermann_cmd_mux/input/safety
+    /vesc/low_level/ackermann_cmd_mux/input/navigation
+
+```.../teleop``` is the topic that the joystick publishes to.
+This will always have the highest priority.
+```.../safety``` has the next highest priority. It will override anything published to ```.../navigation```. This is where your safety controller will publish.
+
+So for your safety controller this means:
+
+- Subscribe to ```/vesc/high_level/ackermann_cmd_mux/output``` to get inputs to the 
+- Subscribe to sensors like ```/scan```
+- Publish to ```/vesc/low_level/ackermann_cmd_mux/input/safety```
 
 ## Deliverables
 
