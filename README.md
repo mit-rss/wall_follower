@@ -30,7 +30,7 @@ https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
 
 ### Connections and Power
 
-Once you have your, car search for its number. You can find it in two places; on top of the car's lidar and on the front of your router. The number will be in block letter stickers. If you have an older car or router there might be other numbers written or labeled on it that you can ignore.
+Once you have your car, search for its number. You can find it in two places; on top of the car's lidar and on the front of your router. The number will be in block letter stickers. If you have an older car or router there might be other numbers written or labeled on it that you can ignore.
 
 ![car_number](https://farm5.staticflickr.com/4723/40500596821_e133bedd83_k.jpg)
 
