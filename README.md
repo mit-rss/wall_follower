@@ -32,7 +32,7 @@ https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
 
 Once you have your car, search for its number. You can find it in two places; on top of the car's lidar and on the front of your router. The number will be in block letter stickers. If you have an older car or router there might be other numbers written or labeled on it that you can ignore.
 
-![car_number](https://farm5.staticflickr.com/4723/40500596821_e133bedd83_k.jpg)
+![car_number](media/40500596821_e133bedd83_k.jpg)
 
 Plug your router into an outlet and use the ethernet cable to connect it to a working ethernet port (not all the ports in 32-080 work). 
 Then connect to either of these two wifi networks on your laptop using the password ```g0_fast!```:
