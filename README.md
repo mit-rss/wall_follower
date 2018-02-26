@@ -156,7 +156,7 @@ We want you to be able to demonstrate that your safety controller is robust. You
 
 At the same time your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc. without the racecar freezing in it's tracks. You will be required to run your safety controller in all future labs so don't cripple yourself with something overprotective.
 
-_Please be careful when you are testing_. Always have your joystick ready to stop the racecar and start very slow. 
+__Please be careful when you are testing__. Always have your joystick ready to stop the racecar and start very slow. 
 
 ### Muxes
 
