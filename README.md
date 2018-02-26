@@ -95,6 +95,23 @@ There are many ways to do this through ```ssh```:
 - Use [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
 - Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ```ssh``` client and have them displayed on your local machine. For example you could run ```xterm &``` to get a new terminal window. 
 
+Since you will likely be SSHing into your car quite a lot, we suggest adding a bash alias (by adding to your ~/.bashrc) to facilitate this. We have already added these to the VMs! 
+    
+    # rc ~= "remote car" - ssh into your car with 4 letters
+    # usage example: rc 74
+    function rc()  { sshpass -p racecar@mit ssh racecar@192.168.0.$@; }
+
+    # mr ~= "mount remote" - run from your host machine to mount the file system of the racecar locally
+    # this can be very convenient for editing files on your racecar locally using your favorite editor
+    # usage example: mr 74 ~/remote/racecar (the ~/remote/racecar path should be an existing directory)
+    function mr()  { sshfs racecar@192.168.0.$1:/home/racecar $2 -o ssh_command='sshpass -p racecar@mit ssh'; }
+
+    # bonus: this allows you to easily ssh into your vm from your host machine. The VM IP address
+    # usually does not change, so you can just hard code that in your bashrc.
+    vm() { sshpass -p racecar@mit ssh racecar@[your VM's ip address]; }
+
+**NOTE:** in the above aliases, we use sshpass. You should probably not use sshpass in your real life, since it has obvious security drawbacks. We use it here because the passwords are not really a secret.
+
 ### Manual Navigation
 
 When you are ready, disconnect the power adapters to the energizer and motors and plug the motors in.
