@@ -257,22 +257,22 @@ This is where you should put your ROS modules on the car.
 - **sparkfun\_9dof\_razor\_imu\_m0:** contains code for driving the IMU
 - **direct_drive:** another method of driving the car, don't worry about this for now!
 
-### zed
+#### zed
 
 - **compiled_samples:** precompiled binary files which use the ZED
 - **zed-python:** python wrappers for direct ZED access (non-ROS wrapped), includes examples/tutorials
 
 **NOTE:** you can run this code over SSH if you use X-Forwarding (ssh racecar@... -X)
 
-### velodyne
+#### velodyne
 
 - **launch_velodyne.sh:** contains the launch command for the velodyne sensor, just for reference
 
-### joystick
+#### joystick
 
 - **test_joystick.sh**: a useful shell script for debugging Joystick connections, give it a try!
 
-### range_libc
+#### range_libc
 
 This folder contains code for fast ray casting on the RACECAR. The package contains several ray casting methods, and is quite fast. It will be useful later on in the course (lab 5). 
 
@@ -284,18 +284,18 @@ To update this code (if directed to do so), just do "git pull" in the range_libc
 
 - **pywrapper/compile_with_cuda.sh**: run this script if you need to recompile range_libc for any reason.
 
-### tensorflow
+#### tensorflow
 
 Your car comes preinstalled with Tensorflow!
 
 - **test_tensorflow.sh:** Script for testing tensorflow
 - **test_gpu.py:** Script for testing tensorflow
 
-### cartographer_ws
+#### cartographer_ws
 
 Don't worry about this for now, it will be relevant in lab 5.
 
-### bldc
+#### bldc
 
 This folder contains a tool for flashing the VESC. You should not touch this without TA involvement.
 
