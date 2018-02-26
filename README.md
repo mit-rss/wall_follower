@@ -42,7 +42,7 @@ Then connect to either of these two wifi networks on your laptop using the passw
 
 The 5ghz network provides a faster connection but has more limited range.
 
-TODO: picture of router with adapter
+![router](https://farm5.staticflickr.com/4767/39605336515_5d5459a801_k.jpg)
 
 Check the battery status on your racecar by pressing the power button on your black energizer battery. 
 This power button is merely an indicator and does not actually power the battery on or off.
@@ -58,14 +58,13 @@ Note that the car will probably turn off when you disconnect the power adapter; 
 You will need to disconnect the car from the power adapter when you want to drive it around.
 The battery lasts a suprisingly long time, so as long as you keep the battery charged when you are not working it can last the entire lab.
 
-![energizer_power](https://farm5.staticflickr.com/4761/39604959385_d248f64e8d_k.jpg)
+![energizer_power](https://farm5.staticflickr.com/4612/39791091874_4da61acfd2_k.jpg)
 
 Also charge your motor battery by plugging it into the charger that looks like a blue block.
 Hold the start button to charge.
 This battery won't last as long, especially when you are going fast, so remember to charge it when the car is not moving. The TX2 will not be affected if the motor battery gets unplugged. We have given each team two motor batteries so you can swap them out.
 
 ![motor_power](https://farm5.staticflickr.com/4750/39790637494_e1ef9b0292_k.jpg)
-
 
 Connect the two power cables to the energizer battery.
 One powers the lidar and the TX2. 
@@ -132,6 +131,7 @@ This command sets the ROS master to the ip of the car. Add the ```/scan``` topic
 Before you get too far ahead, remember that when you are done using the racecar, you **must unplug all power cables**. This includes 2 cables that connect to the energizer battery and the motor battery. Not doing this can destroy the batteries and the servo.
 
 ![motor_unplugged](https://farm5.staticflickr.com/4654/39604958985_bd32f3ea16_k.jpg)
+![energizer_unplugged](https://farm5.staticflickr.com/4765/39791091494_1fee2d09a0_k.jpg)
 
 ## Wall Following
 
