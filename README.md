@@ -126,6 +126,8 @@ Because ```rviz``` requires 3D libraries you can't run it straight through SSH. 
 
 This command sets the ROS master to the ip of the car. Add the ```/scan``` topic and make sure you can visualize the laser scan.
 
+**In order for rviz to work you will need to set your network adapter to "Bridged (Autodetect)".**
+
 ### Cleaning Up
 
 Before you get too far ahead, remember that when you are done using the racecar, you **must unplug all power cables**. This includes 2 cables that connect to the energizer battery and the motor battery. Not doing this can destroy the batteries and the servo.
