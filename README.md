@@ -228,7 +228,7 @@ Make sure that in each you demonstrate your ability to
 
 Use of video, screen shots, etc. is highly recommended. Make quantitative and qualitative evaluations of your resuls.
 
-Please make sure all of your code is pushed to your team's organization. The presentation will happen during Monday's lab. The lab report is due **Monday, March 5 at 1PM**. At this time, the RSS staff will pull your team's website repo. Please ensure that the report is complete and that you have linked to your presentation.
+Please make sure all of your code is pushed to your team's organization. The presentation will happen during Monday's lab (more info to come very shortly!). The lab report is due **Monday, March 5 at 1PM**. At this time, the RSS staff will pull your team's website repo. Please ensure that the report is complete and that you have linked to your presentation.
 
 ## RACECAR directory layout
 
