@@ -203,8 +203,10 @@ So for your safety controller this means:
 From now on your lab deliverables will consist of two parts; a presentation and a lab report.
 Make sure that in each you demonstrate your ability to 
 
-- Log into the physical car and manually drive.
+- Log into the physical car, manually drive and visualize the laser scan.
 - Autonomously drive the racecar with your wall following code.
 - Prevent crashes using your safety controller while maintaining flexibility.
 
 Use of video, screen shots, etc. is highly recommended. Make quantitative and qualitative evaluations of your resuls.
+
+The presentation will happen during Monday's lecture. The lab report is due TODO.
