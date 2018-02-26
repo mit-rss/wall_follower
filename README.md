@@ -209,4 +209,4 @@ Make sure that in each you demonstrate your ability to
 
 Use of video, screen shots, etc. is highly recommended. Make quantitative and qualitative evaluations of your resuls.
 
-The presentation will happen during Monday's lecture. The lab report is due TODO.
+Please make sure all of your code is pushed to your team's organization. The presentation will happen during Monday's lecture. The lab report is due TODO.
