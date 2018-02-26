@@ -229,3 +229,74 @@ Make sure that in each you demonstrate your ability to
 Use of video, screen shots, etc. is highly recommended. Make quantitative and qualitative evaluations of your resuls.
 
 Please make sure all of your code is pushed to your team's organization. The presentation will happen during Monday's lab. The lab report is due **Monday, March 5 at 1PM**. At this time, the RSS staff will pull your team's website repo. Please ensure that the report is complete and that you have linked to your presentation.
+
+## RACECAR directory layout
+
+The RACECAR comes preinstalled with most of the software you will need throughout the course. We highly recommend you keep your own software organized on the car. It's possible your car will need to be reflashed or swapped throughout the course, so it would be good if you could easily restore your code.
+
+## ~/
+
+- **.racecars**: this is an extension to the .bashrc (.bashrc sources this file) with a few necessary configuration parameters. You should look at this file to see what is there. It sets up the ROS networking parameters, and provides (notably) the SCANNER_TYPE environment variable, which is car specific.
+
+**NOTE**: if you have problems with the IP detection function in .racecars, then you can replace the current_ip=... line with the following:
+
+    current_ip=$(ip -4 addr | grep -o "inet 192.168.0.[0-9][0-9]" | grep -o 192.168.0.[0-9][0-9] | sed -e "s/192\.168\.0\.15//" | sed -e "s/192\.168\.3\.100//" | tr -d '[:space:]')
+    if [ -z "$current_ip" ]; then
+        current_ip=127.0.0.1
+    fi
+
+### racecar_ws/src
+
+This is where you should put your ROS modules on the car.
+
+#### base
+
+- **vesc:** motor driver wrapper code
+- **racecar:** RACECAR core software architecture - muxes, launch files, etc
+- **zed_wrapper:** contains code for interfacing the Zed camera with ROS
+- **sparkfun\_9dof\_razor\_imu\_m0:** contains code for driving the IMU
+- **direct_drive:** another method of driving the car, don't worry about this for now!
+
+### zed
+
+- **compiled_samples:** precompiled binary files which use the ZED
+- **zed-python:** python wrappers for direct ZED access (non-ROS wrapped), includes examples/tutorials
+
+**NOTE:** you can run this code over SSH if you use X-Forwarding (ssh racecar@... -X)
+
+### velodyne
+
+- **launch_velodyne.sh:** contains the launch command for the velodyne sensor, just for reference
+
+### joystick
+
+- **test_joystick.sh**: a useful shell script for debugging Joystick connections, give it a try!
+
+### range_libc
+
+This folder contains code for fast ray casting on the RACECAR. The package contains several ray casting methods, and is quite fast. It will be useful later on in the course (lab 5). 
+
+See Corey's paper for more info! [https://arxiv.org/abs/1705.01167](https://arxiv.org/abs/1705.01167)
+
+Fun fact: a (slightly more current) version of this paper was just accepted to [ICRA 2018](http://www.icra2018.org/)!
+
+To update this code (if directed to do so), just do "git pull" in the range_libc directory, then run the below script.
+
+- **pywrapper/compile_with_cuda.sh**: run this script if you need to recompile range_libc for any reason.
+
+### tensorflow
+
+Your car comes preinstalled with Tensorflow!
+
+- **test_tensorflow.sh:** Script for testing tensorflow
+- **test_gpu.py:** Script for testing tensorflow
+
+### cartographer_ws
+
+Don't worry about this for now, it will be relevant in lab 5.
+
+### bldc
+
+This folder contains a tool for flashing the VESC. You should not touch this without TA involvement.
+
+
