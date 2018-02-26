@@ -12,7 +12,7 @@ The hardware we have on board
 [extremely](https://www.spar3d.com/news/lidar/velodyne-cuts-vlp-16-lidar-price-4k/)
 [expensive](https://www.robotshop.com/en/hokuyo-ust-10lx-scanning-laser-rangefinder.html?gclid=Cj0KCQiAq6_UBRCEARIsAHyrgUxYmgjfz734t-zWCqa2U4l7LAVsZ1_cp2CuvuD3WalcBQ9tCp2_WmMaAjbAEALw_wcB)
 and it is your responsibility to keep it in good condition for future classes.
-The racecar can survive a couple light bumps but if it goes flying into a wall it can be destroyed. The whole frame can split in half, the lidar can get scratched, the TX2 can get damaged, etc. Any one of these repairs can cost hudreds if not thousands of dollars.
+The racecar can survive a couple light bumps but if it goes flying into a wall it can be destroyed. The whole frame can split in half, the lidar can get scratched, the TX2 can get damaged, etc. Any one of these repairs can cost hundreds if not thousands of dollars.
 
 If your car develops hardware issues for any reason, please tell the TAs and we will replace your car and then refurbish the damaged one. Most teams will probably have some sort of hardware issue throughout the course and it is typically not a big deal.
 But if you damage the car in an extreme way through obviously reckless behaviour you may find yourself working on the simulated car for the rest of the course.
@@ -23,16 +23,24 @@ The racecar runs on relatively low voltage ([≤ 20V](https://www.amazon.com/Ene
 But as with any electrical system it is always important to take proper safety precautions.
 For example ground yourself before touching any of the exposed circuit boards like the TX2.
 
-Please read and sign the electrical safety form here before starting work on the racecar:
+Please have all members of your team read and sign the electrical safety form here before starting work on the racecar:
 https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
 
 ## The Racecar
 
 ### Connections and Power
 
+Once you have your car search for its number. You can find it in two places; on top of the car's lidar and on the front of your router. The number will be in block letter stickers. If you have an older car or router there might be other numbers written or labeled on it that you can ignore.
+
+TODO: pictures of numbers.
+
 Plug your router into an outlet and use the ethernet cable to connect it to a working ethernet port (not all the ports in 32-080 work). 
-Then connect to the Wi-Fi on your laptop (TODO: must find out wifi name).
-The password is ```g0_fast!```.
+Then connect either of these two wifi networks on your laptop using the password ```g0_fast!```:
+
+    RACECAR_AP_[YOUR_CAR_NUMBER]
+    RACECAR_AP_[YOUR_CAR_NUMBER]_5GHZ
+
+The 5ghz network provides a faster connection but has more limited range.
 
 TODO: picture of router with adapter
 
@@ -53,18 +61,18 @@ TODO: picture of battery plugged into the adapter
 
 Also charge your motor battery by plugging it into the charger that looks like a blue block.
 Hold the start button to charge.
-This battery won't last as long, especially when you are going fast, so remember to charge it when the car is not moving.
+This battery won't last as long, especially when you are going fast, so remember to charge it when the car is not moving. The TX2 will not be affected if the motor battery gets unplugged. We have given each team two motor batteries so they can swap them out.
 
 TODO: picture of the motor battery plugged in and the start button.
 
 Connect the two power cables to the energizer battery.
 One powers the lidar and the TX2. 
 The other powers the USB hub (which powers the ZED camera and IMU).
-If everything is receiving power, you should see LEDs light up on the TX2 and IMU and you should hear the lidar spinning.
+If everything is receiving power, you should see LEDs light up on the TX2 and IMU and you should hear the lidar spinning (listen closely).
 
 TODO: Picture of the two power cables.
 
-Power on the TX2 by pressing the rightmost button labeled "power".
+Power on the TX2 by pressing the rightmost button on the port side of the car labeled "power".
 The button should light up green.
 
 TODO: Picture of the TX2 button.
@@ -74,9 +82,7 @@ TODO: Picture of the TX2 button.
 With everything powered on, you can connect directly to the car using:
 
     ssh racecar@192.168.0.[CAR_NUMBER]
-    
-TODO: The new cars do not have numbers?
-    
+        
 The password is ```racecar@mit```. If you can't connect make sure you are still on the correct Wi-Fi network.
 
 The car is running Ubuntu just like the virtual machine.
@@ -86,9 +92,7 @@ There are many ways to do this through ```ssh```:
 
 - Open multiple windows on your local machine and ```ssh racecar@192.168.0.[CAR_NUMBER]``` in each one of them. You can even ssh from multiple computers at the same time but make sure you are communicating with your team members if you do this.
 - Use [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
-- Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ```ssh``` client and have them displayed on your local machine. For example you could run ```xterm &``` to get a new terminal window. Or you could run ```i3 &``` to get a tiling window manager. X11 Forwarding can take up more bandwidth so avoid it if your connection is poor.
-
-TODO: talk to corey about which tiling window manager is on the car.
+- Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ```ssh``` client and have them displayed on your local machine. For example you could run ```xterm &``` to get a new terminal window. 
 
 ### Manual Navigation
 
@@ -99,25 +103,29 @@ TODO: picture of the disconnected power adapter and plugged in motor battery.
 Turn on the TX2 and recconect to the racecar if necessary.
 Get the car to a safe place (_not on a table!_) and launch teleop just like in the simulator:
 
-    roslaunch racecar teleop.launch
-
-Alternatively, if you are using the VM, you can simply do:
-
-	teleop
+    teleop
 
 Now you should be able to move the car around with the joystick!
+**You need press the left bumper before the car can move, *even for autonomous driving*.**
+This way you can stop the car from crashing by letting go of the trigger if necessary.
+
 Your computer will disconnect from the racecar if it gets too far away from the router, but the code running on it will not be affected.
+
+#### The car isn't moving
+
+- Make sure the joystick is connected and in the right mode by running ~/joystick/test_joystick.sh
+- Are you pressing the left bumped on the joystick?
+- Make sure the motors are plugged in and charged. 
 
 ### Cleaning Up
 
-Before you get too far ahead, remember that when you are done using the racecar, unplug the power cables that connect the battery to the TX2, lidar and USB hub.
-If you can, plug in the energizer battery and the motor battery so they will be fully charged next lab.
+Before you get too far ahead, remember that when you are done using the racecar, you **must unplug all power cables**. This includes 2 cables that connect to the energizer battery and the motor battery. Not doing this can destroy the batteries and the servo.
 
 ## Wall Following
 
 Use ```scp``` or ```git clone``` to get one of your team members' wall following code from Lab 2 onto the car.
-Just like in Lab 2 the wall follower should live in the ```src``` folder of your workspace, ```[YOUR_WORKSPACE]/src/[WALL_FOLLOWER_CODE]```.
-```catkin_make``` in the root of your workspace to rebuild the workspace.
+Just like in Lab 2 the wall follower should live in the ```src``` folder of your workspace, ```~/racecar_ws/src/[WALL_FOLLOWER_CODE]```.
+```catkin_make``` in the root of your workspace to rebuild it.
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal launch
 
     roslaunch wall_follower wall_follower.launch
@@ -133,7 +141,7 @@ Consider how to quantify how well a controller performs, and techniques to impro
 Now that you’ve got your wall follower working we want you to build a safety controller.
 In future labs the racecar will be moving at high speeds so we need you to build a system that protects it from crashes. 
 
-Create a new package for your safety controller (place it in ```[YOUR_WORKSPACE]/src```).
+Create a new package for your safety controller (place it in ```~/racecar_ws/src```).
 Your goal is to make a node in this pacakge that prevents the racecar from crashing into obstacles.
 
 We want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of senarioes and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
