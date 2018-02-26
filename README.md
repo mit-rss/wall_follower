@@ -143,6 +143,8 @@ Because ```rviz``` requires 3D libraries you can't run it straight through SSH. 
 
 This command sets the ROS master to the ip of the car. Add the ```/scan``` topic and make sure you can visualize the laser scan.
 
+**Note:** "runcar" is a bash function created a while back by a past 6.141 TA. It's useful because it sets up your local network configuration when trying to interact with the car. If you don't have it already (VMs already have it) then [you can find it here](https://github.com/mit-racecar/install_tools/blob/master/bashrc_vm#L128). Just copy the runcar function into your .bashrc and you're good to go (don't forget to source .bashrc when you're done).
+
 **In order for rviz to work you will need to set your network adapter to "Bridged (Autodetect)".**
 
 ### Cleaning Up
