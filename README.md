@@ -32,7 +32,7 @@ https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
 
 Once you have your, car search for its number. You can find it in two places; on top of the car's lidar and on the front of your router. The number will be in block letter stickers. If you have an older car or router there might be other numbers written or labeled on it that you can ignore.
 
-TODO: pictures of numbers.
+![car_number](https://farm5.staticflickr.com/4723/40500596821_e133bedd83_k.jpg)
 
 Plug your router into an outlet and use the ethernet cable to connect it to a working ethernet port (not all the ports in 32-080 work). 
 Then connect to either of these two wifi networks on your laptop using the password ```g0_fast!```:
@@ -50,32 +50,34 @@ It is always on, so make sure you unplug the power cables when the car is not in
 On the hokuyo cars the battery sits right on top of the car.
 On the velodyne cars the battery is velcroed under the car (be careful when pulling it out).
 
-TODO: Add pictures of the battery on each car
+![hokuyo_battery](https://farm5.staticflickr.com/4628/40500597871_792493a139_k.jpg)
+![velodyne_battery](https://farm5.staticflickr.com/4659/39604959195_914cb8f59f_k.jpg)
 
 If your energizer is low on battery, charge it with the adapter.
 Note that the car will probably turn off when you disconnect the power adapter; during the switch back to battery power there is a moment where the TX2 does not have enough power to stay on.
 You will need to disconnect the car from the power adapter when you want to drive it around.
 The battery lasts a suprisingly long time, so as long as you keep the battery charged when you are not working it can last the entire lab.
 
-TODO: picture of battery plugged into the adapter
+![energizer_power](https://farm5.staticflickr.com/4761/39604959385_d248f64e8d_k.jpg)
 
 Also charge your motor battery by plugging it into the charger that looks like a blue block.
 Hold the start button to charge.
 This battery won't last as long, especially when you are going fast, so remember to charge it when the car is not moving. The TX2 will not be affected if the motor battery gets unplugged. We have given each team two motor batteries so you can swap them out.
 
-TODO: picture of the motor battery plugged in and the start button.
+![motor_power](https://farm5.staticflickr.com/4750/39790637494_e1ef9b0292_k.jpg)
+
 
 Connect the two power cables to the energizer battery.
 One powers the lidar and the TX2. 
 The other powers the USB hub (which powers the ZED camera and IMU).
 If everything is receiving power, you should see LEDs light up on the TX2 and IMU and you should hear the lidar spinning (listen closely).
 
-TODO: Picture of the two power cables.
+![energizer_plugged](https://farm5.staticflickr.com/4626/39604959525_44ff049f74_k.jpg)
 
 Power on the TX2 by pressing the rightmost button on the port side of the car labeled "power".
 The button should light up green.
 
-TODO: Picture of the TX2 button.
+![TX2](https://farm5.staticflickr.com/4709/40500596601_71f9b0ede8_k.jpg)
 
 ### SSH
 
@@ -98,7 +100,7 @@ There are many ways to do this through ```ssh```:
 
 When you are ready, disconnect the power adapters to the energizer and motors and plug the motors in.
 
-TODO: picture of the disconnected power adapter and plugged in motor battery.
+![motor_plugged](https://farm5.staticflickr.com/4616/39604958785_8e8161b88e_k.jpg)
 
 Turn on the TX2 and recconect to the racecar if necessary.
 Get the car to a safe place (_not on a table!_) and launch teleop just like in the simulator:
@@ -128,6 +130,8 @@ This command sets the ROS master to the ip of the car. Add the ```/scan``` topic
 ### Cleaning Up
 
 Before you get too far ahead, remember that when you are done using the racecar, you **must unplug all power cables**. This includes 2 cables that connect to the energizer battery and the motor battery. Not doing this can destroy the batteries and the servo.
+
+![motor_unplugged](https://farm5.staticflickr.com/4654/39604958985_bd32f3ea16_k.jpg)
 
 ## Wall Following
 
