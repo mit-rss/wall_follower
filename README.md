@@ -23,9 +23,6 @@ The racecar runs on relatively low voltage ([≤ 20V](https://www.amazon.com/Ene
 But as with any electrical system it is always important to take proper safety precautions.
 For example ground yourself before touching any of the exposed circuit boards like the TX2.
 
-Please have all members of your team read and sign the electrical safety form here before starting work on the racecar:
-https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
-
 ## The Racecar
 
 ### Connections and Power
@@ -86,31 +83,8 @@ With everything powered on, you can connect directly to the car using:
         
 The password is ```racecar@mit```. If you can't connect make sure you are still on the correct Wi-Fi network.
 
-The car is running Ubuntu just like the virtual machine.
-It should be familiar, but poke around to get comfortable with the structure.
-Just like in the simulator, you will often need multiple terminal windows open in order to launch different ros nodes.
-There are many ways to do this through ```ssh```:
-
-- Open multiple windows on your local machine and ```ssh racecar@192.168.0.[CAR_NUMBER]``` in each one of them. You can even ssh from multiple computers at the same time but make sure you are communicating with your team members if you do this.
-- Use [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
-- Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ```ssh``` client and have them displayed on your local machine. For example you could run ```xterm &``` to get a new terminal window. 
-
-Since you will likely be SSHing into your car quite a lot, we suggest adding a bash alias (by adding to your ~/.bashrc) to facilitate this. We have already added these to the VMs! 
-    
-    # rc ~= "remote car" - ssh into your car with 4 letters
-    # usage example: rc 74
-    function rc()  { sshpass -p racecar@mit ssh racecar@192.168.0.$@; }
-
-    # mr ~= "mount remote" - run from your host machine to mount the file system of the racecar locally
-    # this can be very convenient for editing files on your racecar locally using your favorite editor
-    # usage example: mr 74 ~/remote/racecar (the ~/remote/racecar path should be an existing directory)
-    function mr()  { sshfs racecar@192.168.0.$1:/home/racecar $2 -o ssh_command='sshpass -p racecar@mit ssh'; }
-
-    # bonus: this allows you to easily ssh into your vm from your host machine. The VM IP address
-    # usually does not change, so you can just hard code that in your bashrc.
-    vm() { sshpass -p racecar@mit ssh racecar@[your VM's ip address]; }
-
-**NOTE:** in the above aliases, we use sshpass. You should probably not use sshpass in your real life, since it has obvious security drawbacks. We use it here because the passwords are not really a secret.
+The car is running Ubuntu.
+If you do not have experience with Linux, try out some of these [basic commands](https://maker.pro/linux/tutorial/basic-linux-commands-for-beginners), but please do not delete any existing software.
 
 ### Manual Navigation
 
@@ -119,33 +93,19 @@ When you are ready, disconnect the power adapters to the energizer and motors an
 ![motor_plugged](media/39604958785_8e8161b88e_k.jpg)
 
 Turn on the TX2 and recconect to the racecar if necessary.
-Get the car to a safe place (_not on a table!_) and launch teleop just like in the simulator:
+Get the car to a safe place (_not on a table!_) and run the following command:
 
     teleop
 
 Now you should be able to move the car around with the joystick!
-**You need press the left bumper before the car can move, *even for autonomous driving*.**
-This way you can stop the car from crashing by letting go of the trigger if necessary.
-
-Your computer will disconnect from the racecar if it gets too far away from the router, but the code running on it will not be affected.
+**You need press the left bumper before the car can move**
+This is a known as a [Dead man's switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) and it is an easy way to stop the car from crashing - just let go of the trigger.
 
 #### The car isn't moving
 
 - Make sure the joystick is connected and in the right mode by running ~/joystick/test_joystick.sh
-- Are you pressing the left bumped on the joystick?
+- Are you pressing the left bumper on the joystick?
 - Make sure the motors are plugged in and charged. 
-
-### RViz
-
-Because ```rviz``` requires 3D libraries you can't run it straight through SSH. So to visualize topics published by the car run the following:
-
-    runcar [YOUR_CAR_NUMBER] rviz
-
-This command sets the ROS master to the ip of the car. Add the ```/scan``` topic and make sure you can visualize the laser scan.
-
-**Note:** "runcar" is a bash function created a while back by a past 6.141 TA. It's useful because it sets up your local network configuration when trying to interact with the car. If you don't have it already (VMs already have it) then [you can find it here](https://github.com/mit-racecar/install_tools/blob/master/bashrc_vm#L128). Just copy the runcar function into your .bashrc and you're good to go (don't forget to source .bashrc when you're done).
-
-**In order for rviz to work you will need to set your network adapter to "Bridged (Autodetect)".**
 
 ### Cleaning Up
 
@@ -171,134 +131,48 @@ Consider how to quantify how well a controller performs, and techniques to impro
 
 ## Safety Controller
 
-Now that you’ve got your wall follower working we want you to build a safety controller.
 In future labs the racecar will be moving at high speeds so we need you to build a system that protects it from crashes. 
 
-Create a new package for your safety controller (place it in ```~/racecar_ws/src```).
-Your goal is to make a node in this pacakge that prevents the racecar from crashing into obstacles.
+Download this lab and move the ```safety.py``` file onto the car.
+You can do that by using ```scp``` (secure copy protocol):
 
-We want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of senarioes and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
+    scp [PATH_TO_LAB]/safety.py racecar@192.168.0.[CAR_NUM]:~/racecar_ws/src
 
-At the same time your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc. without the racecar freezing in it's tracks. You will be required to run your safety controller in all future labs so don't cripple yourself with something overprotective.
+We want you to create a [node](), that listens to messages from the lidar sensor and publishes messages to the motors.
+First run ```teleop``` and make sure you can move the car with the joystick.
+Then, in another terminal (ssh'd into the car), run
+
+    rostopic echo /scan
+    
+You should see a large quanity of text. This is the lidar data (which is massive). Press Ctrl-C to end. Talk to a TA if you don't see lidar messages.
+
+Now we want to use that data. Open up the ```safety.py``` file which you have moved to the ```~/racecar_ws/src``` directory. You can edit files in a terminal using ```nano``` or ```vim```. In the ```__init__``` method you can see that we have set up a subscriber to the ```LIDAR_TOPIC``` (aka ```/scan```) and publisher to the ```DRIVE_TOPIC```. You can learn more about publishers and subscribers [here](http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers). Every time the script receives a message from ```/scan``` it passes the result to the ```callback``` function. Print this message (```msg```) and test your script by running:
+
+    python2 ~/racecar_ws/src/safety.py
+    
+This should produce the same text as ```rostopic echo /scan```!
+
+Now, we want to use this lidar message to inform us of obstacles. The ```msg``` object that you are printing is actually of type [http://docs.ros.org/api/sensor_msgs/html/msg/LaserScan.html]. See what happens if you print different entries of this datatype. For example:
+
+    print(msg.angle_max)
+    print(msg.range_max)
+    ...
+    
+The actual lidar data (a list of depth measurements), can be found in the ```msg.ranges``` entry.
+Print the minimum item of this list and run your script. Watch what happens as you move your hand in front of the lidar.
+
+Now its time to start driving!
+In the callback function, create a drive message of type [http://docs.ros.org/api/ackermann_msgs/html/msg/AckermannDriveStamped.html](AckermannDriveStamped) with the following:
+
+    drive = AckermannDriveStamped()
+    
+Make the speed of this message 0 if there is an obstacle withing 0.5 meters and 1 otherwise.
+Then publish the result
+
+    self.drive_pub.publish(drive)
+    
+Put your car into a safe location and then run the script. Then hold the *right* bumper. The car should drive until it gets too close to an obstacle. Talk to a TA when you can do this.
 
 __Please be careful when you are testing__. Always have your joystick ready to stop the racecar and start very slow. 
 
-### Muxes
-
-The racecar has a command mux with different levels of priority that you will need in building your safety controller.
-
-![Muxes](https://i.imgur.com/Y8oQCLe.png)
-
-The navigation topic you have been publishing to is an alias for the highest priority navigation topic in the mux ([defined here](https://github.mit.edu/2018-RSS/racecar_base_ros_install/blob/vm/racecar/racecar/launch/mux.launch)):
-
-    /vesc/ackermann_cmd_mux/input/navigation -> /vesc/high_level/ackermann_cmd_mux/input/nav_0
-
-For brevity we will refer to ```/vesc/high_level/ackermann_cmd_mux/input/nav_i``` as ```.../nav_i``` in this handout (_this doesn't work on the actual racecar_).
-Driving commands sent to ```.../nav_0``` override driving commands sent to ```.../nav_1```, ```.../nav_2```, etc.
-Likewise driving commands sent to ```.../nav_1``` override driving commands sent to ```.../nav_2```, ```.../nav_3```, etc.
-You can use this structure to layer levels of control.
-
-For example, a robot whose job it is to explore randomly and collect minerals as it finds them could use 2 muxes.
-The controller that explores randomly could publish to a lower priotiy topic like ```.../nav_1```.
-Whenever the vision system detects minerals, it could begin to publish commands to a higher priority topic like ```.../nav_0```. ```.../nav_0``` would override ```.../nav_1``` until the minerals have been depleted and commands stopped being published to```.../nav_0```.
-
-The navigation command with the highest priority is then published to ```/vesc/high_level/ackermann_cmd_mux/output```.
-This topic is then piped to ```/vesc/low_level/ackermann_cmd_mux/input/navigation``` and fed into another mux with the following priorities (from highest to lowest):
-
-    /vesc/low_level/ackermann_cmd_mux/input/teleop
-    /vesc/low_level/ackermann_cmd_mux/input/safety
-    /vesc/low_level/ackermann_cmd_mux/input/navigation
-
-```.../teleop``` is the topic that the joystick publishes to.
-This will always have the highest priority.
-```.../safety``` has the next highest priority. It will override anything published to ```.../navigation```. This is where your safety controller will publish.
-
-So for your safety controller this means:
-
-- Subscribe to ```/vesc/high_level/ackermann_cmd_mux/output``` to intercept the driving command that is being published.
-- Subscribe to sensors like ```/scan```.
-- Publish to ```/vesc/low_level/ackermann_cmd_mux/input/safety``` if the command being published to the navigation topic is in danger of crashing the racecar.
-
-## Deliverables
-
-From now on your lab deliverables will consist of two parts; a presentation and a lab report.
-Make sure that in each you demonstrate your ability to 
-
-- Log into the physical car, manually drive and visualize the laser scan.
-- Autonomously drive the racecar with your wall following code.
-- Prevent crashes using your safety controller while maintaining flexibility.
-
-Use of video, screen shots, etc. is highly recommended. Make quantitative and qualitative evaluations of your resuls.
-
-Please make sure all of your code is pushed to your team's organization. The presentation will happen during Monday's lab (more info to come very shortly!). The lab report is due **Monday, March 5 at 1PM**. At this time, the RSS staff will pull your team's website repo. Please ensure that the report is complete and that you have linked to your presentation.
-
-## RACECAR directory layout
-
-The RACECAR comes preinstalled with most of the software you will need throughout the course. We highly recommend you keep your own software organized on the car. It's possible your car will need to be reflashed or swapped throughout the course, so it would be good if you could easily restore your code.
-
-## ~/
-
-- **.racecars**: this is an extension to the .bashrc (.bashrc sources this file) with a few necessary configuration parameters. You should look at this file to see what is there. It sets up the ROS networking parameters, and provides (notably) the SCANNER_TYPE environment variable, which is car specific.
-
-**NOTE**: if you have problems with the IP detection function in .racecars, then you can replace the current_ip=... line with the following:
-
-    current_ip=$(ip -4 addr | grep -o "inet 192.168.0.[0-9][0-9]" | grep -o 192.168.0.[0-9][0-9] | sed -e "s/192\.168\.0\.15//" | sed -e "s/192\.168\.3\.100//" | tr -d '[:space:]')
-    if [ -z "$current_ip" ]; then
-        current_ip=127.0.0.1
-    fi
-
-### racecar_ws/src
-
-This is where you should put your ROS modules on the car (alongside the base directory).
-
-**racecar_ws/src/base/**
-
-- **vesc:** motor driver wrapper code
-- **racecar:** RACECAR core software architecture - muxes, launch files, etc
-- **zed_wrapper:** contains code for interfacing the Zed camera with ROS
-- **sparkfun\_9dof\_razor\_imu\_m0:** contains code for driving the IMU
-- **direct_drive:** another method of driving the car, don't worry about this for now!
-
-### zed
-
-- **compiled_samples:** precompiled binary files which use the ZED
-- **zed-python:** python wrappers for direct ZED access (non-ROS wrapped), includes examples/tutorials
-
-**NOTE:** you can run this code over SSH if you use X-Forwarding (ssh racecar@... -X)
-
-### velodyne
-
-- **launch_velodyne.sh:** contains the launch command for the velodyne sensor, just for reference
-
-### joystick
-
-- **test_joystick.sh**: a useful shell script for debugging Joystick connections, give it a try!
-
-### range_libc
-
-This folder contains code for fast ray casting on the RACECAR. The package contains several ray casting methods, and is quite fast. It will be useful later on in the course (lab 5). 
-
-See Corey's paper for more info! [https://arxiv.org/abs/1705.01167](https://arxiv.org/abs/1705.01167)
-
-Fun fact: a (slightly more current) version of this paper was just accepted to [ICRA 2018](http://www.icra2018.org/)!
-
-To update this code (if directed to do so), just do "git pull" in the range_libc directory, then run the below script.
-
-- **pywrapper/compile_with_cuda.sh**: run this script if you need to recompile range_libc for any reason.
-
-### tensorflow
-
-Your car comes preinstalled with Tensorflow!
-
-- **test_tensorflow.sh:** Script for testing tensorflow
-- **test_gpu.py:** Script for testing tensorflow
-
-### cartographer_ws
-
-Don't worry about this for now, it will be relevant in lab 5.
-
-### bldc
-
-This folder contains a tool for flashing the VESC. You should not touch this without TA involvement.
-
-
+What other functionality can you program? What if when the obstacle is too close the car begins to reverse until it is a safe distance away? What if you turn the wheels of the car if there are objects close on either side? How can you make this safety controller *safe* but not *over protective*?
