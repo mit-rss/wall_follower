@@ -1,4 +1,4 @@
-# Lab 3: Wall Following on the Racecar
+# Wall Following on the Racecar
 
 It's time to use the actual racecar!
 In this lab you will be taking the wall following code that you ran in simulation and running it on the car.
