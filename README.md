@@ -123,7 +123,7 @@ Because ```rviz``` requires 3D libraries you can't run it straight through SSH.
 So you will need ```rviz``` to be connected to the car's ```roscore``` rather than the one on your local machine.
 To do this first edit your ```/etc/hosts``` file (requires ```sudo```) and add the following line:
 
-    racecar    192.168.1.[CAR_NUMBER]
+    192.168.1.[CAR_NUMBER]     racecar
     
 This essentially makes the string ```racecar``` equivalent to the IP of the car. One benefit of this is that you should now be able to SSH in to the car by running:
 
