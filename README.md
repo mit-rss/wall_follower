@@ -98,7 +98,7 @@ There are many ways to do this through ```ssh```:
 
 ### Manual Navigation
 
-When you are ready, disconnect the power adapters to the energizer and motors and plug the motors in.
+When you are ready, disconnect the power adapters to the energizer and plug the batteries in.
 
 ![motor_plugged](media/39604958785_8e8161b88e_k.jpg)
 
@@ -108,7 +108,7 @@ Get the car to a safe place (_not on a table!_) and launch ```teleop``` just lik
     teleop
 
 Now you should be able to move the car around with the joystick!
-**You need press the left bumper before the car can move**
+**You need press the left bumper before the car can move.**
 This is a known as a [Dead man's switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) and it is an easy way to stop the car from crashing - just let go of the trigger.
 
 #### The car isn't moving
@@ -157,6 +157,8 @@ Before you get too far ahead, remember that when you are done using the racecar,
 Use ```scp``` or ```git clone``` to get one of your team members' wall following code from Lab 2 onto the car.
 Just like in Lab 2 the wall follower should live in the ```src``` folder of your workspace, ```~/racecar_ws/src/[WALL_FOLLOWER_CODE]```.
 ```catkin_make``` in the root of your workspace to rebuild it and then ```source ~/racecar_ws/devel/setup.bash```.
+
+Before running the ```wall_follower``` change the ```drive_topic``` param to ```/vesc/ackermann_cmd_mux/input/navigation```. See the [muxes section below](https://github.com/mit-rss/wall_follower#muxes) for more details. 
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal launch
 
     roslaunch wall_follower wall_follower.launch
@@ -166,6 +168,12 @@ If nessesary, tune the parameters in the wall follower so that it works well in 
 Combine ideas from multiple team members' implimentations of the wall follower to make a more robust controller.
 
 Consider how to quantify how well a controller performs, and techniques to improve controller performance.
+
+### Some reasons it may not be working
+
+- The number of lidar beams is different than in the simulator
+- The field of view is different than in the simulator. 
+- If you have a velodyne car, the lidar is not pointed forwards, it is rotated by 60 degrees.
 
 ## Safety Controller
 
