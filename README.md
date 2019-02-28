@@ -56,7 +56,7 @@ After powered on these batteries will remain on until power stops being drawn fr
 If your battery is low, charge it with the 18V adapter. 
 Note that the car will probably turn off when you disconnect the power adapter; during the switch back to battery power there is a moment where the TX2 does not have enough power to stay on.
 You will need to disconnect the car from the power adapter when you want to drive it around.
-The battery lasts a suprisingly long time, so as long as you keep the battery charged when you are not working it can last the entire lab.
+The battery lasts a surprisingly long time, so as long as you keep the battery charged when you are not working it can last the entire lab.
 
 ![energizer_power](media/39791091874_4da61acfd2_k.jpg)
 
@@ -164,8 +164,8 @@ Get the car into a safe location and make sure ```teleop``` is running. In anoth
     roslaunch wall_follower wall_follower.launch
     
 Hopefully this will work without any changes!
-If nessesary, tune the parameters in the wall follower so that it works well in real life.
-Combine ideas from multiple team members' implimentations of the wall follower to make a more robust controller.
+If necessary, tune the parameters in the wall follower so that it works well in real life.
+Combine ideas from multiple team members' implementations of the wall follower to make a more robust controller.
 
 Consider how to quantify how well a controller performs, and techniques to improve controller performance.
 
@@ -183,9 +183,9 @@ In future labs the racecar will be moving at high speeds so we need you to build
 Create a new package for your safety controller (place it in ```~/racecar_ws/src```).
 Your goal is to make a node in this pacakge that prevents the racecar from crashing into obstacles.
 
-We want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of senarioes and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
+We want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of scenarios and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
 
-At the same time your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc. without the racecar freezing in it's tracks. You will be required to run your safety controller in all future labs so don't cripple yourself with something overprotective.
+At the same time your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc. without the racecar freezing in its tracks. You will be required to run your safety controller in all future labs so don't cripple yourself with something overprotective.
 
 __Please be careful when you are testing__. Always have your joystick ready to stop the racecar and start very slow. 
 
@@ -205,7 +205,7 @@ Likewise driving commands sent to ```.../nav_1``` override driving commands sent
 You can use this structure to layer levels of control.
 
 For example, a robot whose job it is to explore randomly and collect minerals as it finds them could use 2 muxes.
-The controller that explores randomly could publish to a lower priotiy topic like ```.../nav_1```.
+The controller that explores randomly could publish to a lower priority topic like ```.../nav_1```.
 Whenever the vision system detects minerals, it could begin to publish commands to a higher priority topic like ```.../nav_0```. ```.../nav_0``` would override ```.../nav_1``` until the minerals have been depleted and commands stopped being published to```.../nav_0```.
 
 The navigation command with the highest priority is then published to ```/vesc/high_level/ackermann_cmd_mux/output```.
@@ -234,7 +234,7 @@ Make sure that in each you demonstrate your ability to
 - Autonomously drive the racecar with your wall following code.
 - Prevent crashes using your safety controller while maintaining flexibility.
 
-Use of video, screen shots, etc. is highly recommended. Make quantitative and qualitative evaluations of your resuls.
+Use of video, screen shots, etc. is highly recommended. Make quantitative and qualitative evaluations of your results.
 
 Create an organization for your team on [github.mit.edu](github.mit.edu) called ```rss2019-[TEAM_NUMBER]``` and make sure all of your code is pushed there. The presentation will happen during Wednesday's lab. The lab report is due a week from today on **Wednesday, March 5 at 1PM**. At this time, the TAs will pull your team's report from your website (hosted in your organization, you will learn about this next CI lecture). Please ensure that the report is complete and that you have linked to your presentation.
 
@@ -244,15 +244,15 @@ The RACECAR comes preinstalled with most of the software you will need throughou
 
 ## ~/
 
-- **.racecars**: this is an extension to the .bashrc (.bashrc sources this file) with a few necessary configuration parameters. You should look at this file to see what is there. It sets up the ROS networking parameters, and provides (notably) the SCANNER_TYPE environment variable, which is car specific.
+- **.racecars**: this is an extension to the `.bashrc` (`.bashrc` sources this file) with a few necessary configuration parameters. You should look at this file to see what is there. It sets up the ROS networking parameters, and provides (notably) the SCANNER_TYPE environment variable, which is car specific.
 
-**NOTE**: if you have problems with the IP detection function in .racecars, then you can replace the current_ip=... line with the following:
-
-    current_ip=$(ip -4 addr | grep -o "inet 192.168.0.[0-9][0-9]" | grep -o 192.168.0.[0-9][0-9] | sed -e "s/192\.168\.0\.15//" | sed -e "s/192\.168\.3\.100//" | tr -d '[:space:]')
-    if [ -z "$current_ip" ]; then
-        current_ip=127.0.0.1
-    fi
-
+**NOTE**: if you have problems with the IP detection function in `.racecars`, then you can replace the `current_ip=...` line with the following:
+```bash
+current_ip=$(ip -4 addr | grep -o "inet 192.168.0.[0-9][0-9]" | grep -o 192.168.0.[0-9][0-9] | sed -e "s/192\.168\.0\.15//" | sed -e "s/192\.168\.3\.100//" | tr -d '[:space:]')
+if [ -z "$current_ip" ]; then
+    current_ip=127.0.0.1
+fi
+```
 ### racecar_ws/src
 
 This is where you should put your ROS modules on the car (alongside the base directory).
