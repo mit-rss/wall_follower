@@ -164,6 +164,7 @@ Get the car into a safe location and make sure ```teleop``` is running. In anoth
     roslaunch wall_follower wall_follower.launch
     
 Hopefully this will work without any changes!
+To activate the wall follower, hold down the right bumper on the joystick
 If necessary, tune the parameters in the wall follower so that it works well in real life.
 Combine ideas from multiple team members' implementations of the wall follower to make a more robust controller.
 
