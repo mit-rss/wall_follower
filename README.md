@@ -262,9 +262,8 @@ This is where you should put your ROS modules on the car (alongside the base dir
 
 - **vesc:** motor driver wrapper code
 - **racecar:** RACECAR core software architecture - muxes, launch files, etc
-- **zed_wrapper:** contains code for interfacing the Zed camera with ROS
-- **sparkfun\_9dof\_razor\_imu\_m0:** contains code for driving the IMU
-- **direct_drive:** another method of driving the car, don't worry about this for now!
+- **zed_ros_wrapper:** contains code for interfacing the Zed camera with ROS
+- **razor\_imu\_m0\_driver:** contains code for driving the IMU
 
 ### zed
 
@@ -292,17 +291,6 @@ Fun fact: a (slightly more current) version of this paper was just accepted to [
 To update this code (if directed to do so), just do "git pull" in the range_libc directory, then run the below script.
 
 - **pywrapper/compile_with_cuda.sh**: run this script if you need to recompile range_libc for any reason.
-
-### tensorflow
-
-Your car comes preinstalled with Tensorflow!
-
-- **test_tensorflow.sh:** Script for testing tensorflow
-- **test_gpu.py:** Script for testing tensorflow
-
-### cartographer_ws
-
-Don't worry about this for now, it will be relevant in lab 5.
 
 ### bldc
 
