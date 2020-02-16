@@ -245,15 +245,6 @@ The RACECAR comes preinstalled with most of the software you will need throughou
 
 ## ~/
 
-- **.racecars**: this is an extension to the `.bashrc` (`.bashrc` sources this file) with a few necessary configuration parameters. You should look at this file to see what is there. It sets up the ROS networking parameters, and provides (notably) the SCANNER_TYPE environment variable, which is car specific.
-
-**NOTE**: if you have problems with the IP detection function in `.racecars`, then you can replace the `current_ip=...` line with the following:
-```bash
-current_ip=$(ip -4 addr | grep -o "inet 192.168.0.[0-9][0-9]" | grep -o 192.168.0.[0-9][0-9] | sed -e "s/192\.168\.0\.15//" | sed -e "s/192\.168\.3\.100//" | tr -d '[:space:]')
-if [ -z "$current_ip" ]; then
-    current_ip=127.0.0.1
-fi
-```
 ### racecar_ws/src
 
 This is where you should put your ROS modules on the car (alongside the base directory).
