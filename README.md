@@ -1,3 +1,7 @@
+| Presentation Due Date   | Wednesday, March 4 at 3:00 PM EST  |
+|-------------------------|------------------------------------|
+| Lab Report Due Date     | Friday, March 6 at 1:00PM EST      |
+
 # Wall Following on the Racecar
 
 It's time to use the actual racecar!
@@ -35,7 +39,7 @@ Once you have your car, search for its number. You can find it in two places; on
 ![car_number](media/40500596821_e133bedd83_k.jpg)
 
 Plug your router into an outlet and use the ethernet cable to connect it to a working ethernet port (not all the ports in 32-080 work). Make sure you are using the **12V power supply** that says "TP-Link" on it. **Using the other power supply will fry your router**.
-Then connect to either of these two wifi networks on your laptop using the password ```g0_fast!```:
+Then connect to either of these two wifi networks on your laptop using the password ```g0tRACECAR?```:
 
     RACECAR_AP_[YOUR_CAR_NUMBER]
     RACECAR_AP_[YOUR_CAR_NUMBER]_5GHZ
@@ -45,17 +49,19 @@ The 5ghz network provides a faster connection but has more limited range.
 ![router](media/39605336515_5d5459a801_k.jpg)
 
 Check the battery status on your racecar by pressing the power button on your car's primary battery.
-This may be the black energizer pictured below or this [grey battery](https://www.amazon.com/dp/B07JJTYH8F).
+This may be the black energizer pictured below or the grey [XTPower](https://www.amazon.com/dp/B07JJTYH8F) battery.
 On the hokuyo cars the battery sits right on top of the car.
 On the velodyne cars the battery is velcroed under the car (be careful when pulling it out).
-After powered on these batteries will remain on until power stops being drawn from them so please remember to unplug your power cables when the car is not in use.
+When powered on, these batteries will remain on until power stops being drawn from them, so please remember to unplug your power cables when the car is not in use.
 
 ![hokuyo_battery](media/40500597871_792493a139_k.jpg)
 ![velodyne_battery](media/39604959195_914cb8f59f_k.jpg)
 
 If your battery is low, charge it with the 18V adapter. 
-Note that the car will probably turn off when you disconnect the power adapter; during the switch back to battery power there is a moment where the TX2 does not have enough power to stay on.
-You will need to disconnect the car from the power adapter when you want to drive it around.
+Do not charge your battery while it is plugged in to the TX2.   
+Please remember to charge your batteries when you are not working on the cars.   
+We do not provide backups if your battery is not charged enough to be used.  
+
 The battery lasts a surprisingly long time, so as long as you keep the battery charged when you are not working it can last the entire lab.
 
 ![energizer_power](media/39791091874_4da61acfd2_k.jpg)
@@ -66,7 +72,7 @@ This battery won't last as long, especially when you are going fast, so remember
 
 ![motor_power](media/39790637494_e1ef9b0292_k.jpg)
 
-Connect the two power cables to the energizer battery.
+Connect the two power cables to the energizer/xtpower battery.
 One powers the lidar and the TX2. 
 The other powers the USB hub (which powers the ZED camera and IMU).
 If everything is receiving power, you should see LEDs light up on the TX2 and IMU and you should hear the lidar spinning (listen closely).
@@ -80,11 +86,11 @@ The button should light up green.
 
 ### SSH
 
-When you're connected to the wifi with the TX2 powered on , you can connect directly to the car using:
+When you're connected to the wifi with the TX2 powered on, you can connect directly to the car from your VM using:
 
     ssh racecar@192.168.1.[CAR_NUMBER]
         
-The password is ```racecar@mit```. If you can't connect make sure you are still on the correct Wi-Fi network.
+The password is ```racecar@mit```. If you can't connect, make sure you are still on the correct Wi-Fi network.
 
 The car is running Ubuntu just like the virtual machine.
 It should be familiar, but poke around to get comfortable with the structure.
@@ -98,12 +104,14 @@ There are many ways to do this through ```ssh```:
 
 ### Manual Navigation
 
-When you are ready, disconnect the power adapters to the energizer and plug the batteries in.
+When you are ready, plug in your TX2 battery (energizer or XTPower) and motor battery (traxxis) in.
 
 ![motor_plugged](media/39604958785_8e8161b88e_k.jpg)
 
-Turn on the TX2 and recconect to the racecar if necessary.
-Get the car to a safe place (_not on a table!_) and launch ```teleop``` just like in the simulator:
+Turn on the TX2, and reconnect to the racecar if necessary.
+Get the car to a safe place (_not on a table!_).
+Launch ```teleop``` just like in the simulator.
+Note that if you JUST plugged in the motor battery, it takes a few minutes for the VESC to be recognized, so if you run teleop, and get the error "Failed to connect to the VESC", wait a few seconds, and try running the command again.
 
     teleop
 
@@ -121,7 +129,7 @@ This is a known as a [Dead man's switch](https://en.wikipedia.org/wiki/Dead_man%
 
 Because ```rviz``` requires 3D libraries you can't run it straight through SSH.
 So you will need ```rviz``` to be connected to the car's ```roscore``` rather than the one on your local machine.
-To do this first edit your ```/etc/hosts``` file (requires ```sudo```) and add the following line:
+To do this first edit your ```/etc/hosts``` file on your local machine (requires ```sudo```) and add the following line:
 
     192.168.1.[CAR_NUMBER]     racecar
     
@@ -141,7 +149,7 @@ You also need to set your own IP for 2-way communication by running:
 
     export ROS_IP=192.168.1.[YOUR_COMPUTER'S_IP]
     
-You can find your IP address by running ```hostname -I``` or ```ip addr```. **If you are on the VM you must set your network adapter to "Bridged (Autodetect)", otherwise you will not have an IP on the network.** Note that these commands need to be run in every single terminal that you want to be connected to the car's roscore, so it is worth considering making an alias for them or adding them to your ```.bashrc```.
+You can find your IP address by running ```hostname -I``` or ```ip addr```. **If you are on the VM you must set your network adapter to "Bridged (Autodetect)", otherwise you will not have an IP on the network.** Note that these commands need to be run in every single terminal that you want to be connected to the car's roscore, so it is worth considering making an alias for them or adding them to your ```~/.bashrc```.
 
 Now if you run ```teleop``` on the car you should be able to open up ```rviz``` and visualize the real lidar data (topic ```/scan```) and the IMU data (```/imu/data```).
 
@@ -182,7 +190,7 @@ Now that you’ve got your wall follower working we want you to build a safety c
 In future labs the racecar will be moving at high speeds so we need you to build a system that protects it from crashes. 
 
 Create a new package for your safety controller (place it in ```~/racecar_ws/src```).
-Your goal is to make a node in this pacakge that prevents the racecar from crashing into obstacles.
+Your goal is to make a node in this package that prevents the racecar from crashing into obstacles.
 
 We want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of scenarios and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
 
@@ -237,7 +245,7 @@ Make sure that in each you demonstrate your ability to
 
 Use of video, screen shots, etc. is highly recommended. Make quantitative and qualitative evaluations of your results.
 
-Create an organization for your team on [github.mit.edu](github.mit.edu) called ```rss2019-[TEAM_NUMBER]``` and make sure all of your code is pushed there. The presentation will happen a week from this lab's release on **Wednesday, March 6 during lab hours**. The lab report is due the following **Friday, March 8 at 1PM**. At this time, the TAs will pull your team's report from your website (hosted in your organization, you will learn about this next CI lecture). Please ensure that the report is complete and that you have linked to your presentation.
+Create an organization for your team on [github.mit.edu](github.mit.edu) called ```rss2020-[TEAM_NUMBER]``` and make sure all of your code is pushed there. The presentation will happen a week from this lab's release on **Wednesday, March 4 during lab hours**. The lab report is due the following **Friday, March 6 at 1PM**. At this time, the TAs will pull your team's report from your website (hosted in your organization, you will learn about this next CI lecture). Please ensure that the report is complete and that you have linked to your presentation.
 
 ## RACECAR directory layout
 
@@ -256,6 +264,14 @@ This is where you should put your ROS modules on the car (alongside the base dir
 - **zed_ros_wrapper:** contains code for interfacing the Zed camera with ROS
 - **razor\_imu\_m0\_driver:** contains code for driving the IMU
 
+**racecar_ws/.subsystems/**
+
+- **hokuyo**
+- **imu**
+- **joystick**
+- **velodyne**
+- **vesc**
+
 ### zed
 
 - **compiled_samples:** precompiled binary files which use the ZED
@@ -263,13 +279,25 @@ This is where you should put your ROS modules on the car (alongside the base dir
 
 **NOTE:** you can run this code over SSH if you use X-Forwarding (ssh racecar@... -X)
 
-### velodyne
+### hokuyo
 
-- **launch_velodyne.sh:** contains the launch command for the velodyne sensor, just for reference
+- contains hokuyo network settings, don't modify this without TA involvement
+
+### imu
+
+- **launch_imu.sh**: contains the launch command for the imu sensor, just for reference
 
 ### joystick
 
 - **test_joystick.sh**: a useful shell script for debugging Joystick connections, give it a try!
+
+### velodyne
+
+- **launch_velodyne.sh:** contains the launch command for the velodyne sensor, just for reference
+
+### bldc-tool
+
+This folder contains a tool for flashing the VESC. You should not touch this without TA involvement.
 
 ### range_libc
 
@@ -282,7 +310,3 @@ Fun fact: a (slightly more current) version of this paper was just accepted to [
 To update this code (if directed to do so), just do "git pull" in the range_libc directory, then run the below script.
 
 - **pywrapper/compile_with_cuda.sh**: run this script if you need to recompile range_libc for any reason.
-
-### bldc
-
-This folder contains a tool for flashing the VESC. You should not touch this without TA involvement.
