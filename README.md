@@ -147,9 +147,9 @@ Now that you've set up the hostname (you only ever need to do that once), you ca
 
 You also need to set your own IP for 2-way communication by running:
 
-    export ROS_IP=192.168.1.[YOUR_COMPUTER'S_IP]
+    export ROS_IP=[YOUR_COMPUTER'S_IP]
     
-You can find your IP address by running ```hostname -I``` or ```ip addr```. **If you are on the VM you must set your network adapter to "Bridged (Autodetect)", otherwise you will not have an IP on the network.** Note that these commands need to be run in every single terminal that you want to be connected to the car's roscore, so it is worth considering making an alias for them or adding them to your ```~/.bashrc```.
+You can find your IP address by running ```hostname -I``` or ```ip addr```. It should be on the 192.168.1.x subnet. **If you are on the VM you must set your network adapter to "Bridged (Autodetect)", otherwise you will not have an IP on the network.** Note that these commands need to be run in every single terminal that you want to be connected to the car's roscore, so it is worth considering making an alias for them or adding them to your ```~/.bashrc```.
 
 Now if you run ```teleop``` on the car you should be able to open up ```rviz``` and visualize the real lidar data (topic ```/scan```) and the IMU data (```/imu/data```).
 
