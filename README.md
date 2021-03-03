@@ -51,7 +51,7 @@ The 5ghz network provides a faster connection but has more limited range.
 Check the battery status on your racecar by pressing the power button on your car's primary battery.
 This may be the black energizer pictured below or the grey [XTPower](https://www.amazon.com/dp/B07JJTYH8F) battery.
 On the hokuyo cars the battery sits right on top of the car.
-[](On the velodyne cars the battery is velcroed under the car (be careful when pulling it out).)
+![](On the velodyne cars the battery is velcroed under the car (be careful when pulling it out).)
 When powered on, these batteries will remain on until power stops being drawn from them, so please remember to unplug your power cables when the car is not in use.
 
 ![hokuyo_battery](media/40500597871_792493a139_k.jpg)
