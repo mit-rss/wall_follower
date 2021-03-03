@@ -30,7 +30,7 @@ For example ground yourself before touching any of the exposed circuit boards li
 Please have all members of your team read and sign the electrical safety form here before starting work on the racecar:
 https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
 
-## The Racecar
+## Tuesday, March 9: The Racecar
 
 ### Connections and Power
 
@@ -51,7 +51,8 @@ The 5ghz network provides a faster connection but has more limited range.
 Check the battery status on your racecar by pressing the power button on your car's primary battery.
 This may be the black energizer pictured below or the grey [XTPower](https://www.amazon.com/dp/B07JJTYH8F) battery.
 On the hokuyo cars the battery sits right on top of the car.
-![](On the velodyne cars the battery is velcroed under the car (be careful when pulling it out).)
+On the velodyne cars the battery is velcroed under the car (be careful when pulling it out).
+This year, all teams have received a car with a *hokyuo* lidar.
 When powered on, these batteries will remain on until power stops being drawn from them, so please remember to unplug your power cables when the car is not in use.
 
 ![hokuyo_battery](media/40500597871_792493a139_k.jpg)
@@ -160,7 +161,9 @@ Before you get too far ahead, remember that when you are done using the racecar,
 ![motor_unplugged](media/39604958985_bd32f3ea16_k.jpg)
 ![energizer_unplugged](media/39791091494_1fee2d09a0_k.jpg)
 
-## Wall Following
+
+
+## Wednesday, March 10 and Monday, March 15 (and Wednesday, March 17): Wall Following
 
 Use ```scp``` or ```git clone``` to get one of your team members' wall following code from Lab 2 onto the car.
 Just like in Lab 2 the wall follower should live in the ```src``` folder of your workspace, ```~/racecar_ws/src/[WALL_FOLLOWER_CODE]```.
