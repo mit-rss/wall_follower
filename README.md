@@ -1,6 +1,7 @@
-| Presentation Due Date   | Wednesday, March 17 at 3:00 PM EST  |
+| Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
-| Lab Report Due Date     | Friday, March 19 at 1:00PM EST      |
+| Presentation   | Wednesday, March 17 at 3:00 PM EST  |
+| Lab Report     | Friday, March 19 at 1:00PM EST      |
 
 # Wall Following on the Racecar
 
