@@ -1,7 +1,7 @@
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
 | Presentation   | Wednesday, March 17 at 3:00 PM EST  |
-| Lab Report     | Friday, March 19 at 1:00PM EST      |
+| Lab Report     | Friday, March 19 at 1:00PM EST  on github pages site    |
 
 # Wall Following on the Racecar
 
