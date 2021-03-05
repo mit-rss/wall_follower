@@ -39,7 +39,7 @@ Once you have your car, search for its number. You can find it in two places; on
 
 ![car_number](media/40500596821_e133bedd83_k.jpg)
 
-Plug your router into an outlet and use the ethernet cable to connect it to a working ethernet port (not all the ports in 32-080 work). Make sure you are using the **12V power supply** that says "TP-Link" on it. **Using the other power supply will fry your router**.
+Plug your router into an outlet in your team's power strip. Make sure you are using the **12V power supply** that says "TP-Link" on it. **Using the other power supply will fry your router**.
 Then connect to either of these two wifi networks on your laptop using the password ```g0tRACECAR?```:
 
     RACECAR_AP_[YOUR_CAR_NUMBER]
@@ -53,7 +53,7 @@ Check the battery status on your racecar by pressing the power button on your ca
 This may be the black energizer pictured below or the grey [XTPower](https://www.amazon.com/dp/B07JJTYH8F) battery.
 On the hokuyo cars the battery sits right on top of the car.
 On the velodyne cars the battery is velcroed under the car (be careful when pulling it out).
-This year, all teams have received a car with a *hokyuo* lidar.
+(This year, all teams have received a car with a *hokyuo* lidar.)
 When powered on, these batteries will remain on until power stops being drawn from them, so please remember to unplug your power cables when the car is not in use.
 
 ![hokuyo_battery](media/40500597871_792493a139_k.jpg)
@@ -62,7 +62,7 @@ When powered on, these batteries will remain on until power stops being drawn fr
 If your battery is low, charge it with the 18V adapter. 
 Do not charge your battery while it is plugged in to the TX2.   
 Please remember to charge your batteries when you are not working on the cars.   
-We do not provide backups if your battery is not charged enough to be used.  
+Due to the time constraints of Johnson, we will try this year to provide backups if your battery is not charged enough to be used -- but please make an effort to arrive with battery charged.
 
 The battery lasts a surprisingly long time, so as long as you keep the battery charged when you are not working it can last the entire lab.
 
@@ -75,7 +75,7 @@ This battery won't last as long, especially when you are going fast, so remember
 ![motor_power](media/39790637494_e1ef9b0292_k.jpg)
 
 Connect the two power cables to the energizer/xtpower battery.
-One powers the lidar and the TX2. 
+One powers the lidar and the TX2 (compute board). 
 The other powers the USB hub (which powers the ZED camera and IMU).
 If everything is receiving power, you should see LEDs light up on the TX2 and IMU and you should hear the lidar spinning (listen closely).
 
@@ -100,7 +100,7 @@ Just like in the simulator, you will often need multiple terminal windows open i
 There are many ways to do this through ```ssh```:
 
 - Open multiple windows on your local machine and ```ssh racecar@192.168.1.[CAR_NUMBER]``` in each one of them. You can even ssh from multiple computers at the same time but make sure you are communicating with your team members if you do this.
-- Use [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
+- Use [tmux](https://github.com/tmux/tmux/wiki) [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
 - Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ```ssh``` client and have them displayed on your local machine. For example you could run ```xterm &``` to get a new terminal window. 
 - Consider making bash aliases to make these steps easier.
 
@@ -111,25 +111,25 @@ When you are ready, plug in your TX2 battery (energizer or XTPower) and motor ba
 ![motor_plugged](media/39604958785_8e8161b88e_k.jpg)
 
 Turn on the TX2, and reconnect to the racecar if necessary.
-Get the car to a safe place (_not on a table!_).
+Place the car on your *brick* so its wheels do not touch the ground and are free to spin.
 Launch ```teleop``` just like in the simulator.
 Note that if you JUST plugged in the motor battery, it takes a few minutes for the VESC to be recognized, so if you run teleop, and get the error "Failed to connect to the VESC", wait a few seconds, and try running the command again.
 
     teleop
 
 Now you should be able to move the car around with the joystick!
-**You need press the left bumper before the car can move.**
+**You need press and hold the left bumper (LB) before the car can move.**
 This is a known as a [Dead man's switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) and it is an easy way to stop the car from crashing - just let go of the trigger.
 
-#### The car isn't moving
+#### Debugging: The car isn't moving!
 
-- Make sure the joystick is connected and in the right mode by running ~/joystick/test_joystick.sh
-- Are you pressing the left bumper on the joystick?
+- Make sure the joystick is connected and in the right mode by running `rostopic echo /vesc/joy`. When you press buttons on the joystick, you should see the messages on this topic update.
+- Are you pressing and holding the left bumper on the joystick?
 - Make sure the motor battery is plugged in and charged.
 
 ### RViz
 
-Because ```rviz``` requires 3D libraries you can't run it straight through SSH.
+Because ```rviz``` requires 3D libraries, you can't run it straight through SSH.
 So you will need ```rviz``` to be connected to the car's ```roscore``` rather than the one on your local machine.
 To do this first edit your ```/etc/hosts``` file on your local machine (requires ```sudo```) and add the following line:
 
@@ -164,7 +164,7 @@ Before you get too far ahead, remember that when you are done using the racecar,
 
 
 
-## Wednesday, March 10 and Monday, March 15 (and Wednesday, March 17): Wall Following
+## Wednesday, March 10 and Monday, March 15: Wall Following
 
 Use ```scp``` or ```git clone``` to get one of your team members' wall following code from Lab 2 onto the car.
 Just like in Lab 2 the wall follower should live in the ```src``` folder of your workspace, ```~/racecar_ws/src/[WALL_FOLLOWER_CODE]```.
@@ -175,12 +175,16 @@ Get the car into a safe location and make sure ```teleop``` is running. In anoth
 
     roslaunch wall_follower wall_follower.launch
     
-Hopefully this will work without any changes!
+Hopefully this will work without any changes! (But it probably won't.)
 To activate the wall follower, hold down the right bumper on the joystick
-If necessary, tune the parameters in the wall follower so that it works well in real life.
+As necessary, tune the parameters in the wall follower so that it works well in real life.
 Combine ideas from multiple team members' implementations of the wall follower to make a more robust controller.
 
-Consider how to quantify how well a controller performs, and techniques to improve controller performance.
+When you are ready to test your wall follower in the testing arena, call a TA over by placing your orange cone on top of your bin!
+
+Consider how to quantify how well a controller performs, why performance on the robot might differ from performance in the simulator, and what techniques you can use to improve your controller in deployment. Your presentation and report on Lab 3 should thoroughly address these topics.
+
+
 
 ### Some reasons it may not be working
 
@@ -190,15 +194,16 @@ Consider how to quantify how well a controller performs, and techniques to impro
 
 ## Safety Controller
 
-Now that you’ve got your wall follower working we want you to build a safety controller.
-In future labs the racecar will be moving at high speeds so we need you to build a system that protects it from crashes. 
+Now that you’ve got your wall follower working, we want you to build a safety controller.
+In future labs, the racecar will be moving at high speeds, so we need you to build a system that protects it from crashes. 
 
 Create a new package for your safety controller (place it in ```~/racecar_ws/src```).
 Your goal is to make a node in this package that prevents the racecar from crashing into obstacles.
+*The below section on Muxes will help you decide which topic your safety controller should publish to.*
 
 We want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of scenarios and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
 
-At the same time your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc. without the racecar freezing in its tracks. You will be required to run your safety controller in all future labs so don't cripple yourself with something overprotective.
+At the same time, your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc. without the racecar freezing in its tracks. You will be required to run your safety controller in all future labs so don't cripple yourself with something overprotective.
 
 __Please be careful when you are testing__. Always have your joystick ready to stop the racecar and start very slow. 
 
