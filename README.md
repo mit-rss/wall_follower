@@ -11,6 +11,8 @@ You will also be building a safety controller to prevent your racecar from crash
 | 3.2   | Wednesday, March 10, 8:00-11:00 AM EST  | Complete Lab 2 (wall follower working in simulation). Read about the safety controller below and create a team plan to implement it. | Install your wall follower on the racecar and tune its performance in the real world. Begin to implement and test your safety controller. |
 | 3.3   | Monday, March 15, 8:00-11:00 AM EST  |  Prepare your wall follower and safety controller for deployment and data collection. |  Collect all necessary data (rosbag & video) to compile your presentation and lab report (due dates below). |
 
+In lab on Wednesday, March 17, we will begin Lab 4.
+
 
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
