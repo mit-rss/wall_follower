@@ -22,7 +22,18 @@ Lab 3 will be supported by three in-person lab sessions:
 
 
 
-## Disclaimer
+## COVID Safety
+
+For Spring 2021, we ask that you observe the following procedures at Johnson Track:
+- Truthfully complete your attestation on [covidpass](covidpass.mit.edu) the evening before EACH lab; also, review the MIT rules on COVID testing and ensure you are compliant. If you are denied access due to symptoms or possible exposure, let the staff know and we will make appropriate accommodations for remote work.
+- Do all possible remote prep before lab (with the exception of the first lab on Tuesday), arriving ready to efficiently use your time with the real robot.
+- Arrive around 8:15am at the Johnson track; labs are announced and start at 8:30 sharp. Wear a mask.
+- Each team will be allocated a workspace, marked by tape on the ground; all teammates are asked to remain within their workspace during lab time except with TA permission.
+- Maintain 6 feet of social distance from all others, including team members. *No sharing computers*.
+- You will be given an orange cone that you can use to request help from the TAs.
+- Clean your team's workspace by 10:55am.
+
+## Equipment Safety
 
 The racecar platform is exciting and fast but it is not a toy.
 The hardware we have on board
@@ -35,16 +46,6 @@ The racecar can survive a couple light bumps but if it goes flying into a wall i
 If your car develops hardware issues for any reason, please tell the TAs immediately and we will do our best to repair it. Most teams will probably have some sort of hardware issue throughout the course and it is typically not a big deal.
 But if you damage the car in an extreme way through obviously reckless behaviour you may find yourself working on the simulated car for the rest of the course.
 
-## COVID Safety
-
-For Spring 2021, we ask that you observe the following procedures at Johnson Track:
-- Truthfully complete your attestation on [covidpass](covidpass.mit.edu) the evening before EACH lab; also, review the MIT rules on COVID testing and ensure you are compliant. If you are denied access due to symptoms or possible exposure, let the staff know and we will make appropriate accommodations for remote work.
-- Do all possible remote prep before lab (with the exception of the first lab on Tuesday), arriving ready to efficiently use your time with the real robot.
-- Arrive around 8:15am at the Johnson track; labs are announced and start at 8:30 sharp. Wear a mask.
-- Each team will be allocated a workspace, marked by tape on the ground; all teammates are asked to remain within their workspace during lab time except with TA permission.
-- Maintain 6 feet of social distance from all others, including team members. *No sharing computers*.
-- You will be given an orange cone that you can use to request help from the TAs.
-- Clean your team's workspace by 10:55am.
 
 ## Electrical Safety
 
