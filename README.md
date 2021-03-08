@@ -10,7 +10,7 @@ You will also be building a safety controller to prevent your racecar from crash
 | Presentation   | Wednesday, March 17 at 3:00 PM EST  |
 | Lab Report     | Friday, March 19 at 1:00PM EST  on github pages site    |
 
-
+Lab 3 will be supported by three in-person lab sessions:
 
 | Lab Session   | Date  | Remote Prep | Goals |
 |-------------------------|------------------------------------|------------------------------------|------------------------------------|
