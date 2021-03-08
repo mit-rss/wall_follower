@@ -1,5 +1,8 @@
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
+| (Lab Session 1)   | Tuesday, March 9, 8:00-11:00 AM EST  |
+| (Lab Session 2)   | Wednesday, March 10, 8:00-11:00 AM EST  |
+| (Lab Session 3)   | Monday, March 15, 8:00-11:00 AM EST  |
 | Presentation   | Wednesday, March 17 at 3:00 PM EST  |
 | Lab Report     | Friday, March 19 at 1:00PM EST  on github pages site    |
 
