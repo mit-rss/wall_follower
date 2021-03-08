@@ -6,7 +6,7 @@
 | Presentation   | Wednesday, March 17 at 3:00 PM EST  |
 | Lab Report     | Friday, March 19 at 1:00PM EST  on github pages site    |
 
-# Lab 3 (In-Person): Wall Following on the Racecar
+# Lab 3: Wall Following on the Racecar (In-Person)
 
 It's time to use the actual racecar!
 In this lab you will be taking the wall following code that you ran in simulation and running it on the car.
