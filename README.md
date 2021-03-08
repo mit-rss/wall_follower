@@ -289,7 +289,7 @@ Make sure that in each you demonstrate your ability to
 
 Use of video, screen shots, etc. is highly recommended. Make quantitative and qualitative evaluations of your results.
 
-Create an organization for your team on [github.mit.edu](github.mit.edu) called ```rss2020-[TEAM_NUMBER]``` and make sure all of your code is pushed there. The presentation will happen a week from this lab's release on **Wednesday, March 4 during lab hours**. The lab report is due the following **Friday, March 6 at 1PM**. At this time, the TAs will pull your team's report from your website (hosted in your organization, you will learn about this next CI lecture). Please ensure that the report is complete and that you have linked to your presentation.
+Create an organization for your team on [github.mit.edu](github.mit.edu) called ```rss2020-[TEAM_NUMBER]``` and make sure all of your code is pushed there. The presentation will happen a week from this lab's release on **Wednesday, March 17 during virtual lab hours**. The lab report is due **Friday, March 19 at 1PM**. At this time, the TAs will pull your team's report from your website (hosted in your organization, you will learn about this next CI lecture). Please ensure that the report is complete and that you have linked to your presentation.
 
 ## RACECAR directory layout
 
