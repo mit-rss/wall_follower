@@ -70,10 +70,10 @@ You can view the rubrics for the [lab report](https://docs.google.com/document/d
 |---------------|----------------------------------------------------------------------------|
 | briefing grade (out of 10)  | 20% |
 | lab report grade (out of 10) | 70% |
-| laboratory deliverables (out of 10) | 10% |
+| laboratory participation (out of 10) | 10% |
 
 
-The _laboratory deliverables_ for Lab 3 are:
+The main deliverables you should demonstrate for Lab 3 are:
 - Log into the physical car, manually drive and visualize the laser scan.
 - Autonomously drive the racecar with your wall following code.
 - Prevent crashes using your safety controller while maintaining flexibility.
