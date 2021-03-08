@@ -74,7 +74,7 @@ You can view the rubrics for the [lab report](https://docs.google.com/document/d
 | laboratory participation + pushed code (out of 10) | 10% |
 
 
-The main deliverables you should demonstrate for Lab 3 are:
+The capabilities you should demonstrate through your Lab 3 deliverables are:
 - Log into the physical car, manually drive and visualize the laser scan.
 - Autonomously drive the racecar with your wall following code.
 - Prevent crashes using your safety controller while maintaining flexibility.
