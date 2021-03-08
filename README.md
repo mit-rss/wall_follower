@@ -5,6 +5,7 @@
 |-------------------------|------------------------------------|
 | Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.mit.edu/rss/website2021))   | Wednesday, March 17 at 1:00 PM EST  |
 | Report (on [team github pages website](https://github.mit.edu/rss/website2021))     | Friday, March 19 at 11:59PM EST    |
+| Pushed code to Git | Friday, March 19th at 11:59PM EST |
 | [Team Member Assessment](https://docs.google.com/forms/d/e/1FAIpQLScM6T3JsnlFQldhL_fVmAr9FkUILOjbXHM_nYxK280UZwJPww/viewform)  | Friday, March 19th at 11:59PM EST |
 
 Lab 3 will be supported by three in-person lab sessions:
@@ -70,7 +71,7 @@ You can view the rubrics for the [lab report](https://docs.google.com/document/d
 |---------------|----------------------------------------------------------------------------|
 | briefing grade (out of 10)  | 20% |
 | lab report grade (out of 10) | 70% |
-| laboratory participation (out of 10) | 10% |
+| laboratory participation + pushed code (out of 10) | 10% |
 
 
 The main deliverables you should demonstrate for Lab 3 are:
