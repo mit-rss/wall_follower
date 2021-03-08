@@ -1,7 +1,14 @@
+# Lab 3: Wall Following on the Racecar (In-Person)
+
+It's time to use the actual racecar!
+In this lab you will be taking the wall following code that you ran in simulation and running it on the car.
+You will also be building a safety controller to prevent your racecar from crashing into obstacles.
+
+
 | Lab Session   | Date  | Remote Prep | Goals |
 |-------------------------|------------------------------------|------------------------------------|------------------------------------|
 | (Lab Session 3.1)   | Tuesday, March 9, 8:00-11:00 AM EST  | None |  Become familiar with the racecar platform. Access the onboard computer via SSH and connect to RViz. Drive the car with the joystick (teleoperation). Record bagfiles from teleoperation and transfer them to your local machine. |
-| (Lab Session 3.2)   | Wednesday, March 10, 8:00-11:00 AM EST  |
+| (Lab Session 3.2)   | Wednesday, March 10, 8:00-11:00 AM EST  | Complete Lab 2 (wall follower working in simulation). Read about the safety controller below and create a team plan to implement it. | Become familiar with the racecar platform. Access the onboard computer via SSH and connect to RViz. Drive the car with the joystick (teleoperation). Record bagfiles from teleoperation and transfer them to your local machine. |
 | (Lab Session 3.3)   | Monday, March 15, 8:00-11:00 AM EST  |
 
 
@@ -10,11 +17,7 @@
 | Presentation   | Wednesday, March 17 at 3:00 PM EST  |
 | Lab Report     | Friday, March 19 at 1:00PM EST  on github pages site    |
 
-# Lab 3: Wall Following on the Racecar (In-Person)
 
-It's time to use the actual racecar!
-In this lab you will be taking the wall following code that you ran in simulation and running it on the car.
-You will also be building a safety controller to prevent your racecar from crashing into obstacles.
 
 ## Disclaimer
 
