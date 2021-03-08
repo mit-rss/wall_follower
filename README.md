@@ -129,7 +129,7 @@ Just like in the simulator, you will often need multiple terminal windows open i
 There are many ways to do this through ```ssh```:
 
 - Open multiple windows on your local machine and ```ssh racecar@192.168.1.[CAR_NUMBER]``` in each one of them. You can even ssh from multiple computers at the same time but make sure you are communicating with your team members if you do this.
-- Use [tmux](https://github.com/tmux/tmux/wiki) [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
+- Use [tmux](https://github.com/tmux/tmux/wiki) or [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
 - Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ```ssh``` client and have them displayed on your local machine. For example you could run ```xterm &``` to get a new terminal window. 
 - Consider making bash aliases to make these steps easier.
 
