@@ -48,6 +48,7 @@ https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
 ## Tuesday, March 9: The Racecar
 
 **Remote Preparation**: None
+
 **Goals**: Become familiar with the racecar platform. Access the onboard computer via SSH and connect to RViz. Drive the car with the joystick (teleoperation). Record bagfiles from teleoperation and transfer them to your local machine.
 
 ### Connections and Power
@@ -190,6 +191,7 @@ In [Lab 1C](https://github.com/mit-rss/intro_to_ros), you recorded bagfiles from
 ## Wednesday, March 10 and Monday, March 15: Wall Following
 
 **Remote Preparation**: Complete Lab 2 (wall follower working in simulation). Read about the safety controller below and create a team plan to implement it.
+
 **Goals**: Become familiar with the racecar platform. Access the onboard computer via SSH and connect to RViz. Drive the car with the joystick (teleoperation). Record bagfiles from teleoperation and transfer them to your local machine.
 
 Use ```scp``` or ```git clone``` to get one of your team members' wall following code from Lab 2 onto the car.
