@@ -5,6 +5,13 @@ In this lab you will be taking the wall following code that you ran in simulatio
 You will also be building a safety controller to prevent your racecar from crashing into obstacles.
 
 
+| Deliverable   | Due Date  |
+|-------------------------|------------------------------------|
+| Presentation   | Wednesday, March 17 at 3:00 PM EST  |
+| Lab Report     | Friday, March 19 at 1:00PM EST  on github pages site    |
+
+
+
 | Lab Session   | Date  | Remote Prep | Goals |
 |-------------------------|------------------------------------|------------------------------------|------------------------------------|
 | 3.1   | Tuesday, March 9, 8:00-11:00 AM EST  | None |  Become familiar with the racecar platform. Access the onboard computer via SSH and connect to RViz. Drive the car with the joystick (teleoperation). Record bagfiles from teleoperation and transfer them to your local machine. |
@@ -12,12 +19,6 @@ You will also be building a safety controller to prevent your racecar from crash
 | 3.3   | Monday, March 15, 8:00-11:00 AM EST  |  Prepare your wall follower and safety controller for deployment and data collection. |  Collect all necessary data (rosbag & video) to compile your presentation and lab report (due dates below). |
 
 (On the morning of Wednesday, March 17, we will begin Lab 4.)
-
-
-| Deliverable   | Due Date  |
-|-------------------------|------------------------------------|
-| Presentation   | Wednesday, March 17 at 3:00 PM EST  |
-| Lab Report     | Friday, March 19 at 1:00PM EST  on github pages site    |
 
 
 
