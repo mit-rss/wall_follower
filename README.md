@@ -1,8 +1,12 @@
-| Deliverable   | Due Date  |
-|-------------------------|------------------------------------|
-| (Lab Session 3.1)   | Tuesday, March 9, 8:00-11:00 AM EST  |
+| Lab Session   | Date  | Remote Prep | Goals |
+|-------------------------|------------------------------------|------------------------------------|------------------------------------|
+| (Lab Session 3.1)   | Tuesday, March 9, 8:00-11:00 AM EST  | None |  Become familiar with the racecar platform. Access the onboard computer via SSH and connect to RViz. Drive the car with the joystick (teleoperation). Record bagfiles from teleoperation and transfer them to your local machine. |
 | (Lab Session 3.2)   | Wednesday, March 10, 8:00-11:00 AM EST  |
 | (Lab Session 3.3)   | Monday, March 15, 8:00-11:00 AM EST  |
+
+
+| Deliverable   | Due Date  |
+|-------------------------|------------------------------------|
 | Presentation   | Wednesday, March 17 at 3:00 PM EST  |
 | Lab Report     | Friday, March 19 at 1:00PM EST  on github pages site    |
 
