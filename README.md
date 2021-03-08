@@ -177,6 +177,12 @@ Before you get too far ahead, remember that when you are done using the racecar,
 ![energizer_unplugged](media/39791091494_1fee2d09a0_k.jpg)
 
 
+### Recording a Rosbag
+
+With limited time on the Johnson Track, [rosbag](http://wiki.ros.org/rosbag/Commandline) will be your invaluable friend this year for compiling lab reports.
+
+In [Lab 1C](https://github.com/mit-rss/intro_to_ros), you recorded bagfiles from the racecar simulator and inspected bagfiles recorded from the real racecar. Make sure you are comfortable with recording bagfiles on your racecar, transferring them to your local machine (try `scp`), and playing them back to analyze the data.
+
 
 ## Wednesday, March 10 and Monday, March 15: Wall Following
 
