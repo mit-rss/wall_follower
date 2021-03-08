@@ -1,9 +1,5 @@
 # Lab 3: Wall Following on the Racecar (In-Person)
 
-It's time to use the actual racecar!
-In this lab you will be taking the wall following code that you ran in simulation and running it on the car.
-You will also be building a safety controller to prevent your racecar from crashing into obstacles.
-
 
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
@@ -21,9 +17,13 @@ Lab 3 will be supported by three in-person lab sessions:
 
 (On the morning of Wednesday, March 17, we will begin Lab 4.)
 
+## Introduction
 
+It's time to use the actual racecar!
+In this lab you will be taking the wall following code that you ran in simulation and running it on the car.
+You will also be building a safety controller to prevent your racecar from crashing into obstacles.
 
-## COVID Safety
+### COVID Safety
 
 For Spring 2021, we ask that you observe the following procedures at Johnson Track:
 - Truthfully complete your attestation on [covidpass](covidpass.mit.edu) the evening before EACH lab; also, review the MIT rules on COVID testing and ensure you are compliant. If you are denied access due to symptoms or possible exposure, let the staff know and we will make appropriate accommodations for remote work.
@@ -34,7 +34,7 @@ For Spring 2021, we ask that you observe the following procedures at Johnson Tra
 - You will be given an orange cone that you can use to request help from the TAs.
 - Clean your team's workspace by 10:55am.
 
-## Equipment Safety
+### Equipment Safety
 
 The racecar platform is exciting and fast but it is not a toy.
 The hardware we have on board
@@ -48,7 +48,7 @@ If your car develops hardware issues for any reason, please tell the TAs immedia
 But if you damage the car in an extreme way through obviously reckless behaviour you may find yourself working on the simulated car for the rest of the course.
 
 
-## Electrical Safety
+### Electrical Safety
 
 The racecar runs on relatively low voltage ([≤ 20V](https://www.amazon.com/Energizer-XP18000-Universal-External-Netbooks/dp/B002K8M9HC)) so we are not too concered about dangerous shocks.
 But as with any electrical system it is always important to take proper safety precautions.
@@ -56,6 +56,31 @@ For example ground yourself before touching any of the exposed circuit boards li
 
 Please have all members of your team read and sign the electrical safety form here before starting work on the racecar:
 https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
+
+
+## Deliverables
+
+From now on, for each lab, you will be publishing a report on your team's github pages website, giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team, uploading the briefing slides to your github pages website, and submitting a [team member assessment form](https://docs.google.com/forms/d/e/1FAIpQLScM6T3JsnlFQldhL_fVmAr9FkUILOjbXHM_nYxK280UZwJPww/viewform). See the deliverables chart at the top of this page for due dates and times.
+
+If you haven't already done so, follow the instructions for your team's [github pages website](https://github.mit.edu/rss/website2021), which will be hosting your lab reports. As part of this you will need to create an organization for your team on github.mit.edu called rss2021-[TEAM_NUMBER] and make sure all of your code is pushed there by the lab report deadline. At this time, the TAs will pull your team's report from your website. Please ensure that the report is complete and that you have linked to your presentation. Your team organization is also where you should push all of your lab code.
+
+You can view the rubrics for the [lab report](https://docs.google.com/document/d/1iTIu6wThHpAwqRQ7rM10aH6TC9S9KXdV4stQZOIH1zE/edit?usp=sharing) and the [briefing](https://docs.google.com/document/d/1lTngqa15Z-5YGQjHZpm5xF9oeEbIdCOoywlrFIDO8K4/edit?usp=sharing) for more details on specific grading criteria. You will receive a grade out of 10 points for each. Your final lab grade will also be out of 10 points, based on the following weights:
+
+| Deliverable Grade | Weight              |
+|---------------|----------------------------------------------------------------------------|
+| briefing grade (out of 10)  | 20% |
+| lab report grade (out of 10) | 70% |
+| laboratory deliverables (out of 10) | 10% |
+
+
+The _laboratory deliverables_ for Lab 3 are:
+- Log into the physical car, manually drive and visualize the laser scan.
+- Autonomously drive the racecar with your wall following code.
+- Prevent crashes using your safety controller while maintaining flexibility.
+
+Please include video, screen shots, etc. in your lab report as evidence of these deliverables. A good report will make quantitative and qualitative evaluations of your results.
+
+
 
 ## Tuesday, March 9: The Racecar
 
@@ -279,29 +304,6 @@ So for your safety controller this means:
 - Subscribe to ```/vesc/high_level/ackermann_cmd_mux/output``` to intercept the driving command that is being published.
 - Subscribe to sensors like ```/scan```.
 - Publish to ```/vesc/low_level/ackermann_cmd_mux/input/safety``` if the command being published to the navigation topic is in danger of crashing the racecar.
-
-## Deliverables
-
-From now on, for each lab, you will be publishing a report on your team's github pages website, giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team, uploading the briefing slides to your github pages website, and submitting a [team member assessment form](https://docs.google.com/forms/d/e/1FAIpQLScM6T3JsnlFQldhL_fVmAr9FkUILOjbXHM_nYxK280UZwJPww/viewform). See the deliverables chart at the top of this page for due dates and times.
-
-If you haven't already done so, follow the instructions for your team's [github pages website](https://github.mit.edu/rss/website2021), which will be hosting your lab reports. As part of this you will need to create an organization for your team on github.mit.edu called rss2021-[TEAM_NUMBER] and make sure all of your code is pushed there by the lab report deadline. At this time, the TAs will pull your team's report from your website. Please ensure that the report is complete and that you have linked to your presentation. Your team organization is also where you should push all of your lab code.
-
-You can view the rubrics for the [lab report](https://docs.google.com/document/d/1iTIu6wThHpAwqRQ7rM10aH6TC9S9KXdV4stQZOIH1zE/edit?usp=sharing) and the [briefing](https://docs.google.com/document/d/1lTngqa15Z-5YGQjHZpm5xF9oeEbIdCOoywlrFIDO8K4/edit?usp=sharing) for more details on specific grading criteria. You will receive a grade out of 10 points for each. Your final lab grade will also be out of 10 points, based on the following weights:
-
-| Deliverable Grade | Weight              |
-|---------------|----------------------------------------------------------------------------|
-| briefing grade (out of 10)  | 20% |
-| lab report grade (out of 10) | 70% |
-| laboratory deliverables (out of 10) | 10% |
-
-
-The _laboratory deliverables_ for Lab 3 are:
-- Log into the physical car, manually drive and visualize the laser scan.
-- Autonomously drive the racecar with your wall following code.
-- Prevent crashes using your safety controller while maintaining flexibility.
-
-Please include video, screen shots, etc. in your lab report as evidence of these deliverables. A good report will make quantitative and qualitative evaluations of your results.
-
 
 
 ## RACECAR directory layout
