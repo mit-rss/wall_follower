@@ -59,7 +59,7 @@ Please have all members of your team read and sign the electrical safety form he
 https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
 
 
-## Deliverables
+## Submission and Grading
 
 From now on, for each lab, you will be publishing a report on your team's github pages website, giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team, uploading the briefing slides to your github pages website, and submitting a [team member assessment form](https://docs.google.com/forms/d/e/1FAIpQLScM6T3JsnlFQldhL_fVmAr9FkUILOjbXHM_nYxK280UZwJPww/viewform). See the deliverables chart at the top of this page for due dates and times.
 
