@@ -27,7 +27,7 @@ You will also be building a safety controller to prevent your racecar from crash
 ### COVID Safety
 
 For Spring 2021, we ask that you observe the following procedures at Johnson Track:
-- Truthfully complete your **attestation** on [covidpass](covidpass.mit.edu) the evening before EACH lab; also, review the MIT rules on COVID testing and ensure you are compliant. If you are denied access due to symptoms or possible exposure, let the staff know and we will make appropriate accommodations for remote work.
+- Truthfully complete your **attestation** on [covidpass](https://covidpass.mit.edu/) the evening before EACH lab; also, review the MIT rules on COVID testing and ensure you are compliant. If you are denied access due to symptoms or possible exposure, let the staff know and we will make appropriate accommodations for remote work.
 - Do all possible **remote prep** before lab (with the exception of the first lab on Tuesday), arriving ready to efficiently use your time with the real robot.
 - Arrive around 8:15am at the Johnson track; labs are announced and start at **8:30 sharp**. Wear a mask.
 - Each team will be allocated a **workspace**, marked by tape on the ground; all teammates are asked to remain within their workspace during lab time except with TA permission.
@@ -109,7 +109,7 @@ Check the battery status on your racecar by pressing the power button on your ca
 This may be the black energizer pictured below or the grey [XTPower](https://www.amazon.com/dp/B07JJTYH8F) battery.
 On the hokuyo cars the battery sits right on top of the car.
 On the velodyne cars the battery is velcroed under the car (be careful when pulling it out).
-(This year, all teams have received a car with a *hokyuo* lidar.)
+(This year, all teams have received a car with a *hokuyo* lidar.)
 When powered on, these batteries will remain on until power stops being drawn from them, so please remember to unplug your power cables when the car is not in use.
 
 ![hokuyo_battery](media/40500597871_792493a139_k.jpg)
