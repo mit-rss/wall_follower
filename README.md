@@ -65,7 +65,7 @@ From now on, for each lab, you will be publishing a report on your team's github
 
 If you haven't already done so, follow the instructions for your team's [github pages website](https://github.mit.edu/rss/website2021), which will be hosting your lab reports. As part of this you will need to create an organization for your team on github.mit.edu called rss2021-[TEAM_NUMBER] and make sure all of your code is pushed there by the lab report deadline. At this time, the TAs will pull your team's report from your website. Please ensure that the report is complete and that you have linked to your presentation. Your team organization is also where you should push all of your lab code.
 
-You can view the rubrics for the [lab report](https://docs.google.com/document/d/1iTIu6wThHpAwqRQ7rM10aH6TC9S9KXdV4stQZOIH1zE/edit?usp=sharing) and the [briefing](https://docs.google.com/document/d/1lTngqa15Z-5YGQjHZpm5xF9oeEbIdCOoywlrFIDO8K4/edit?usp=sharing) for more details on specific grading criteria. You will receive a grade out of 10 points for each. Your final lab grade will also be out of 10 points, based on the following weights:
+You can view the rubrics for the [lab report](https://docs.google.com/document/d/1B6l7vKJFN3CPPcMn8cKKArHUU_Bq_YUZ5KxKoP6qMk0/edit?usp=sharing) and the [briefing](https://docs.google.com/document/d/1NmqQP7n1omI9bIshF1Y-MP70gfDkgEeoMjpWv8hjfsY/edit?usp=sharing) for more details on specific grading criteria. You will receive a grade out of 10 points for each. Your final lab grade will also be out of 10 points, based on the following weights:
 
 | Deliverable Grade | Weight              |
 |---------------|----------------------------------------------------------------------------|
