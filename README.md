@@ -1,4 +1,4 @@
-# Lab 3: Wall Following on the Racecar (In-Person)
+# Lab 3: Wall-Following on the Racecar
 
 
 | Deliverable   | Due Date  |
