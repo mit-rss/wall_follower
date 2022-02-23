@@ -114,19 +114,26 @@ The button should light up green.
 
 ### SSH
 
-When you're connected to the wifi with the TX2 powered on, you can connect directly to the car from your Docker image. Open the `docker-compose.yml` and change the `racecar` hostname under the `extra_hosts` field from `127.0.0.1` to your car's IP. For example, for car number 100 you would put:
+When you're connected to the wifi with the TX2 powered on, you can connect directly to the car from your computer.
+
+If you're using the docker image, we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` and change the `racecar` hostname under the `extra_hosts` field from `127.0.0.1` to your car's IP. For example, for car number 100 you would put:
 
     extra_hosts:
      racecar: 192.168.1.100
      
-     
-Then restart the docker image. This does not require the image to be rebuilt. You should be able to ssh into your racecar by simply typing:
+Then restart the docker image (down and up). You should be able to ssh into your racecar by simply typing:
 
     ssh racecar
         
-The password is ```racecar@mit```. If you can't connect, make sure you are still on the correct Wi-Fi network. To switch back to a local ROS master, just change the hostname back to `127.0.0.1` and restart the image.
+The password is ```racecar@mit```.
 
-The car is running Ubuntu just like the virtual machine.
+If you're not using the docker image you can connect with the same password and this command:
+
+    ssh racecar@192.168.1.YOUR_CAR_NUMBER
+
+If you can't connect, make sure you are still on the correct Wi-Fi network. To switch back to a local ROS master, just change the hostname back to `127.0.0.1` and restart the image.
+
+The car is running Ubuntu, which is very similar to the Debian docker image.
 It should be familiar, but poke around to get comfortable with the structure.
 Just like in the simulator, you will often need multiple terminal windows open in order to launch different ros nodes.
 You can do this through the Docker image GUI, but here are a couple ways to do this through ```ssh``` as well:
@@ -159,21 +166,20 @@ This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%
 - Are you pressing and holding the left bumper on the joystick?
 - Make sure the motor battery is plugged in and charged.
 
-### [Optional if using Docker] RViz
+### RViz
 
 Because ```rviz``` requires 3D libraries, you can't run it straight through SSH.
 So you will need ```rviz``` to be connected to the car's ```roscore``` rather than the one on your local machine.
-To do this first edit your ```/etc/hosts``` file on your local machine (requires ```sudo```) and add the following line:
+
+If you're using the docker image and you've set your `extra_hosts` IP correctly, you should be able to simply run `rviz` once `teleop` is running on the car and you should be able to visualize the laser scan and IMU data.
+
+If you are not using the docker image you will need to manually change some network variables. To do this first edit your ```/etc/hosts``` file on your local machine (requires ```sudo```) and add the following line:
 
     192.168.1.[CAR_NUMBER]     racecar
     
 This essentially makes the string ```racecar``` equivalent to the IP of the car. One benefit of this is that you should now be able to SSH in to the car by running:
 
     ssh racecar@racecar
-    
-Moreover, if your username is racecar (it is in every Docker image and VM), you don't need to specify the ```username@```, you can just do:
-
-    ssh racecar
     
 Now that you've set up the hostname (you only ever need to do that once), you can make ```rviz``` listen to the car's ```roscore``` by running the following command.
 
