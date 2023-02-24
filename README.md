@@ -3,10 +3,10 @@
 
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
-| Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Wednesday, March 2nd at 1:00 PM EST  |
-| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 4th at 11:59PM EST    |
-| Pushed code to Git | Friday, March 4th at 11:59PM EST |
-| [Team Member Assessment](https://forms.gle/Ry6ZnzbJmpPBdKvB6)  | Friday, March 4th at 11:59PM EST |
+| Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Wednesday, March 1st at 1:00 PM EST  |
+| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 3rd at 11:59PM EST    |
+| Pushed code to Git | Friday, March 3rd at 11:59PM EST |
+| [Team Member Assessment](https://forms.gle/Ry6ZnzbJmpPBdKvB6)  | Friday, March 3rd at 11:59PM EST |
 
 ## Introduction
 
@@ -42,7 +42,7 @@ https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
 
 From now on, for each lab, you will be publishing a report on your team's github pages website, giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team, uploading the briefing slides to your github pages website, and submitting a [team member assessment form](https://forms.gle/Ry6ZnzbJmpPBdKvB6). See the deliverables chart at the top of this page for due dates and times.
 
-If you haven't already done so, follow the instructions for your team's [github pages website](https://github.com/mit-rss/website2022), which will be hosting your lab reports. As part of this you will need to create an organization for your team on github.mit.edu called rss2022-[TEAM_NUMBER] and make sure all of your code is pushed there by the lab report deadline. At this time, the TAs will pull your team's report from your website. Please ensure that the report is complete and that you have linked to your presentation. Your team organization is also where you should push all of your lab code.
+If you haven't already done so, follow the instructions for your team's [github pages website](https://github.com/mit-rss/website2022), which will be hosting your lab reports. As part of this you will need to create an organization for your team on github.mit.edu called rss2023-[TEAM_NUMBER] and make sure all of your code is pushed there by the lab report deadline. At this time, the TAs will pull your team's report from your website. Please ensure that the report is complete and that you have linked to your presentation. Your team organization is also where you should push all of your lab code.
 
 You can view the rubrics for the [lab report](https://docs.google.com/document/d/1tP5SU0ct5TpirGWddpcJQ6YHLcVrYxWK_a12T5O5-M0/edit?usp=sharing) and the [briefing](https://docs.google.com/document/d/1JXRG1w4bMketTzZkeVKjT1Wyd3n1tMxF4Rdh7mIFl3s/edit?usp=sharing) for more details on specific grading criteria. You will receive a grade out of 10 points for each. Your final lab grade will also be out of 10 points, based on the following weights:
 
