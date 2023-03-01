@@ -1,6 +1,5 @@
 # Lab 3: Wall-Following on the Racecar
 
-
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
 | Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Wednesday, March 8th at 1:00 PM EST  |
@@ -47,7 +46,7 @@ From now on, for each lab, you will be:
 * publishing a report on your team's github pages website
 * giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team
 * uploading the briefing slides to your github pages website
-* submitting a [team member assessment form](https://forms.gle/Ry6ZnzbJmpPBdKvB6)
+* submitting a [team member assessment form](https://docs.google.com/forms/d/e/1FAIpQLSfVmCl-P34-fgGah68jwiGykjxOs0J9KozlKG6ozLmOd5gsmA/viewform?usp=sf_link)
 
 See the deliverables chart at the top of this page for due dates and times.
 
