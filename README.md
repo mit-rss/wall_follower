@@ -3,16 +3,19 @@
 
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
-| Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Wednesday, March 1st at 1:00 PM EST  |
-| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 3rd at 11:59PM EST    |
-| Pushed code to Git | Friday, March 3rd at 11:59PM EST |
-| [Team Member Assessment](https://forms.gle/Ry6ZnzbJmpPBdKvB6)  | Friday, March 3rd at 11:59PM EST |
+| Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Wednesday, March 8th at 1:00 PM EST  |
+| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 10th at 11:59PM EST    |
+| Pushed code to Git | Friday, March 10th at 11:59PM EST |
+| [Team Member Assessment](https://forms.gle/Ry6ZnzbJmpPBdKvB6)  | Friday, March 10th at 11:59PM EST |
 
 ## Introduction
 
 It's time to use the actual racecar!
 In this lab you will be taking the wall following code that you ran in simulation and running it on the car.
 You will also be building a safety controller to prevent your racecar from crashing into obstacles.
+
+### Racecar Pods
+Your team will be assigned to a pod of 4 teams that has ownership of a set of racecars. This means that you will have to share time on the racecar with the other teams in your pod. There will be a checkin/checkout system for the racecars. This is similar to the experience in industry/academica where you rarely have ownership of a robot and have to plan your project while thinking intentionally about how you use your time with the robot. As the course goes on, we plan on introducing more racecars into circulation. 
 
 ### Safety
 
@@ -40,7 +43,13 @@ https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
 
 ## Submission and Grading
 
-From now on, for each lab, you will be publishing a report on your team's github pages website, giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team, uploading the briefing slides to your github pages website, and submitting a [team member assessment form](https://forms.gle/Ry6ZnzbJmpPBdKvB6). See the deliverables chart at the top of this page for due dates and times.
+From now on, for each lab, you will be:
+* publishing a report on your team's github pages website
+* giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team
+* uploading the briefing slides to your github pages website
+* submitting a [team member assessment form](https://forms.gle/Ry6ZnzbJmpPBdKvB6)
+
+See the deliverables chart at the top of this page for due dates and times.
 
 If you haven't already done so, follow the instructions for your team's [github pages website](https://github.com/mit-rss/website2022), which will be hosting your lab reports. As part of this you will need to create an organization for your team on github.mit.edu called rss2023-[TEAM_NUMBER] and make sure all of your code is pushed there by the lab report deadline. At this time, the TAs will pull your team's report from your website. Please ensure that the report is complete and that you have linked to your presentation. Your team organization is also where you should push all of your lab code.
 
@@ -116,7 +125,7 @@ The button should light up green.
 
 When you're connected to the wifi with the TX2 powered on, you can connect directly to the car from your computer.
 
-If you're using the docker image, we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` and change the `racecar` hostname under the `extra_hosts` field from `127.0.0.1` to your car's IP. For example, for car number 100 you would put:
+If you're using the docker image, we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` (in your racecar_docker folder) and change the `racecar` hostname under the `extra_hosts` field from `127.0.0.1` to your car's IP. For example, for car number 100 you would put:
 
     extra_hosts:
      racecar: 192.168.1.100
