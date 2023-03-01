@@ -173,6 +173,8 @@ helpful links
 - rsync man page: https://linux.die.net/man/1/rsync
 - rsync with ssh resource: https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories 
 
+![image](https://user-images.githubusercontent.com/66264325/222078631-09e62662-d5c3-43c1-9e8b-54886410ba2a.png)
+
 
 ### Manual Navigation
 
