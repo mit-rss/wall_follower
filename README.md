@@ -152,6 +152,28 @@ You can do this through the Docker image GUI, but here are a couple ways to do t
 - Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ```ssh``` client and have them displayed on your local machine. For example, you could run ```xterm &``` to get a new terminal window. 
 Consider making bash aliases to make these steps easier.
 
+### Car Sharing Instructions
+for the steps marked with [FIRST], only do them the first time your team gets any racecar. For example, if you worked with car 36 yesterday and did these steps, but today you get car 54 today, you do not have to repeat the steps with [FIRST]
+- make sure you've modified the docker-compose.yml file with your car’s IP (see SSH section)
+- check to see if rsync is downloaded on both docker and the racecar (ssh racecar). If not use apt-get to install rsync
+- [FIRST] everyone in the group: use rsync to pull the src directory from the car to docker
+- [FIRST] git clone one of your team member’s wall following code from lab 2 into the local directory ~/racecar_ws/src/[WALL_FOLLOWER_CODE]
+- remove the src directory from the car
+- one person in the group: use rsync to push the src directory from your docker to the racecar
+- now you have all your code on the racecar! have fun! (continue steps below)
+- everyone in the group: use rsync to pull the src directory from the racecar to your docker
+- once you are done follow the steps under the cleanup steps section
+
+cleanup steps
+- make sure that any code you care about is off of the racecar
+- delete all directories from src that you modified
+- make sure that the robot directories are clean and look like this:
+
+helpful links
+- rsync man page: https://linux.die.net/man/1/rsync
+- rsync with ssh resource: https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories 
+
+
 ### Manual Navigation
 
 When you are ready, plug in your TX2 battery (Energizer or XTPower) and motor battery (Traxxas) in.
