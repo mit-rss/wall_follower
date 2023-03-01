@@ -38,7 +38,7 @@ But as with any electrical system, it is always important to take proper safety 
 For example, ground yourself before touching any of the exposed circuit boards like the TX2.
 
 Please have all members of your team read and sign the electrical safety form here before starting work on the racecar:
-https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141
+[https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141](https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.4200)
 
 
 ## Submission and Grading
