@@ -167,7 +167,7 @@ for the steps marked with [FIRST], only do them the first time your team gets an
 cleanup steps
 - make sure that any code you care about is off of the racecar
 - delete all directories from src that you modified
-- make sure that the robot directories are clean and look like this:
+- make sure that your src directory only has the following in it: base, CMakeLists.txt, racecar_simulator, range_libc
 
 helpful links
 - rsync man page: https://linux.die.net/man/1/rsync
