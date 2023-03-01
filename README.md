@@ -78,7 +78,9 @@ Once you have your car, search for its number. You can find it in two places; on
 
 ![car_number](media/40500596821_e133bedd83_k.jpg)
 
-Plug your router into an outlet in your team's power strip. Make sure you are using the **12V power supply** that says "TP-Link" on it. **Using the other power supply will fry your router**.
+Plug your router into an outlet in your team's power strip. Make sure you are using the **12V power supply** that says "TP-Link" on it. **Using the other power supply will fry your router**. 
+
+Your router will not be connected to the internet unless you plug in the ethernet into an ethernet port (in the wall/table).
 Then connect to either of these two wifi networks on your laptop using the password ```g0tRACECAR?```:
 
     RACECAR_AP_[YOUR_CAR_NUMBER]
