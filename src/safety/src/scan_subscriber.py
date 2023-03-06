@@ -1,6 +1,8 @@
 #!/usr/bin/env python2
+
 import rospy
-import numpy as np 
+
+import numpy as np
 from rospy.numpy_msg import numpy_msg
 from sensor_msgs.msg import LaserScan
 

@@ -1,4 +1,5 @@
-#!/user/bin/env python 2
+#!/usr/bin/env python2
+
 import rospy
 import math
 
