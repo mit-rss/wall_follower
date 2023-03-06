@@ -17,4 +17,11 @@ class ScanListener:
 
     def callback(self, lidar_scan):
         self.angles = np.linspace(lidar_scan.angle_min, lidar_scan.angle_max, len(lidar_scan.ranges))
-        self.ranges = np.array(lidar_scan.ranges)
+        self.ranges = np.array(lidar_scan.ranges)    
+        
+if __name__ == '__main__':
+    try:
+        ScanListener()
+        rospy.spin()
+    except rospy.ROSInterruptException:
+        pass 

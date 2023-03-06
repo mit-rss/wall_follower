@@ -39,3 +39,8 @@ class SafetyController:
             drive.drive.drive_speed = self.drive_speed
             drive.drive.steering_angle = self.steering_angle
             self.safety_publisher.publish(drive)
+            
+if __name__ == "__main__":
+        rospy.init_node('safety_controller')
+        safety_controller = SafetyController()
+        rospy.spin()
