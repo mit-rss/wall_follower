@@ -1,0 +1,4 @@
+<launch>
+  <!-- Launch the wall follower with parameters -->
+  <node pkg="safety" name="safety" type="safety_publisher.py" output="screen" />
+</launch>
