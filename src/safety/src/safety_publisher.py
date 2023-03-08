@@ -25,17 +25,20 @@ class SafetyController:
 
             angles, ranges = self.scan_listener.angles, self.scan_listener.ranges
             print(angles, ranges)
+            print(self.steering_angle)
             danger_indexes = (angles < self.steering_angle + math.pi / 4) & (angles > self.steering_angle - math.pi / 4)
+            print(min(ranges))
             closest_distance = min(ranges[danger_indexes])
-            print(closest_distance)
+            print("closest distance:", closest_distance)
             max_velocity = 10 * (closest_distance - 0.2)
+            print("max velocity:", max_velocity)
             if max_velocity >= self.drive_speed:
                 print("Safe speed")
                 return
             print("Slow down!")
-            self.drive_speed = max_velocity
+            self.drive_speed = max(0.0, max_velocity)
             drive = AckermannDriveStamped()
-            drive.drive.drive_speed = self.drive_speed
+            drive.drive.speed = self.drive_speed
             drive.drive.steering_angle = self.steering_angle
             self.safety_publisher.publish(drive)
             
