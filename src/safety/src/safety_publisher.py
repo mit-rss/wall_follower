@@ -59,7 +59,7 @@ class SafetyController:
                 return
             
             print("Safety controller triggered!")
-            self.drive_speed = max(0.0, max_velocity)
+            self.drive_speed = 0.0
             drive = AckermannDriveStamped()
             drive.drive.speed = self.drive_speed
             drive.drive.steering_angle = np.clip(self.steering_angle, -0.34, 0.34)
