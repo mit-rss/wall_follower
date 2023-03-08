@@ -2,7 +2,7 @@
 
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
-| Slide Draft | Friday, March 10th at 1:00PM EST (draft due on [github pages](https://github.com/mit-rss/website2022)) |
+| Slide Draft (draft due on [github pages](https://github.com/mit-rss/website2022)) | Friday, March 10th at 1:00PM EST |
 | Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Monday, March 13th at 1:00 PM EST  |
 | Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 10th at 11:59PM EST    |
 | Pushed code to Git | Friday, March 10th at 11:59PM EST |
