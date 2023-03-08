@@ -2,10 +2,10 @@
 
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
-| Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Wednesday, March 8th at 1:00 PM EST  |
+| Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Monday, March 13th at 1:00 PM EST  |
 | Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 10th at 11:59PM EST    |
 | Pushed code to Git | Friday, March 10th at 11:59PM EST |
-| [Team Member Assessment](https://docs.google.com/forms/d/e/1FAIpQLSfVmCl-P34-fgGah68jwiGykjxOs0J9KozlKG6ozLmOd5gsmA/viewform?usp=sf_link)  | Friday, March 10th at 11:59PM EST |
+| [Team Member Assessment](https://docs.google.com/forms/d/e/1FAIpQLSfVmCl-P34-fgGah68jwiGykjxOs0J9KozlKG6ozLmOd5gsmA/viewform?usp=sf_link)  | Wednesday, March 15th at 11:59PM EST |
 
 ## Link to Slides
 https://docs.google.com/presentation/d/1m5yeG515v1sSjOOsyeMoQVYR-1GZJPFlj2if7L3LzFc/edit?usp=sharing
