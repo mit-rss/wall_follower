@@ -32,34 +32,41 @@ class SafetyController:
             self.drive_speed = drive.drive.speed
             self.steering_angle = drive.drive.steering_angle
 
-            angles, ranges = self.scan_listener.angles, self.scan_listener.ranges       	  
-            print(angles, ranges)
-            print("steering angle:", self.steering_angle)
+            angles, ranges = self.scan_listener.angles, self.scan_listener.ranges
+            xs, ys = ranges * np.cos(angles), ranges * np.sin(angles)
+            # The robot is approximately a rectangle that stretches
+            # - 0.2 meters forward
+            # - 0.2 meters on each side
+            # - 0.5 meters behind
+            # We trigger the safety controller (which stops the car)
+            # if we're within 0.2 meters within this bounding box.
+
+            bounding_left = 0.4
+            bounding_right = -0.4
+            bounding_front = 0.4
+            bounding_back = -0.7
+
+            num_close_points = np.sum((ys < bounding_left) &
+                                      (ys > bounding_right) &
+                                      (xs < bounding_front) &
+                                      (xs > bounding_back))
             
-            danger_indexes = (angles < self.steering_angle + math.pi / 4) & (angles > self.steering_angle - math.pi / 4)
-	    danger_ranges = ranges[danger_indexes]
-	    danger_angles = angles[danger_indexes]
-	    dx, dy = danger_ranges*np.cos(danger_angles), danger_ranges*np.sin(danger_angles)
-            print("danger indexes:", danger_indexes)
-	    print(min(ranges))
-	    closest_ind = min(range(len(danger_ranges)), key= lambda x: danger_ranges[x])
-	    closest_ang = danger_angles[closest_ind]
-            closest_distance = danger_ranges[closest_ind]#min(ranges[danger_indexes])
-            print("closest distance:", closest_distance)
-            max_velocity = 10 * (closest_distance - 0.2)
-            print("max velocity:", max_velocity)
-            if max_velocity >= self.drive_speed:
-                print("Safe speed")
+            
+            # We only trigger if there are 5 or more points inside our bounding
+            # box to avoid triggering due to noise
+            if num_close_points < 5:
+                print("#close points:", num_close_points)
                 return
-            print("Slow down!")
+            
+            print("Safety controller triggered!")
             self.drive_speed = max(0.0, max_velocity)
             drive = AckermannDriveStamped()
             drive.drive.speed = self.drive_speed
             drive.drive.steering_angle = np.clip(self.steering_angle, -0.34, 0.34)
 	    print("changed steering angle:", drive.drive.steering_angle)	
             
-	    VisualizationTools.plot_line(dx, dy, self.line_pub, frame = "/laser")
-	    VisualizationTools.plot_line([closest_distance*np.sin(closest_ang), 0],[closest_distance*np.sin(closest_ang), 0], self.short_line, color=(0, 1, 0), frame = "/laser")
+	    #VisualizationTools.plot_line(dx, dy, self.line_pub, frame = "/laser")
+	    #VisualizationTools.plot_line([closest_distance*np.sin(closest_ang), 0],[closest_distance*np.sin(closest_ang), 0], self.short_line, color=(0, 1, 0), frame = "/laser")
 	    self.safety_publisher.publish(drive)
             
 if __name__ == "__main__":
