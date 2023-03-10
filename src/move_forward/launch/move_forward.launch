@@ -1,6 +1,6 @@
 <launch>
   <!-- Launch the wall follower with parameters -->
-  <node pkg="move_forward" name="move_forward" type="move_forward_publisher.py" output="screen">
+  <node pkg="move_forward" name="move_forward" type="move_forward.py" output="screen">
       <rosparam command="load" file="$(find move_forward)/params.yaml" />
   </node>
 </launch>
