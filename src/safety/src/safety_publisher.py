@@ -27,7 +27,7 @@ class SafetyController:
             
             self.drive_speed = 0.0
             self.steering_angle = 0.0
-                                        
+                                      
         def callback(self, drive):
             self.drive_speed = drive.drive.speed
             self.steering_angle = drive.drive.steering_angle
@@ -48,37 +48,57 @@ class SafetyController:
 	    points in. (It also stretches 0.2 meters in front of/behind the car, and to the center of the
 	    LIDAR sensor)
 	    """
-	    if self.drive_speed > 0:
+
+            if self.drive_speed > 0:
 		# We're moving forward
-		bounding_front = 0.35
-		bounding_left = 0.25
-		bounding_right = -0.25
+		bounding_front = 0.3
+		bounding_left = 0.2
+		bounding_right = -0.2
 		bounding_back = 0.0
+                
+                slow_bound_left = 0.3
+                slow_bound_right = -0.3
+                slow_bound_front = 0.5
+                slow_bound_back = 0.0
 	    else:
 		# We're moving backward
 		bounding_front = 0.0
-		bounding_left = 0.25
-		bounding_right = -0.25
-		bounding_back = -0.5
+		bounding_left = 0.2
+		bounding_right = -0.2
+		bounding_back = -0.4
 
-            num_close_points = np.sum((ys < bounding_left) &
+                slow_bound_left = 0.3
+                slow_bound_right = -0.3
+                slow_bound_front = 0.0
+                slow_bound_back = -0.6
+
+            num_close_points = np.sum((ys < slow_bound_left) &
+                                      (ys > slow_bound_right) &
+                                      (xs < slow_bound_front) &
+                                      (xs > slow_bound_back))
+            
+
+            num_danger_points = np.sum((ys < bounding_left) &
                                       (ys > bounding_right) &
                                       (xs < bounding_front) &
                                       (xs > bounding_back))
-            
-            
+                        
             # We only trigger if there are 5 or more points inside our bounding
             # box to avoid triggering due to noise
             if num_close_points < 5:
-                print("#close points:", num_close_points)
                 return
-            
-            print("Safety controller triggered!")
-            self.drive_speed = 0.0
-            drive = AckermannDriveStamped()
-            drive.drive.speed = self.drive_speed
-            drive.drive.steering_angle = np.clip(self.steering_angle, -0.34, 0.34)
-	    print("changed steering angle:", drive.drive.steering_angle)	
+
+            if num_danger_points >= 5:
+                print("Safety controller triggered: In danger zone! Stop now!")
+                self.drive_speed = 0.0
+                drive = AckermannDriveStamped()
+                drive.drive.speed = self.drive_speed
+            else:
+                print("Safety controller triggered: In slow zone! Slowing down.")
+                self.drive_speed = 0.5 * np.sign(self.drive_speed)
+                drive = AckermannDriveStamped()
+                drive.drive.speed = self.drive_speed
+            drive.drive.steering_angle = self.steering_angle
             
 	    #VisualizationTools.plot_line(dx, dy, self.line_pub, frame = "/laser")
 	    #VisualizationTools.plot_line([closest_distance*np.sin(closest_ang), 0],[closest_distance*np.sin(closest_ang), 0], self.short_line, color=(0, 1, 0), frame = "/laser")
