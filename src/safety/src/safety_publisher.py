@@ -50,16 +50,16 @@ class SafetyController:
 	    """
 	    if self.drive_speed > 0:
 		# We're moving forward
-		bounding_front = 0.4
-		bounding_left = 0.3
-		bounding_right = -0.3
+		bounding_front = 0.35
+		bounding_left = 0.25
+		bounding_right = -0.25
 		bounding_back = 0.0
 	    else:
 		# We're moving backward
 		bounding_front = 0.0
-		bounding_left = 0.3
-		bounding_right = -0.3
-		bounding_back = -0.6
+		bounding_left = 0.25
+		bounding_right = -0.25
+		bounding_back = -0.5
 
             num_close_points = np.sum((ys < bounding_left) &
                                       (ys > bounding_right) &
