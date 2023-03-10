@@ -34,17 +34,32 @@ class SafetyController:
 
             angles, ranges = self.scan_listener.angles, self.scan_listener.ranges
             xs, ys = ranges * np.cos(angles), ranges * np.sin(angles)
-            # The robot is approximately a rectangle that stretches
-            # - 0.2 meters forward
-            # - 0.2 meters on each side
-            # - 0.5 meters behind
-            # We trigger the safety controller (which stops the car)
-            # if we're within 0.2 meters within this bounding box.
-
-            bounding_left = 0.4
-            bounding_right = -0.4
-            bounding_front = 0.4
-            bounding_back = -0.7
+            """
+	    The robot is approximately a rectangle that stretches
+             - 0.2 meters forward
+             - 0.15 meters on each side
+             - 0.4 meters behind
+	    There's two cases to consider:
+	    1. If the robot is moving forward, then trigger if there are too many points
+	       in a box near the front.
+	    2. If the robot is moving backward, then trigger if there are too many points
+	       in a box near the back.
+	    In particular, I take a 0.6 meter wide box around the front/back of the car to consider
+	    points in. (It also stretches 0.2 meters in front of/behind the car, and to the center of the
+	    LIDAR sensor)
+	    """
+	    if self.drive_speed > 0:
+		# We're moving forward
+		bounding_front = 0.35
+		bounding_left = 0.25
+		bounding_right = -0.25
+		bounding_back = 0.0
+	    else:
+		# We're moving backward
+		bounding_front = 0.0
+		bounding_left = 0.25
+		bounding_right = -0.25
+		bounding_back = -0.5
 
             num_close_points = np.sum((ys < bounding_left) &
                                       (ys > bounding_right) &
