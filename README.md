@@ -2,14 +2,14 @@
 
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
-| Slide Draft (draft due on [github pages](https://github.com/mit-rss/website2022)) | Friday, March 10th at 1:00PM EST |
-| Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Monday, March 13th at 1:00 PM EST  |
-| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 10th at 11:59PM EST    |
-| Pushed code to Git | Friday, March 10th at 11:59PM EST |
-| [Team Member Assessment](https://docs.google.com/forms/d/e/1FAIpQLSfVmCl-P34-fgGah68jwiGykjxOs0J9KozlKG6ozLmOd5gsmA/viewform?usp=sf_link)  | Wednesday, March 15th at 11:59PM EST |
+| Slide Draft (draft due on [github pages](https://github.com/mit-rss/website2022)) | Wednesday, March 6th at 1:00PM EST |
+| Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Wednesday, March 6th at 3:00 PM EST  |
+| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 8th at 11:59PM EST    |
+| Pushed code to Git | Wednesday, March 8th at 11:59PM EST |
+| [Team Member Assessment](https://docs.google.com/forms/d/e/1FAIpQLSfVmCl-P34-fgGah68jwiGykjxOs0J9KozlKG6ozLmOd5gsmA/viewform?usp=sf_link)  | Monday, March 11th at 11:59PM EST |
 
 ## Link to Slides
-https://docs.google.com/presentation/d/1m5yeG515v1sSjOOsyeMoQVYR-1GZJPFlj2if7L3LzFc/edit?usp=sharing
+https://docs.google.com/presentation/d/1PP2RCcQ2XfO_T46vGBOYsNq3_t3xGHAf4YemcNutQBk/edit?usp=sharing
 
 ## Introduction
 
@@ -17,8 +17,8 @@ It's time to use the actual racecar!
 In this lab you will be taking the wall following code that you ran in simulation and running it on the car.
 You will also be building a safety controller to prevent your racecar from crashing into obstacles.
 
-### Racecar Pods
-Your team will be assigned to a pod of 4 teams that has ownership of a set of racecars. This means that you will have to share time on the racecar with the other teams in your pod. There will be a checkin/checkout system for the racecars. This is similar to the experience in industry/academica where you rarely have ownership of a robot and have to plan your project while thinking intentionally about how you use your time with the robot. As the course goes on, we plan on introducing more racecars into circulation. 
+### Racecars
+Your team will be assigned a racecar to take care of during the semester.  These cars are expensive so please coordinate with your team to ensure that someone is always responsible for it and avoid leaving it unattended on campus.
 
 ### Safety
 
@@ -54,7 +54,7 @@ From now on, for each lab, you will be:
 
 See the deliverables chart at the top of this page for due dates and times.
 
-If you haven't already done so, follow the instructions for your team's [github pages website](https://github.com/mit-rss/website2022), which will be hosting your lab reports. As part of this you will need to create an organization for your team on github.mit.edu called rss2023-[TEAM_NUMBER] and make sure all of your code is pushed there by the lab report deadline. At this time, the TAs will pull your team's report from your website. Please ensure that the report is complete and that you have linked to your presentation. Your team organization is also where you should push all of your lab code.
+If you haven't already done so, follow the instructions for your team's [github pages website](https://github.com/mit-rss/website2022), which will be hosting your lab reports. As part of this you will need to create an organization for your team on github.mit.edu called rss2024-[TEAM_NUMBER] and make sure all of your code is pushed there by the lab report deadline. At this time, the TAs will pull your team's report from your website. Please ensure that the report is complete and that you have linked to your presentation. Your team organization is also where you should push all of your lab code.
 
 You can view the rubrics for the [lab report](https://docs.google.com/document/d/1jBNWfzcvyJVGF9dx69imGzOkK_C6LvJl/edit?usp=sharing&ouid=107180908257886983025&rtpof=true&sd=true) and the [briefing](https://docs.google.com/document/d/1dGBsSiT4_HnIwpF9Xghsw_nbOH6Ebm37/edit?usp=sharing&ouid=107180908257886983025&rtpof=true&sd=true) for more details on specific grading criteria. You will receive a grade out of 10 points for each. Your final lab grade will also be out of 10 points, based on the following weights:
 
@@ -251,7 +251,7 @@ In [Lab 1C](https://github.com/mit-rss/intro_to_ros), you recorded bagfiles from
 
 Use ```scp``` or ```git clone``` to get one of your team members' wall following code from Lab 2 onto the car.
 Just like in Lab 2, the wall follower should live in the ```src``` folder of your workspace, ```~/racecar_ws/src/[WALL_FOLLOWER_CODE]```.
-```catkin_make``` in the root of your workspace to rebuild it and then ```source ~/racecar_ws/devel/setup.bash```.
+```colcon build``` in the root of your workspace to rebuild it and then ```source ~/racecar_ws/install/setup.bash```.
 
 Before running the ```wall_follower``` change the ```drive_topic``` param to ```/vesc/ackermann_cmd_mux/input/navigation```. See the [muxes section below](https://github.com/mit-rss/wall_follower#muxes) for more details. 
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal, launch
