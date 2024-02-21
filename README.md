@@ -200,7 +200,7 @@ This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%
 
 #### Debugging: The car isn't moving!
 
-- Make sure the joystick is connected and in the right mode by running `rostopic echo /vesc/joy`. When you press buttons on the joystick, you should see the messages on this topic update.
+- Make sure the joystick is connected and in the right mode by running `ros2 topic echo /vesc/joy`. When you press buttons on the joystick, you should see the messages on this topic update.
 - Are you pressing and holding the left bumper on the joystick?
 - Make sure the motor battery is plugged in and charged.
 
@@ -256,7 +256,7 @@ Just like in Lab 2, the wall follower should live in the ```src``` folder of you
 Before running the ```wall_follower``` change the ```drive_topic``` param to ```/vesc/ackermann_cmd_mux/input/navigation```. See the [muxes section below](https://github.com/mit-rss/wall_follower#muxes) for more details. 
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal, launch
 
-    roslaunch wall_follower wall_follower.launch
+    ros2 launch wall_follower wall_follower.launch
     
 Hopefully this will work without any changes! (But it likely won't.)
 To activate the wall follower, hold down the right bumper on the joystick.
