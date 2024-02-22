@@ -2,10 +2,10 @@
 
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
-| Slide Draft (draft due on [github pages](https://github.com/mit-rss/website2022)) | Wednesday, March 6th at 1:00PM EST |
-| Briefing (8 min presentation + 3 min Q&A) (slides due on [github pages](https://github.com/mit-rss/website2022))   | Wednesday, March 6th at 3:00 PM EST  |
+| Briefing Slides (due on [github pages](https://github.com/mit-rss/website2022)) | Wednesday, March 6th at 1:00PM EST |
+| Briefing (8 min presentation + 3 min Q&A)  | Wednesday, March 6th during Lab Hours  |
 | Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 8th at 11:59PM EST    |
-| Pushed code to Git | Wednesday, March 8th at 11:59PM EST |
+| Pushed code to Git | Friday, March 8th at 11:59PM EST |
 | [Team Member Assessment](https://docs.google.com/forms/d/e/1FAIpQLSfVmCl-P34-fgGah68jwiGykjxOs0J9KozlKG6ozLmOd5gsmA/viewform?usp=sf_link)  | Monday, March 11th at 11:59PM EST |
 
 ## Link to Slides
@@ -241,7 +241,7 @@ Before you get too far ahead, remember that when you are done using the racecar,
 
 ### Recording a Rosbag
 
-[rosbag](http://wiki.ros.org/rosbag/Commandline) will be your invaluable friend this year for compiling lab reports, especially as we move to the final challenge and will have limited time at the Johnson Track, where it will be held.
+[rosbag](https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html) will be your invaluable friend this year for compiling lab reports, especially as we move to the final challenge and will have limited time at the Johnson Track, where it will be held.
 
 In [Lab 1C](https://github.com/mit-rss/intro_to_ros), you recorded bagfiles from the racecar simulator and inspected bagfiles recorded from the real racecar. Make sure you are comfortable with recording bagfiles on your racecar, transferring them to your local machine (try `scp`), and playing them back to analyze the data.
 
