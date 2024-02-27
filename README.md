@@ -6,7 +6,7 @@
 | Briefing (8 min presentation + 3 min Q&A)  | Wednesday, March 6th during Lab Hours  |
 | Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 8th at 11:59PM EST    |
 | Pushed code to Git | Friday, March 8th at 11:59PM EST |
-| [Team Member Assessment](https://docs.google.com/forms/d/e/1FAIpQLSfVmCl-P34-fgGah68jwiGykjxOs0J9KozlKG6ozLmOd5gsmA/viewform?usp=sf_link)  | Monday, March 11th at 11:59PM EST |
+| [Team Member Assessment] | Monday, March 11th at 11:59PM EST |
 
 ## Link to Slides
 https://docs.google.com/presentation/d/1PP2RCcQ2XfO_T46vGBOYsNq3_t3xGHAf4YemcNutQBk/edit?usp=sharing
@@ -50,7 +50,7 @@ From now on, for each lab, you will be:
 * publishing a report on your team's github pages website
 * giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team
 * uploading the briefing slides to your github pages website
-* submitting a [team member assessment form](https://docs.google.com/forms/d/e/1FAIpQLSfVmCl-P34-fgGah68jwiGykjxOs0J9KozlKG6ozLmOd5gsmA/viewform?usp=sf_link)
+* submitting a team member assessment form
 
 See the deliverables chart at the top of this page for due dates and times.
 
@@ -75,7 +75,7 @@ Please include video, screen shots, etc. in your lab report as evidence of these
 
 ### Connections and Power
 
-Once you have your car, search for its number. You can find it in two places; on top of the car's lidar and on the front of your router. The number will be in block letter stickers. If you have an older car or router there might be other numbers written or labeled on it that you can ignore.
+Once you have your car, search for its number. You can find it in two places; on top of the car's lidar and the top of your router. The car's number will be in block letter stickers. If you have an older car or router there might be other numbers written or labeled on it that you can ignore.
 
 ![car_number](media/40500596821_e133bedd83_k.jpg)
 
@@ -93,8 +93,8 @@ The 5ghz network provides a faster connection but has more limited range.
 
 Check the battery status on your racecar by pressing the power button on your car's primary battery.
 This may be the black energizer pictured below or the grey [XTPower](https://www.amazon.com/dp/B07JJTYH8F) battery.
-On the hokuyo cars the battery sits right on top of the car.
-On the velodyne cars the battery is velcroed under the car (be careful when pulling it out).
+On the hokuyo cars, the battery sits right on top of the car.
+On the velodyne cars, the battery is velcroed under the car (be careful when pulling it out).
 When powered on, these batteries will remain on until power stops being drawn from them, so please remember to unplug your power cables when the car is not in use.
 
 ![hokuyo_battery](media/40500597871_792493a139_k.jpg)
@@ -130,12 +130,12 @@ The button should light up green.
 
 When you're connected to the wifi with the TX2 powered on, you can connect directly to the car from your computer.
 
-If you're using the docker image, we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` (in your racecar_docker folder) and change the `racecar` hostname under the `extra_hosts` field from `127.0.0.1` to your car's IP. For example, for car number 100 you would put:
+If you're using the docker image, we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` (in your racecar_docker folder) and change the `racecar` hostname under the `extra_hosts` field from `127.0.0.X` to your car's IP. For example, for car number 100 you would put:
 
     extra_hosts:
      racecar: 192.168.1.100
      
-Then restart the docker image (down and up). You should be able to ssh into your racecar by simply typing:
+Then restart the docker image (docker compose down and docker compose up). You should be able to ssh into your racecar by simply typing:
 
     ssh racecar
         
@@ -145,7 +145,7 @@ If you're not using the docker image you can connect with the same password and 
 
     ssh racecar@192.168.1.YOUR_CAR_NUMBER
 
-If you can't connect, make sure you are still on the correct Wi-Fi network. To switch back to a local ROS master, just change the hostname back to `127.0.0.1` and restart the image.
+If you can't connect, make sure you are still on the correct Wi-Fi network. To switch back to a local ROS master, just change the hostname back to `127.0.0.1` and restart the image (down and up).
 
 The car is running Ubuntu, which is very similar to the Debian docker image.
 It should be familiar, but poke around to get comfortable with the structure.
@@ -157,26 +157,20 @@ You can do this through the Docker image GUI, but here are a couple ways to do t
 - Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ```ssh``` client and have them displayed on your local machine. For example, you could run ```xterm &``` to get a new terminal window. 
 Consider making bash aliases to make these steps easier.
 
-### Car Sharing Instructions
-for the steps marked with [FIRST], only do them the first time your team gets any racecar. For example, if you worked with car 36 yesterday and did these steps, but today you get car 54 today, you do not have to repeat the steps with [FIRST]
-- make sure you've modified the docker-compose.yml file with your car’s IP (see SSH section)
-- check to see if rsync is downloaded on both docker and the racecar (ssh racecar). If not use apt-get to install rsync
-- [FIRST] everyone in the group: use rsync to pull the src directory from the car to docker
-- [FIRST] git clone one of your team member’s wall following code from lab 2 into the local directory ~/racecar_ws/src/[WALL_FOLLOWER_CODE]
+### Car Setup Instructions
+- Make sure you've modified the docker-compose.yml file with your car’s IP (see SSH section)
+- SSH into the racecar
+- Start the car's Docker container using the startup script (Use ```cd``` to get back to the home directory if you aren't already there)
+    - ```./run_rostorch.sh```
+    - **You will need to do this step each time you restart your racecar to access its Docker container**
+- Check to see if rsync is downloaded on both your local docker and the racecar. If not use apt-get to install rsync
+- Everyone in the group: use rsync to pull the src directory from the car to docker
+    - You can use this file as a backup later in the semester if one of your changes brings the car to an unrecoverable state
+- Git clone one of your team member’s wall following code from lab 2 into the local directory ~/racecar_ws/src/[WALL_FOLLOWER_CODE]
 - remove the src directory from the car
 - one person in the group: use rsync to push the src directory from your docker to the racecar
 - now you have all your code on the racecar! have fun! (continue steps below)
 - everyone in the group: use rsync to pull the src directory from the racecar to your docker
-- once you are done follow the steps under the cleanup steps section
-
-cleanup steps
-- make sure that any code you care about is off of the racecar
-- delete all directories from src that you modified
-- make sure that your src directory only has the following in it: base, CMakeLists.txt, racecar_simulator, range_libc
-
-helpful links
-- rsync man page: https://linux.die.net/man/1/rsync
-- rsync with ssh resource: https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories 
 
 ![image](https://user-images.githubusercontent.com/66264325/222078631-09e62662-d5c3-43c1-9e8b-54886410ba2a.png)
 
@@ -207,7 +201,7 @@ This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%
 ### RViz
 
 Because ```rviz``` requires 3D libraries, you can't run it straight through SSH.
-So you will need ```rviz``` to be connected to the car's ```roscore``` rather than the one on your local machine.
+So you will need ```rviz``` to be connected to the car's roscore rather than the one on your local machine.
 
 If you're using the docker image and you've set your `extra_hosts` IP correctly, you should be able to simply run `rviz` once `teleop` is running on the car and you should be able to visualize the laser scan and IMU data.
 
@@ -264,7 +258,6 @@ As necessary, tune the parameters in the wall follower so that it works well in 
 Combine ideas from multiple team members' implementations of the wall follower to make a more robust controller.
 
 Consider how to quantify how well a controller performs, why performance on the robot might differ from performance in the simulator, and what techniques you can use to improve your controller in deployment. Your presentation and report on Lab 3 should thoroughly address these topics.
-
 
 
 ### Some reasons your code from Lab 2 may not be working
