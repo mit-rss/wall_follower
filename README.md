@@ -14,7 +14,7 @@ https://docs.google.com/presentation/d/1PP2RCcQ2XfO_T46vGBOYsNq3_t3xGHAf4YemcNut
 ## Introduction
 
 It's time to use the actual racecar!
-In this lab you will be taking the wall following code that you ran in simulation and running it on the car.
+In this lab you will be improving on the wall following code that you ran in simulation and running it on the car.
 You will also be building a safety controller to prevent your racecar from crashing into obstacles.
 
 ### Racecars
@@ -66,14 +66,95 @@ You can view the rubrics for the [lab report](https://docs.google.com/document/d
 
 
 The capabilities you should demonstrate through your Lab 3 deliverables are:
-- Log into the physical car, manually drive and visualize the laser scan.
-- Autonomously drive the racecar with your wall following code.
 - Prevent crashes using your safety controller while maintaining flexibility.
+- Complete comprehensive quantitative performance testing on your wall following implementation
+- Log into the physical car, manually drive, and visualize a rosbag of the laser scan.
+- Autonomously drive the racecar with your wall following code.
 
 Please include video, screen shots, etc. in your lab report as evidence of these deliverables. A good report will make **quantitative** and **qualitative** evaluations of your results.
 
+## Part 0: Team Formation
+Before beginning on the lab, get to know your new team and prepare your team's website and Github organization.  You are going to be working with each other for the rest of the semester, so it will be helpful to know each other :).
 
-### Connections and Power
+Each team will be using a Github website in order to organize and publish their reports and briefings.  Instructions on how to create this site can be found [here](https://github.com/mit-rss/website2022). 
+
+## Part 1: In Simulation
+
+### Safety Controller
+
+Now that you’ve got your wall follower working in simulation, we want you to build a safety controller.
+In future labs, the racecar will be moving at high speeds, so we need you to build a system that protects it from crashes. 
+
+Of course, you are going to build and test it in simulation first :).
+
+Create a new package for your safety controller (place it in ```~/racecar_ws/src```).
+Your goal is to make a node in this package that prevents the racecar from crashing into obstacles.
+
+*The below section on muxes will help you decide which topic your safety controller should publish to once deployed on the racecar.  Make this topic a ROS parameter so that you can easily change it between the simulation and the racecar.*
+
+On the racecar, we will want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of scenarios and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
+
+At the same time, your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc., without the racecar freezing in its tracks. You will be required to run your safety controller in all future labs, so don't cripple yourself with something overprotective.
+
+### Muxes
+
+The racecar has a command mux with different levels of priority that you will need in building your safety controller.
+
+![Muxes](https://i.imgur.com/Y8oQCLe.png)
+
+The navigation topic you have been publishing to is an alias for the highest priority navigation topic in the mux ([defined here](https://github.mit.edu/2018-RSS/racecar_base_ros_install/blob/vm/racecar/racecar/launch/mux.launch)):
+
+    /vesc/ackermann_cmd_mux/input/navigation -> /vesc/high_level/ackermann_cmd_mux/input/nav_0
+
+For brevity we will refer to ```/vesc/high_level/ackermann_cmd_mux/input/nav_i``` as ```.../nav_i``` in this handout (_this doesn't work on the actual racecar_).
+Driving commands sent to ```.../nav_0``` override driving commands sent to ```.../nav_1```, ```.../nav_2```, etc.
+Likewise driving commands sent to ```.../nav_1``` override driving commands sent to ```.../nav_2```, ```.../nav_3```, etc.
+You can use this structure to layer levels of control.
+
+For example, a robot whose job it is to explore randomly and collect minerals as it finds them could use 2 muxes.
+The controller that explores randomly could publish to a lower priority topic like ```.../nav_1```.
+Whenever the vision system detects minerals, it could begin to publish commands to a higher priority topic like ```.../nav_0```. ```.../nav_0``` would override ```.../nav_1``` until the minerals have been depleted and commands stopped being published to```.../nav_0```.
+
+The navigation command with the highest priority is then published to ```/vesc/high_level/ackermann_cmd_mux/output```.
+This topic is then piped to ```/vesc/low_level/ackermann_cmd_mux/input/navigation``` and fed into another mux with the following priorities (from highest to lowest):
+
+    /vesc/low_level/ackermann_cmd_mux/input/teleop
+    /vesc/low_level/ackermann_cmd_mux/input/safety
+    /vesc/low_level/ackermann_cmd_mux/input/navigation
+
+```.../teleop``` is the topic that the joystick publishes to.
+This will always have the highest priority.
+```.../safety``` has the next highest priority. It will override anything published to ```.../navigation```. This is where your safety controller will publish.
+
+So for your safety controller this means:
+
+- Subscribe to ```/vesc/high_level/ackermann_cmd_mux/output``` to intercept the driving command that is being published.
+- Subscribe to sensors like ```/scan```.
+- Publish to ```/vesc/low_level/ackermann_cmd_mux/input/safety``` if the command being published to the navigation topic is in danger of crashing the racecar.
+
+*Note: These topics only exit on the physical racecar, not the simulation*
+
+### Wall Follower
+
+Last week, each member of your team designed their own version of a wall-following algorithm for the racecar simulator.  However, you only get one racecar! 
+
+Your team will need to work together to combine ideas from multiple team members' implementations of the wall follower to make a single, more robust controller.
+
+*Note: PID controllers are not one-size-fits-all.  You may find that different parameter tunings, controller implementations, and special cases work best for different racecar speeds and racetrack conditions. Expand your wall following algorithm to take this into account by adjusting based on race conditions.*
+
+While developing and iterating on your combined algorithm, consider how you can accurately gauge its performance, especially when comparing two different implementations or parameter tunings.  Include a qualitative **and** quantitative discussion on this and how you settled on your final wall following algorithm in your team's briefing and report. We recommend creating visuals to help support your conclusion!
+
+Questions to help with evaluating your wall follower:
+- How do you know when your wall follower is performing well?
+- What data can you collect to quantitatively evaluate wall-following performance?
+- What race conditions (especially racecar speeds and racecar paths) should you test on to best determine performance?
+- What graphs/visuals can you create to help make evaluation easier?
+
+## Part 2: On The Racecar
+**Note: Your team will be receiving their racecar during lab on **Monday, March 4th**.  Don't worry about this part until then.**
+
+### Using the Racecar
+#### Connections and Power
 
 Once you have your car, search for its number. You can find it in two places; on top of the car's lidar and the top of your router. The car's number will be in block letter stickers. If you have an older car or router there might be other numbers written or labeled on it that you can ignore.
 
@@ -126,7 +207,7 @@ The button should light up green.
 
 ![TX2](media/40500596601_71f9b0ede8_k.jpg)
 
-### SSH
+#### SSH
 
 When you're connected to the wifi with the TX2 powered on, you can connect directly to the car from your computer.
 
@@ -157,7 +238,7 @@ You can do this through the Docker image GUI, but here are a couple ways to do t
 - Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ```ssh``` client and have them displayed on your local machine. For example, you could run ```xterm &``` to get a new terminal window. 
 Consider making bash aliases to make these steps easier.
 
-### Car Setup Instructions
+#### Car Setup Instructions
 - Make sure you've modified the docker-compose.yml file with your car’s IP (see SSH section)
 - SSH into the racecar
 - Start the car's Docker container using the startup script (Use ```cd``` to get back to the home directory if you aren't already there)
@@ -175,7 +256,7 @@ Consider making bash aliases to make these steps easier.
 ![image](https://user-images.githubusercontent.com/66264325/222078631-09e62662-d5c3-43c1-9e8b-54886410ba2a.png)
 
 
-### Manual Navigation
+#### Manual Navigation
 
 When you are ready, plug in your TX2 battery (Energizer or XTPower) and motor battery (Traxxas) in.
 
@@ -192,13 +273,13 @@ Now you should be able to move the car around with the joystick!
 **You need press and hold the left bumper (LB) before the car can move.**
 This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) and it is an easy way to stop the car from crashing - just let go of the trigger.
 
-#### Debugging: The car isn't moving!
+##### Debugging: The car isn't moving!
 
 - Make sure the joystick is connected and in the right mode by running `ros2 topic echo /vesc/joy`. When you press buttons on the joystick, you should see the messages on this topic update.
 - Are you pressing and holding the left bumper on the joystick?
 - Make sure the motor battery is plugged in and charged.
 
-### RViz
+#### RViz
 
 Because ```rviz``` requires 3D libraries, you can't run it straight through SSH.
 So you will need ```rviz``` to be connected to the car's roscore rather than the one on your local machine.
@@ -225,7 +306,7 @@ You can find your IP address by running ```hostname -I``` or ```ip addr```. It s
 
 Now if you run ```teleop``` on the car you should be able to open up ```rviz``` and visualize the real lidar data (topic ```/scan```) and the IMU data (```/imu/data```).
 
-### Cleaning Up
+#### Cleaning Up
 
 Before you get too far ahead, remember that when you are done using the racecar, you **must unplug all power cables**. This includes 2 cables that connect to the energizer battery and the motor battery. Not doing this can destroy the batteries and the servo.
 
@@ -233,89 +314,43 @@ Before you get too far ahead, remember that when you are done using the racecar,
 ![energizer_unplugged](media/39791091494_1fee2d09a0_k.jpg)
 
 
-### Recording a Rosbag
+#### Recording a Rosbag
 
 [rosbag](https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html) will be your invaluable friend this year for compiling lab reports, especially as we move to the final challenge and will have limited time at the Johnson Track, where it will be held.
 
 In [Lab 1C](https://github.com/mit-rss/intro_to_ros), you recorded bagfiles from the racecar simulator and inspected bagfiles recorded from the real racecar. Make sure you are comfortable with recording bagfiles on your racecar, transferring them to your local machine (try `scp`), and playing them back to analyze the data.
 
+### Safety Controller
 
-## Wall Following
+Now that you have your racecar, use ```scp``` or ```git clone``` to get your team's safety controller onto the car. The safety controller should live in the ```src``` folder of your workspace, ```~/ros2_ws/src/[WALL_FOLLOWER_CODE]```.  ***Remember to*** ```colcon build``` in the root of your workspace to rebuild it and then ```source ~/ros2_ws/install/setup.bash```.
 
+Test the performance of your safety controller by updating the necessary parameters (See the [muxes section](https://github.com/mit-rss/wall_follower#muxes) for more details) and launching the node.  You should engage the safety controller in a variety of conditions to ensure that the controller is robust and adheres to the description provided in **Part 1**.
 
-Use ```scp``` or ```git clone``` to get one of your team members' wall following code from Lab 2 onto the car.
-Just like in Lab 2, the wall follower should live in the ```src``` folder of your workspace, ```~/racecar_ws/src/[WALL_FOLLOWER_CODE]```.
-```colcon build``` in the root of your workspace to rebuild it and then ```source ~/racecar_ws/install/setup.bash```.
+__Please be careful when you are testing__. Always have your joystick ready to stop the racecar and start very slow. 
 
-Before running the ```wall_follower``` change the ```drive_topic``` param to ```/vesc/ackermann_cmd_mux/input/navigation```. See the [muxes section below](https://github.com/mit-rss/wall_follower#muxes) for more details. 
+**Please include a discussion on at least one evaluation metric you used while testing on the robot in your final report.  You are NOT required to include this in your briefing.**
+
+### Wall Following
+
+Just as you did for the safety controller, get your team's updated wall following code onto the car. ***Remember to*** ```colcon build``` in the root of your workspace to rebuild it and then ```source ~/racecar_ws/install/setup.bash```.
+
+Before running the ```wall_follower``` change the ```drive_topic``` param to ```/vesc/ackermann_cmd_mux/input/navigation```. See the [muxes section](https://github.com/mit-rss/wall_follower#muxes) for more details. 
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal, launch
 
     ros2 launch wall_follower wall_follower.launch
     
 Hopefully this will work without any changes! (But it likely won't.)
-To activate the wall follower, hold down the right bumper on the joystick.
-As necessary, tune the parameters in the wall follower so that it works well in the real world.
-Combine ideas from multiple team members' implementations of the wall follower to make a more robust controller.
+To activate the wall follower, hold down the right bumper on the joystick (dead man's switch).
 
-Consider how to quantify how well a controller performs, why performance on the robot might differ from performance in the simulator, and what techniques you can use to improve your controller in deployment. Your presentation and report on Lab 3 should thoroughly address these topics.
+***As necessary, tune the parameters in the wall follower so that it works well in the real world.***
 
+Consider why performance on the robot might differ from performance in the simulator and what techniques you can use to improve your controller in deployment. Your final report on Lab 3 should briefly address these topics and include at least one evaluation metric.
 
 ### Some reasons your code from Lab 2 may not be working
 
 - The number of lidar beams is different than in the simulator
 - The field of view is different than in the simulator. 
 - If you have a velodyne car, the lidar is not pointed forwards, it is rotated by 60 degrees.
-
-## Safety Controller
-
-Now that you’ve got your wall follower working, we want you to build a safety controller.
-In future labs, the racecar will be moving at high speeds, so we need you to build a system that protects it from crashes. 
-
-Create a new package for your safety controller (place it in ```~/racecar_ws/src```).
-Your goal is to make a node in this package that prevents the racecar from crashing into obstacles.
-*The below section on muxes will help you decide which topic your safety controller should publish to.*
-
-We want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of scenarios and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
-
-At the same time, your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc. without the racecar freezing in its tracks. You will be required to run your safety controller in all future labs, so don't cripple yourself with something overprotective.
-
-__Please be careful when you are testing__. Always have your joystick ready to stop the racecar and start very slow. 
-
-### Muxes
-
-The racecar has a command mux with different levels of priority that you will need in building your safety controller.
-
-![Muxes](https://i.imgur.com/Y8oQCLe.png)
-
-The navigation topic you have been publishing to is an alias for the highest priority navigation topic in the mux ([defined here](https://github.mit.edu/2018-RSS/racecar_base_ros_install/blob/vm/racecar/racecar/launch/mux.launch)):
-
-    /vesc/ackermann_cmd_mux/input/navigation -> /vesc/high_level/ackermann_cmd_mux/input/nav_0
-
-For brevity we will refer to ```/vesc/high_level/ackermann_cmd_mux/input/nav_i``` as ```.../nav_i``` in this handout (_this doesn't work on the actual racecar_).
-Driving commands sent to ```.../nav_0``` override driving commands sent to ```.../nav_1```, ```.../nav_2```, etc.
-Likewise driving commands sent to ```.../nav_1``` override driving commands sent to ```.../nav_2```, ```.../nav_3```, etc.
-You can use this structure to layer levels of control.
-
-For example, a robot whose job it is to explore randomly and collect minerals as it finds them could use 2 muxes.
-The controller that explores randomly could publish to a lower priority topic like ```.../nav_1```.
-Whenever the vision system detects minerals, it could begin to publish commands to a higher priority topic like ```.../nav_0```. ```.../nav_0``` would override ```.../nav_1``` until the minerals have been depleted and commands stopped being published to```.../nav_0```.
-
-The navigation command with the highest priority is then published to ```/vesc/high_level/ackermann_cmd_mux/output```.
-This topic is then piped to ```/vesc/low_level/ackermann_cmd_mux/input/navigation``` and fed into another mux with the following priorities (from highest to lowest):
-
-    /vesc/low_level/ackermann_cmd_mux/input/teleop
-    /vesc/low_level/ackermann_cmd_mux/input/safety
-    /vesc/low_level/ackermann_cmd_mux/input/navigation
-
-```.../teleop``` is the topic that the joystick publishes to.
-This will always have the highest priority.
-```.../safety``` has the next highest priority. It will override anything published to ```.../navigation```. This is where your safety controller will publish.
-
-So for your safety controller this means:
-
-- Subscribe to ```/vesc/high_level/ackermann_cmd_mux/output``` to intercept the driving command that is being published.
-- Subscribe to sensors like ```/scan```.
-- Publish to ```/vesc/low_level/ackermann_cmd_mux/input/safety``` if the command being published to the navigation topic is in danger of crashing the racecar.
 
 
 ## RACECAR directory layout
