@@ -287,30 +287,26 @@ This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%
 
 #### RViz
 
-Because ```rviz``` requires 3D libraries, you can't run it straight through SSH.
-So you will need ```rviz``` to be connected to the car's roscore rather than the one on your local machine.
+You can connect to RViz by connecting to your car's display. We have set this up for you as a vncserver accessible on port 6081 (your local racecar_docker is on 6080). This is hosted on the car. 
 
-If you're using the docker image and you've set your `extra_hosts` IP correctly, you should be able to simply run `rviz` once `teleop` is running on the car and you should be able to visualize the laser scan and IMU data.
+To access this on your local machine, you need to forward port 6081. This can be done by adding the flag:
 
-If you are not using the docker image you will need to manually change some network variables. To do this first edit your ```/etc/hosts``` file on your local machine (requires ```sudo```) and add the following line:
+```
+ssh -L 6081:localhost:6081 racecar@192.168.1.[CAR_NUMBER]
+```
 
-    192.168.1.[CAR_NUMBER]     racecar
-    
-This essentially makes the string ```racecar``` equivalent to the IP of the car. One benefit of this is that you should now be able to SSH in to the car by running:
+This only needs to be done once on your machine, and can be run either inside or outside of your racecar_docker image. If you notice the connection breaks, check to see whether this session died. 
 
-    ssh racecar@racecar
-    
-Now that you've set up the hostname (you only ever need to do that once), you can make ```rviz``` listen to the car's ```roscore``` by running the following command.
+Then, you can navigate to the link
 
-    export ROS_MASTER_URI=http://racecar:11311
+http://localhost:6081/vnc.html?resize=remote
 
-You also need to set your own IP for 2-way communication by running:
+to view the display. 
 
-    export ROS_IP=[YOUR_COMPUTER'S_IP]
-    
-You can find your IP address by running ```hostname -I``` or ```ip addr```. It should be on the 192.168.1.x subnet. **If you are on the VM you must set your network adapter to "Bridged (Autodetect)", otherwise you will not have an IP on the network.** Note that these commands need to be run in every single terminal that you want to be connected to the car's roscore, so it is worth considering making an alias for them or adding them to your ```~/.bashrc```.
+**Note:** There is only one shared display at the moment, so only one person can control the window at a time. 
 
-Now if you run ```teleop``` on the car you should be able to open up ```rviz``` and visualize the real lidar data (topic ```/scan```) and the IMU data (```/imu/data```).
+Try to see if you can visualize laser scans. To do that, right click in the display and open a terminal session. Then, type `rviz2`. Add a LaserScan message by topic to subscribe to `/scan`, and change the fixed frame to `/laser`. You can change the size of the points in the dropdown if they are hard to see. 
+
 
 #### Cleaning Up
 
