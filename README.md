@@ -2,11 +2,11 @@
 
 | Deliverable   | Due Date  |
 |-------------------------|------------------------------------|
-| Briefing Slides (due on [github pages](https://github.com/mit-rss/website2022)) | Wednesday, March 6th at 1:00PM EST |
-| Briefing (8 min presentation + 3 min Q&A)  | Wednesday, March 6th during Lab Hours  |
-| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Friday, March 8th at 11:59PM EST    |
-| Pushed code to Git | Friday, March 8th at 11:59PM EST |
-| Team Member Assessment | Monday, March 11th at 11:59PM EST |
+| Briefing Slides (due on [github pages](https://github.com/mit-rss/website2022)) | Monday, March 11th at 1:00PM EST |
+| Briefing (8 min presentation + 3 min Q&A)  | Monday, March 11th during Lab Hours  |
+| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Cancelled    |
+| Pushed code to Git | Monday, March 11th at 11:59PM EST |
+| Team Member Assessment | Wednesday, March 13th at 11:59PM EST |
 
 ## Link to Slides
 https://docs.google.com/presentation/d/1PP2RCcQ2XfO_T46vGBOYsNq3_t3xGHAf4YemcNutQBk/edit?usp=sharing
