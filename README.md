@@ -248,14 +248,13 @@ Consider making bash aliases to make these steps easier.
 - Start the car's Docker container using the startup script (Use ```cd``` to get back to the home directory if you aren't already there)
     - ```./run_rostorch.sh```
     - **You will need to do this step each time you restart your racecar to access its Docker container**
-- Check to see if rsync is downloaded on both your local docker and the racecar. If not use apt-get to install rsync
-- Everyone in the group: use rsync to pull the src directory from the car to docker
+- Everyone in the group: use scp to pull the src directory from the car to your local machine
     - You can use this file as a backup later in the semester if one of your changes brings the car to an unrecoverable state
-- Git clone one of your team member’s wall following code from lab 2 into the local directory ~/racecar_ws/src/[WALL_FOLLOWER_CODE]
-- remove the src directory from the car
-- one person in the group: use rsync to push the src directory from your docker to the racecar
+- Git clone one of your team member’s wall following code from lab 2 into your local directory ~/racecar_ws/src/[WALL_FOLLOWER_CODE]
+- one person in the group: use scp to push the src directory from your docker to the racecar
+    - Your packages should be put in the racecar's racecar_ws folder!
 - now you have all your code on the racecar! have fun! (continue steps below)
-- everyone in the group: use rsync to pull the src directory from the racecar to your docker
+- everyone in the group: use scp to pull the wall following directory from the racecar to your docker
 
 ![image](https://user-images.githubusercontent.com/66264325/222078631-09e62662-d5c3-43c1-9e8b-54886410ba2a.png)
 
