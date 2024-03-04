@@ -255,6 +255,8 @@ Consider making bash aliases to make these steps easier.
 - Git clone one of your team member’s wall following code from lab 2 into your local directory ~/racecar_ws/src/[WALL_FOLLOWER_CODE]
 - one person in the group: use scp to push the src directory from your docker to the racecar
     - Your packages should be put in the racecar's racecar_ws folder!
+    - Make sure you use the full filepath of where the racecar_s folder is on the racecar Linux environment, not the folder's path in the Docker environment
+    - The path should start with the home directory
 - now you have all your code on the racecar! have fun! (continue steps below)
 - everyone in the group: use scp to pull the wall following directory from the racecar to your docker
 
