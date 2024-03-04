@@ -104,9 +104,9 @@ The racecar has a command mux with different levels of priority that you will ne
 
 The navigation topic you have been publishing to is an alias for the highest priority navigation topic in the mux ([defined here](https://github.mit.edu/2018-RSS/racecar_base_ros_install/blob/vm/racecar/racecar/launch/mux.launch)):
 
-    /vesc/ackermann_cmd_mux/input/navigation -> /vesc/high_level/ackermann_cmd_mux/input/nav_0
+    /vesc/input/navigation -> /vesc/high_level/input/nav_0
 
-For brevity we will refer to ```/vesc/high_level/ackermann_cmd_mux/input/nav_i``` as ```.../nav_i``` in this handout (_this doesn't work on the actual racecar_).
+For brevity we will refer to ```/vesc/high_level/input/nav_i``` as ```.../nav_i``` in this handout (_this doesn't work on the actual racecar_).
 Driving commands sent to ```.../nav_0``` override driving commands sent to ```.../nav_1```, ```.../nav_2```, etc.
 Likewise driving commands sent to ```.../nav_1``` override driving commands sent to ```.../nav_2```, ```.../nav_3```, etc.
 You can use this structure to layer levels of control.
@@ -115,12 +115,12 @@ For example, a robot whose job it is to explore randomly and collect minerals as
 The controller that explores randomly could publish to a lower priority topic like ```.../nav_1```.
 Whenever the vision system detects minerals, it could begin to publish commands to a higher priority topic like ```.../nav_0```. ```.../nav_0``` would override ```.../nav_1``` until the minerals have been depleted and commands stopped being published to```.../nav_0```.
 
-The navigation command with the highest priority is then published to ```/vesc/high_level/ackermann_cmd_mux/output```.
-This topic is then piped to ```/vesc/low_level/ackermann_cmd_mux/input/navigation``` and fed into another mux with the following priorities (from highest to lowest):
+The navigation command with the highest priority is then published to ```/vesc/high_level/output```.
+This topic is then piped to ```/vesc/low_level/input/navigation``` and fed into another mux with the following priorities (from highest to lowest):
 
-    /vesc/low_level/ackermann_cmd_mux/input/teleop
-    /vesc/low_level/ackermann_cmd_mux/input/safety
-    /vesc/low_level/ackermann_cmd_mux/input/navigation
+    /vesc/low_level/input/teleop
+    /vesc/low_level/input/safety
+    /vesc/low_level/input/navigation
 
 ```.../teleop``` is the topic that the joystick publishes to.
 This will always have the highest priority.
@@ -128,9 +128,9 @@ This will always have the highest priority.
 
 So for your safety controller this means:
 
-- Subscribe to ```/vesc/high_level/ackermann_cmd_mux/output``` to intercept the driving command that is being published.
+- Subscribe to ```/vesc/high_level/output``` to intercept the driving command that is being published.
 - Subscribe to sensors like ```/scan```.
-- Publish to ```/vesc/low_level/ackermann_cmd_mux/input/safety``` if the command being published to the navigation topic is in danger of crashing the racecar.
+- Publish to ```/vesc/low_level/input/safety``` if the command being published to the navigation topic is in danger of crashing the racecar.
 
 __Note: These topics only exist on the physical racecar, not the simulation.__  This means your simulated safety controller will not be able to send stop commands at a higher priority than driving commands when using the simulator. 
 
@@ -338,7 +338,7 @@ __Please be careful when you are testing__. Always have your joystick ready to s
 
 Just as you did for the safety controller, get your team's updated wall following code onto the car. ***Remember to*** ```colcon build``` in the root of your workspace to rebuild it and then ```source ~/racecar_ws/install/setup.bash```.
 
-Before running the ```wall_follower``` change the ```drive_topic``` param to ```/vesc/ackermann_cmd_mux/input/navigation```. See the [muxes section](https://github.com/mit-rss/wall_follower#muxes) for more details. 
+Before running the ```wall_follower``` change the ```drive_topic``` param to ```/vesc/input/navigation```. See the [muxes section](https://github.com/mit-rss/wall_follower#muxes) for more details. 
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal, launch
 
     ros2 launch wall_follower wall_follower.launch
