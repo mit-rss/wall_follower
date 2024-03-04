@@ -215,12 +215,12 @@ The button should light up green.
 
 When you're connected to the wifi with the TX2 powered on, you can connect directly to the car from your computer.
 
-If you're using the docker image, we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` (in your racecar_docker folder) and add the `extra_hosts` field `192.168.1.CAR_NUMBER` within `racecar`. For example, for car number 100 you would put:
+If you're using the docker image, we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` (in your racecar_docker folder) and add the `extra_hosts` field `192.168.1.CAR_NUMBER` within `racecar`. For example, for car number 100 you would add:
 
     services:
         racecar:
             extra_hosts:
-                racecar: 192.168.1.100
+               ** racecar: 192.168.1.100**
      
 Then restart the docker image (docker compose down and docker compose up). You should be able to ssh into your racecar by simply typing:
 
