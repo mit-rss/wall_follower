@@ -365,56 +365,6 @@ The RACECAR comes preinstalled with most of the software you will need throughou
 
 This is where you should put your ROS modules on the car (alongside the base directory).
 
-**racecar_ws/src/base/**
+### ros2_ws/
 
-- **vesc:** motor driver wrapper code
-- **racecar:** RACECAR core software architecture - muxes, launch files, etc
-- **zed_ros_wrapper:** contains code for interfacing the Zed camera with ROS
-- **razor\_imu\_m0\_driver:** contains code for driving the IMU
-
-**racecar_ws/.subsystems/**
-
-- **hokuyo**
-- **imu**
-- **joystick**
-- **velodyne**
-- **vesc**
-
-### zed
-
-- **compiled_samples:** precompiled binary files which use the ZED
-- **zed-python:** python wrappers for direct ZED access (non-ROS wrapped), includes examples/tutorials
-
-**NOTE:** you can run this code over SSH if you use X-Forwarding (ssh racecar@... -X)
-
-### hokuyo
-
-- contains hokuyo network settings, don't modify this without TA involvement
-
-### imu
-
-- **launch_imu.sh**: contains the launch command for the imu sensor, just for reference
-
-### joystick
-
-- **test_joystick.sh**: a useful shell script for debugging Joystick connections, give it a try!
-
-### velodyne
-
-- **launch_velodyne.sh:** contains the launch command for the velodyne sensor, just for reference
-
-### bldc-tool
-
-This folder contains a tool for flashing the VESC. You should not touch this without TA involvement.
-
-### range_libc
-
-This folder contains code for fast ray casting on the RACECAR. The package contains several ray casting methods, and is quite fast. It will be useful later on in the course (lab 5). 
-
-See Corey's paper for more info! [https://arxiv.org/abs/1705.01167](https://arxiv.org/abs/1705.01167)
-
-Fun fact: a (slightly more current) version of this paper was accepted to [ICRA 2018](http://www.icra2018.org/)!
-
-To update this code (if directed to do so), just do "git pull" in the range_libc directory, then run the below script.
-
-- **pywrapper/compile_with_cuda.sh**: run this script if you need to recompile range_libc for any reason.
+This workspace contains all base code for the car (it makes `teleop` work properly). In general you should not modify this without TA support. 
