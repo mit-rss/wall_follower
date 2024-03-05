@@ -287,30 +287,26 @@ This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%
 
 #### RViz
 
-Because ```rviz``` requires 3D libraries, you can't run it straight through SSH.
-So you will need ```rviz``` to be connected to the car's roscore rather than the one on your local machine.
+You can connect to RViz by connecting to your car's display. We have set this up for you as a vncserver accessible on port 6081 (your local racecar_docker is on 6080). This is hosted on the car. 
 
-If you're using the docker image and you've set your `extra_hosts` IP correctly, you should be able to simply run `rviz` once `teleop` is running on the car and you should be able to visualize the laser scan and IMU data.
+To access this on your local machine, you need to forward port 6081. This can be done by adding the flag:
 
-If you are not using the docker image you will need to manually change some network variables. To do this first edit your ```/etc/hosts``` file on your local machine (requires ```sudo```) and add the following line:
+```
+ssh -L 6081:localhost:6081 racecar@192.168.1.[CAR_NUMBER]
+```
 
-    192.168.1.[CAR_NUMBER]     racecar
-    
-This essentially makes the string ```racecar``` equivalent to the IP of the car. One benefit of this is that you should now be able to SSH in to the car by running:
+This only needs to be done once on your machine, and can be run either inside or outside of your racecar_docker image. If you notice the connection breaks, check to see whether this session died. 
 
-    ssh racecar@racecar
-    
-Now that you've set up the hostname (you only ever need to do that once), you can make ```rviz``` listen to the car's ```roscore``` by running the following command.
+Then, you can navigate to the link
 
-    export ROS_MASTER_URI=http://racecar:11311
+http://localhost:6081/vnc.html?resize=remote
 
-You also need to set your own IP for 2-way communication by running:
+to view the display. 
 
-    export ROS_IP=[YOUR_COMPUTER'S_IP]
-    
-You can find your IP address by running ```hostname -I``` or ```ip addr```. It should be on the 192.168.1.x subnet. **If you are on the VM you must set your network adapter to "Bridged (Autodetect)", otherwise you will not have an IP on the network.** Note that these commands need to be run in every single terminal that you want to be connected to the car's roscore, so it is worth considering making an alias for them or adding them to your ```~/.bashrc```.
+**Note:** There is only one shared display at the moment, so only one person can control the window at a time. 
 
-Now if you run ```teleop``` on the car you should be able to open up ```rviz``` and visualize the real lidar data (topic ```/scan```) and the IMU data (```/imu/data```).
+Try to see if you can visualize laser scans. To do that, right click in the display and open a terminal session. Then, type `rviz2`. Add a LaserScan message by topic to subscribe to `/scan`, and change the fixed frame to `/laser`. You can change the size of the points in the dropdown if they are hard to see. 
+
 
 #### Cleaning Up
 
@@ -369,56 +365,6 @@ The RACECAR comes preinstalled with most of the software you will need throughou
 
 This is where you should put your ROS modules on the car (alongside the base directory).
 
-**racecar_ws/src/base/**
+### ros2_ws/
 
-- **vesc:** motor driver wrapper code
-- **racecar:** RACECAR core software architecture - muxes, launch files, etc
-- **zed_ros_wrapper:** contains code for interfacing the Zed camera with ROS
-- **razor\_imu\_m0\_driver:** contains code for driving the IMU
-
-**racecar_ws/.subsystems/**
-
-- **hokuyo**
-- **imu**
-- **joystick**
-- **velodyne**
-- **vesc**
-
-### zed
-
-- **compiled_samples:** precompiled binary files which use the ZED
-- **zed-python:** python wrappers for direct ZED access (non-ROS wrapped), includes examples/tutorials
-
-**NOTE:** you can run this code over SSH if you use X-Forwarding (ssh racecar@... -X)
-
-### hokuyo
-
-- contains hokuyo network settings, don't modify this without TA involvement
-
-### imu
-
-- **launch_imu.sh**: contains the launch command for the imu sensor, just for reference
-
-### joystick
-
-- **test_joystick.sh**: a useful shell script for debugging Joystick connections, give it a try!
-
-### velodyne
-
-- **launch_velodyne.sh:** contains the launch command for the velodyne sensor, just for reference
-
-### bldc-tool
-
-This folder contains a tool for flashing the VESC. You should not touch this without TA involvement.
-
-### range_libc
-
-This folder contains code for fast ray casting on the RACECAR. The package contains several ray casting methods, and is quite fast. It will be useful later on in the course (lab 5). 
-
-See Corey's paper for more info! [https://arxiv.org/abs/1705.01167](https://arxiv.org/abs/1705.01167)
-
-Fun fact: a (slightly more current) version of this paper was accepted to [ICRA 2018](http://www.icra2018.org/)!
-
-To update this code (if directed to do so), just do "git pull" in the range_libc directory, then run the below script.
-
-- **pywrapper/compile_with_cuda.sh**: run this script if you need to recompile range_libc for any reason.
+This workspace contains all base code for the car (it makes `teleop` work properly). In general you should not modify this without TA support. 
