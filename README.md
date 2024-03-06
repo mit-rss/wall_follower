@@ -115,7 +115,7 @@ For example, a robot whose job it is to explore randomly and collect minerals as
 The controller that explores randomly could publish to a lower priority topic like ```.../nav_1```.
 Whenever the vision system detects minerals, it could begin to publish commands to a higher priority topic like ```.../nav_0```. ```.../nav_0``` would override ```.../nav_1``` until the minerals have been depleted and commands stopped being published to```.../nav_0```.
 
-The navigation command with the highest priority is then published to ```/vesc/high_level/output```.
+The navigation command with the highest priority is then published to ```/vesc/high_level/ackermann_cmd```.
 This topic is then piped to ```/vesc/low_level/input/navigation``` and fed into another mux with the following priorities (from highest to lowest):
 
     /vesc/low_level/input/teleop
@@ -128,7 +128,7 @@ This will always have the highest priority.
 
 So for your safety controller this means:
 
-- Subscribe to ```/vesc/high_level/output``` to intercept the driving command that is being published.
+- Subscribe to ```/vesc/high_level/ackermann_cmd``` to intercept the driving command that is being published.
 - Subscribe to sensors like ```/scan```.
 - Publish to ```/vesc/low_level/input/safety``` if the command being published to the navigation topic is in danger of crashing the racecar.
 
