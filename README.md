@@ -336,7 +336,7 @@ __Please be careful when you are testing__. Always have your joystick ready to s
 
 Just as you did for the safety controller, get your team's updated wall following code onto the car. ***Remember to*** ```colcon build``` in the root of your workspace to rebuild it and then ```source ~/racecar_ws/install/setup.bash```.
 
-Before running the ```wall_follower``` change the ```drive_topic``` param to ```/vesc/input/navigation```. See the [muxes section](https://github.com/mit-rss/wall_follower#muxes) for more details. 
+Before running the ```wall_follower``` change the ```drive_topic``` param to ```/vesc/low_level/input/navigation```. See the [muxes section](https://github.com/mit-rss/wall_follower#muxes) for more details. 
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal, launch
 
     ros2 launch wall_follower wall_follower.launch
