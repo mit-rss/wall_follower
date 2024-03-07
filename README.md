@@ -128,7 +128,7 @@ This will always have the highest priority.
 
 So for your safety controller this means:
 
-- Subscribe to ```/vesc/high_level/ackermann_cmd``` to intercept the driving command that is being published.
+- Subscribe to ```/vesc/low_level/ackermann_cmd``` to intercept the driving command that is being published.
 - Subscribe to sensors like ```/scan```.
 - Publish to ```/vesc/low_level/input/safety``` if the command being published to the navigation topic is in danger of crashing the racecar.
 
@@ -276,7 +276,7 @@ Note that if you JUST plugged in the motor battery, it takes a few minutes for t
     teleop
 
 Now you should be able to move the car around with the joystick!
-**You need press and hold the left bumper (LB) before the car can move.**
+**You need press and hold the right bumper (RB) before the car can move.**
 This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) and it is an easy way to stop the car from crashing - just let go of the trigger.
 
 ##### Debugging: The car isn't moving!
