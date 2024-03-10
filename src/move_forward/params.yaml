@@ -1,0 +1,2 @@
+drive_topic: "/vesc/ackermann_cmd_mux/input/navigation"
+velocity: 0.5
