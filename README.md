@@ -4,7 +4,7 @@
 |-------------------------|------------------------------------|
 | Briefing Slides (due on [github pages](https://github.com/mit-rss/website2022)) | Monday, March 11th at 1:00PM EST |
 | Briefing (8 min presentation + 3 min Q&A)  | Monday, March 11th during Lab Hours  |
-| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Cancelled    |
+| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Monday, March 11th at 1:00PM EST |
 | Pushed code to Git | Monday, March 11th at 11:59PM EST |
 | Team Member Assessment | Wednesday, March 13th at 11:59PM EST |
 
@@ -24,11 +24,11 @@ Your team will be assigned a racecar to take care of during the semester.  These
 
 The racecar platform is exciting and fast, but it is not a toy.
 The hardware we have on board
-[is](https://www.amazon.com/NVIDIA-Jetson-TX2-Development-Kit/dp/B06XPFH939)
+[is](https://www.amazon.com/NVIDIA-Jetson-Orin-Nano-Developer/dp/B0BZJTQ5YP)
 [extremely](https://www.spar3d.com/news/lidar/velodyne-cuts-vlp-16-lidar-price-4k/)
 [expensive](https://www.robotshop.com/en/hokuyo-ust-10lx-scanning-laser-rangefinder.html?gclid=Cj0KCQiAq6_UBRCEARIsAHyrgUxYmgjfz734t-zWCqa2U4l7LAVsZ1_cp2CuvuD3WalcBQ9tCp2_WmMaAjbAEALw_wcB),
 and it is your responsibility to keep it in good condition for future classes.
-The racecar can survive a couple light bumps, but if it goes flying into a wall it can be destroyed. The whole frame can split in half, the lidar can get scratched, the TX2 can get damaged, etc. Any one of these repairs can cost hundreds, if not thousands of dollars, in addition to the dozens of hours your lovely TAs put into assembling and testing them.
+The racecar can survive a couple light bumps, but if it goes flying into a wall it can be destroyed. The whole frame can split in half, the lidar can get scratched, the Jetson Orin can get damaged, etc. Any one of these repairs can cost hundreds, if not thousands of dollars, in addition to the dozens of hours your lovely TAs put into assembling and testing them.
 
 If your car develops hardware issues for any reason, please tell the TAs immediately and we will do our best to repair it. Most teams will probably have some sort of hardware issue throughout the course, and it is typically not a big deal.
 However, if you damage the car in an extreme way through obviously reckless behaviour, you may find yourself working on the simulated car for the rest of the course.
@@ -38,7 +38,7 @@ However, if you damage the car in an extreme way through obviously reckless beha
 
 The racecar runs on relatively low voltage ([≤ 20V](https://www.amazon.com/Energizer-XP18000-Universal-External-Netbooks/dp/B002K8M9HC)) so we are not too concered about dangerous shocks.
 But as with any electrical system, it is always important to take proper safety precautions.
-For example, ground yourself before touching any of the exposed circuit boards like the TX2.
+For example, ground yourself before touching any of the exposed circuit boards like the Jetson Orin .
 
 Please have all members of your team read and sign the electrical safety form here before starting work on the racecar:
 [https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141](https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.4200)
@@ -186,7 +186,7 @@ When powered on, these batteries will remain on until power stops being drawn fr
 ![velodyne_battery](media/39604959195_914cb8f59f_k.jpg)
 
 If your battery is low, charge it with the 18V adapter. 
-Do not charge your battery while it is plugged in to the TX2.   
+Do not charge your battery while it is plugged in to the Jetson Orin .   
 Please remember to charge your batteries when you are not working on the cars. 
 
 The battery lasts a surprisingly long time; so as long as you keep the battery charged when you are not working, it can last the entire lab. Remember to unplug it before putting your robot away.
@@ -195,25 +195,25 @@ The battery lasts a surprisingly long time; so as long as you keep the battery c
 
 Charge your motor battery by plugging it into the charger that looks like a blue block.
 Hold the start button for 2 seconds to charge - you should hear the battery fans begin to spin.
-This battery won't last as long, especially when you are going fast, so remember to charge it when the car is not moving. The TX2 will not be affected if the motor battery gets unplugged. 
+This battery won't last as long, especially when you are going fast, so remember to charge it when the car is not moving. The Jetson Orin  will not be affected if the motor battery gets unplugged. 
 
 ![motor_power](media/39790637494_e1ef9b0292_k.jpg)
 
 Connect the two power cables to the energizer/XTpower battery.
-One powers the lidar and the TX2 (compute board). 
+One powers the lidar and the Jetson Orin  (compute board). 
 The other powers the USB hub (which powers the ZED camera and IMU).
-If everything is receiving power, you should see LEDs light up on the TX2 and IMU and you should hear the lidar spinning (listen closely).
+If everything is receiving power, you should see LEDs light up on the Jetson Orin  and IMU and you should hear the lidar spinning (listen closely).
 
 ![energizer_plugged](media/39604959525_44ff049f74_k.jpg)
 
-Power on the TX2 by pressing the rightmost button on the port side of the car labeled "power".
+Power on the Jetson Orin  by pressing the rightmost button on the port side of the car labeled "power".
 The button should light up green.
 
-![TX2](media/40500596601_71f9b0ede8_k.jpg)
+![Jetson Orin ](media/40500596601_71f9b0ede8_k.jpg)
 
 #### SSH
 
-When you're connected to the wifi with the TX2 powered on, you can connect directly to the car from your computer.
+When you're connected to the wifi with the Jetson Orin  powered on, you can connect directly to the car from your computer.
 
 If you're using the docker image, we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` (in your racecar_docker folder) and add the `extra_hosts` field `192.168.1.CAR_NUMBER` within `racecar`. For example, for car number 100 it would look something like:
 
@@ -264,11 +264,11 @@ Consider making bash aliases to make these steps easier.
 
 #### Manual Navigation
 
-When you are ready, plug in your TX2 battery (Energizer or XTPower) and motor battery (Traxxas) in.
+When you are ready, plug in your Jetson Orin  battery (Energizer or XTPower) and motor battery (Traxxas) in.
 
 ![motor_plugged](media/39604958785_8e8161b88e_k.jpg)
 
-Turn on the TX2, and reconnect to the racecar if necessary.
+Turn on the Jetson Orin , and reconnect to the racecar if necessary.
 Place the car on your *brick* so its wheels do not touch the ground and are free to spin.
 Launch ```teleop``` just like in the simulator.
 Note that if you JUST plugged in the motor battery, it takes a few minutes for the VESC to be recognized, so if you run teleop, and get the error "Failed to connect to the VESC", wait a few seconds, and try running the command again.
