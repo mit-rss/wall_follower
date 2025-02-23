@@ -1,12 +1,12 @@
 # Lab 3: Wall-Following on the Racecar
 
-| Deliverable   | Due Date  |
-|-------------------------|------------------------------------|
-| Briefing Slides (due on [github pages](https://github.com/mit-rss/website2022)) | Monday, March 11th at 1:00PM EST |
-| Briefing (8 min presentation + 3 min Q&A)  | Monday, March 11th during Lab Hours  |
-| Report (on [team github pages website](https://github.com/mit-rss/website2022))     | Cancelled    |
-| Pushed code to Git | Monday, March 11th at 11:59PM EST |
-| Team Member Assessment | Wednesday, March 13th at 11:59PM EST |
+| Deliverable                                                                     | Due Date                             |
+|---------------------------------------------------------------------------------|--------------------------------------|
+| Briefing Slides (due on [github pages](https://github.com/mit-rss/website2022)) | Monday, March 10th at 1:00PM EST     |
+| Briefing (8 min presentation + 3 min Q&A)                                       | Monday, March 10th during Lab Hours  |
+| Report (on [team github pages website](https://github.com/mit-rss/website2022)) | Monday, March 10th at 11:59PM EST    |
+| Pushed code to Git                                                | Monday, March 10th at 11:59PM EST    |
+| TA Checkoff + Team Member Assessment                                            | Wednesday, March 12th at 11:59PM EST |
 
 ## Link to Slides
 https://docs.google.com/presentation/d/1PP2RCcQ2XfO_T46vGBOYsNq3_t3xGHAf4YemcNutQBk/edit?usp=sharing
@@ -15,7 +15,7 @@ https://docs.google.com/presentation/d/1PP2RCcQ2XfO_T46vGBOYsNq3_t3xGHAf4YemcNut
 
 It's time to use the actual racecar!
 In this lab you will be improving on the wall following code that you ran in simulation and running it on the car.
-You will also be building a safety controller to prevent your racecar from crashing into obstacles.
+You will also be building a safety controller to prevent your racecar from crashing into obstacles. You will also meet your teammates for the rest of the semester!
 
 ### Racecars
 Your team will be assigned a racecar to take care of during the semester.  These cars are expensive so please coordinate with your team to ensure that someone is always responsible for it and avoid leaving it unattended on campus.
@@ -28,7 +28,7 @@ The hardware we have on board
 [extremely](https://www.spar3d.com/news/lidar/velodyne-cuts-vlp-16-lidar-price-4k/)
 [expensive](https://www.robotshop.com/en/hokuyo-ust-10lx-scanning-laser-rangefinder.html?gclid=Cj0KCQiAq6_UBRCEARIsAHyrgUxYmgjfz734t-zWCqa2U4l7LAVsZ1_cp2CuvuD3WalcBQ9tCp2_WmMaAjbAEALw_wcB),
 and it is your responsibility to keep it in good condition for future classes.
-The racecar can survive a couple light bumps, but if it goes flying into a wall it can be destroyed. The whole frame can split in half, the lidar can get scratched, the TX2 can get damaged, etc. Any one of these repairs can cost hundreds, if not thousands of dollars, in addition to the dozens of hours your lovely TAs put into assembling and testing them.
+The racecar can survive a couple light bumps, but if it goes flying into a wall it can be destroyed. The whole frame can split in half, the lidar can get scratched, the board can get damaged, etc. Any one of these repairs can cost hundreds, if not thousands of dollars, in addition to the dozens of hours your lovely TAs put into assembling and testing them.
 
 If your car develops hardware issues for any reason, please tell the TAs immediately and we will do our best to repair it. Most teams will probably have some sort of hardware issue throughout the course, and it is typically not a big deal.
 However, if you damage the car in an extreme way through obviously reckless behaviour, you may find yourself working on the simulated car for the rest of the course.
@@ -46,11 +46,12 @@ Please have all members of your team read and sign the electrical safety form he
 
 ## Submission and Grading
 
-From now on, for each lab, you will be:
+From now on, for each lab, your tasks may include:
 * publishing a report on your team's github pages website
 * giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team
 * uploading the briefing slides to your github pages website
 * submitting a team member assessment form
+* completing a check off with your team's assigned TA
 
 See the deliverables chart at the top of this page for due dates and times.
 
@@ -58,11 +59,10 @@ If you haven't already done so, follow the instructions for your team's [github 
 
 You can view the rubrics for the [lab report](https://docs.google.com/document/d/1jBNWfzcvyJVGF9dx69imGzOkK_C6LvJl/edit?usp=sharing&ouid=107180908257886983025&rtpof=true&sd=true) and the [briefing](https://docs.google.com/document/d/1dGBsSiT4_HnIwpF9Xghsw_nbOH6Ebm37/edit?usp=sharing&ouid=107180908257886983025&rtpof=true&sd=true) for more details on specific grading criteria. You will receive a grade out of 10 points for each. Your final lab grade will also be out of 10 points, based on the following weights:
 
-| Deliverable Grade | Weight              |
-|---------------|----------------------------------------------------------------------------|
-| briefing grade (out of 10)  | 20% |
-| lab report grade (out of 10) | 70% |
-| laboratory participation + pushed code (out of 10) | 10% |
+| Deliverable Grade | Weight |
+|---------------|--------|
+| briefing grade (out of 10)  | 40%    |
+| lab report grade (out of 10) | 60%    |
 
 
 The capabilities you should demonstrate through your Lab 3 deliverables are:
@@ -71,7 +71,13 @@ The capabilities you should demonstrate through your Lab 3 deliverables are:
 - Log into the physical car, manually drive, and visualize a rosbag of the laser scan.
 - Autonomously drive the racecar with your wall following code.
 
-Please include video, screen shots, etc. in your lab report as evidence of these deliverables. A good report will make **quantitative** and **qualitative** evaluations of your results.
+Please include video, screen shots, etc. in your lab report as evidence of these deliverables. A good report will make **quantitative** and **qualitative** evaluations of your results
+
+### Check off Instructions
+
+Your pushed code and performance on a check off with your team's TA will count toward your **participation grade.**
+
+At any point before the check-off deadline, please find your team's assigned TA (or another TA if they are not available) to complete a check-off. It will consist of a few test cases of your controller (both real-world and simulation are fair game), so make sure your code is ready to deploy, ROS parameters are easy to change, etc. Please  make sure your entire team is present, as we also want to check everyone's **individual** conceptual and technical understanding.
 
 ## Part 0: Team Formation
 Before beginning on the lab, get to know your new team and prepare your team's website and Github organization.  You are going to be working with each other for the rest of the semester, so it will be helpful to know each other :).
