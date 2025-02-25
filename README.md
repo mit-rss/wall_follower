@@ -1,15 +1,22 @@
 # Lab 3: Wall-Following on the Racecar
 
-| Deliverable                                                                     | Due Date                             |
-|---------------------------------------------------------------------------------|--------------------------------------|
-| Briefing Slides (due on [github pages](https://github.com/mit-rss/website2022)) | Monday, March 10th at 1:00PM EST     |
-| Briefing (8 min presentation + 3 min Q&A)                                       | Monday, March 10th during Lab Hours  |
-| Report (on [team github pages website](https://github.com/mit-rss/website2022)) | Monday, March 10th at 11:59PM EST    |
-| Pushed code to Git                                                | Monday, March 10th at 11:59PM EST    |
-| TA Checkoff + Team Member Assessment                                            | Wednesday, March 12th at 11:59PM EST |
+| Deliverable                                                                                      | Due Date                             |
+|--------------------------------------------------------------------------------------------------|--------------------------------------|
+| Briefing Slides (uploaded to yout team's [github pages](https://github.com/mit-rss/website2022)) | Monday, March 10th at 1:00PM EST     |
+| Briefing (8 min presentation + 3 min Q&A)                                                        | Monday, March 10th during Lab Hours  |
+| Report (on [team github pages website](https://github.com/mit-rss/website2022))                  | Monday, March 10th at 11:59PM EST    |
+| Pushed code to Git                                                                               | Monday, March 10th at 11:59PM EST    |
+| TA Checkoff + Team Member Assessment                                                             | Wednesday, March 12th at 11:59PM EST |
 
 ## Link to Slides
 https://docs.google.com/presentation/d/1PP2RCcQ2XfO_T46vGBOYsNq3_t3xGHAf4YemcNutQBk/edit?usp=sharing
+
+## Quick Links
+- [Submission and Grading](#submission-and-grading)
+- [Muxes](#muxes)
+- [Hardware Setup](#using-the-racecar)
+- [Software Setup](#ssh)
+- [Troubleshooting + FAQ](#troubleshooting--faq)
 
 ## Introduction
 
@@ -24,7 +31,7 @@ Your team will be assigned a racecar to take care of during the semester.  These
 
 The racecar platform is exciting and fast, but it is not a toy.
 The hardware we have on board
-[is](https://www.amazon.com/NVIDIA-Jetson-TX2-Development-Kit/dp/B06XPFH939)
+[is](https://www.amazon.com/Waveshare-Jetson-Development-Embedded-Systems/dp/B0C1GFNB13/ref=sr_1_3?crid=1F85WOI96DE36&dib=eyJ2IjoiMSJ9.ts-Dij8a6d4dc4CyEGBqhEsxI5LFDAX1JjHAZXqTmbueaG7Xb-tKZYcmd9dk7bbP7rs51otZhw0cRf84_p7Lp-_pPhq0ZAPWzK-CI7umChTX_56CsXDbM-vnHEYAAvUDV1AF6KZQYYGuSFvmI-fAlTk5NuXzbY-y-qfOyCs-irEIj9c5inGCvFZAZ23cpA3g7D3rq2x9TXCYZz4I-_f64d7ilE1fOwSi_r8p9nHWK-zX_cATt04jKeLeGt1KHMXf7QfBuP63W8IgKdGTJtdb6NljCHVxd9WRcinmDJdIWjay76mddP7jMhQOzjn1os_QAehX25bd3eLzyoShegTxC_KhlJ8cd7edURDdfcFqn1M.1JqWiI6kvD2H_77qFw5qP9lfJ7hMXuJQz_5h8hpBl6g&dib_tag=se&keywords=jetson+orin&qid=1740515045&s=electronics&sprefix=jetson+orin%2Celectronics%2C120&sr=1-3)
 [extremely](https://www.spar3d.com/news/lidar/velodyne-cuts-vlp-16-lidar-price-4k/)
 [expensive](https://www.robotshop.com/en/hokuyo-ust-10lx-scanning-laser-rangefinder.html?gclid=Cj0KCQiAq6_UBRCEARIsAHyrgUxYmgjfz734t-zWCqa2U4l7LAVsZ1_cp2CuvuD3WalcBQ9tCp2_WmMaAjbAEALw_wcB),
 and it is your responsibility to keep it in good condition for future classes.
@@ -38,7 +45,7 @@ However, if you damage the car in an extreme way through obviously reckless beha
 
 The racecar runs on relatively low voltage ([≤ 20V](https://www.amazon.com/Energizer-XP18000-Universal-External-Netbooks/dp/B002K8M9HC)) so we are not too concered about dangerous shocks.
 But as with any electrical system, it is always important to take proper safety precautions.
-For example, ground yourself before touching any of the exposed circuit boards like the TX2.
+For example, ground yourself before touching any of the exposed circuit boards like the jetson.
 
 Please have all members of your team read and sign the electrical safety form here before starting work on the racecar:
 [https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141](https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.4200)
@@ -79,12 +86,23 @@ Your pushed code and performance on a check off with your team's TA will count t
 
 At any point before the check-off deadline, please find your team's assigned TA (or another TA if they are not available) to complete a check-off. It will consist of a few test cases of your controller (both real-world and simulation are fair game), so make sure your code is ready to deploy, ROS parameters are easy to change, etc. Please  make sure your entire team is present, as we also want to check everyone's **individual** conceptual and technical understanding.
 
+## Before You Begin: Docker Upgrades
+We have upgraded the hardware + software on the cars and are now running **ROS2 Humble**! This is an upgrade from the previous version of **ROS2 (Foxy)** that is installed in your docker and which you used for Lab 2. 
+
+To keep simulation and real testing consistent, we are upgrading the student docker to run **ROS2 Humble** as well. Please pull the updated docker:
+
+```bash
+TBD
+```
+
+Unfortunately, while most of your code implementation will transfer perfectly fine, there may be some differences across platforms (e.g. rosparam management). We expect the changes to be minimal but we are available to help if you run into any unexpected issues!
+
 ## Part 0: Team Formation
 Before beginning on the lab, get to know your new team and prepare your team's website and Github organization.  You are going to be working with each other for the rest of the semester, so it will be helpful to know each other :).
 
 Each team will be using a Github website in order to organize and publish their reports and briefings.  Instructions on how to create this site can be found [here](https://github.com/mit-rss/website2022). 
 
-## Part 1: In Simulation
+## Part 1: Simulation + Understanding the Mux
 
 ### Safety Controller
 
@@ -93,18 +111,34 @@ In future labs, the racecar will be moving at high speeds, so we need you to bui
 
 Of course, you are going to build and test it in simulation first :).
 
-Create a new package for your safety controller (place it in ```~/racecar_ws/src```).
+This will be implemented as a new package (place it in ```~/racecar_ws/src```).
 Your goal is to make a node in this package that prevents the racecar from crashing into obstacles.
 
-*The below section on muxes will help you decide which topic your safety controller should publish to once deployed on the racecar.  Make this topic a ROS parameter so that you can easily change it between the simulation and the racecar.*
+*The section on muxes (down below) will help you decide which topic your safety controller should publish to once deployed on the racecar.  Make this topic a ROS parameter so that you can easily change it between the simulation and the racecar.*
 
 On the racecar, we will want you to be able to demonstrate that your safety controller is robust. You should be able to attempt to crash the racecar in a variety of scenarios and have the safety controller prevent the crashes. You should also be able to walk in front of the racecar without it running into you. 
 
 At the same time, your racecar should not be "scared". You should still be able to drive close to walls, turn around corners, go fast etc., without the racecar freezing in its tracks. You will be required to run your safety controller in all future labs, so don't cripple yourself with something overprotective.
 
+### Wall Follower
+
+Last week, each member of your team designed their own version of a wall-following algorithm for the racecar simulator.  However, you only get one racecar! 
+
+Your team will need to work together to combine ideas from multiple team members' implementations of the wall follower to make a single, more robust controller.
+
+*Note: PID controllers are not one-size-fits-all.  You may find that different parameter tunings, controller implementations, and special cases work best for different racecar speeds and racetrack conditions. Expand your wall following algorithm to take this into account by adjusting based on race conditions.*
+
+While developing and iterating on your combined algorithm, consider how you can accurately gauge its performance, especially when comparing two different implementations or parameter tunings.  Include a qualitative **and** quantitative discussion on this and how you settled on your final wall following algorithm in your team's briefing and report. We recommend creating visuals to help support your conclusion!
+
+Questions to help with evaluating your wall follower:
+- How do you know when your wall follower is performing well?
+- What data can you collect to quantitatively evaluate wall-following performance?
+- What race conditions (especially racecar speeds and racecar paths) should you test on to best determine performance?
+- What graphs/visuals can you create to help make evaluation easier?
+
 ### Muxes
 
-The racecar has a command mux with different levels of priority that you will need in building your safety controller.
+Unlike the simulation (in which you just publish to the `/drive` topic), the racecar has a command mux with different levels of priority that you will need in building your controllers.
 
 ![Muxes](https://i.imgur.com/Y8oQCLe.png)
 
@@ -142,26 +176,9 @@ __Note: These topics only exist on the physical racecar, not the simulation.__  
 
 For this section, feel free to just make the scaffold of a speed controller that issues a 0 velocity ```/drive``` AckermannDriveStamped publish to your simulated racecar whenever it reaches a situation that you think it should stop in.  Test your simulated safety controller by launching the racecar simulator and issuing some singular test drive commands that drive the racecar in the direction of an obstacle.  
 
-During Part 2, you will switch this drive topic using ROS parameters to make use of the muxes described above, put your code on the actual racecar, and tune your algorithm to better work in real life situations.  
-
-### Wall Follower
-
-Last week, each member of your team designed their own version of a wall-following algorithm for the racecar simulator.  However, you only get one racecar! 
-
-Your team will need to work together to combine ideas from multiple team members' implementations of the wall follower to make a single, more robust controller.
-
-*Note: PID controllers are not one-size-fits-all.  You may find that different parameter tunings, controller implementations, and special cases work best for different racecar speeds and racetrack conditions. Expand your wall following algorithm to take this into account by adjusting based on race conditions.*
-
-While developing and iterating on your combined algorithm, consider how you can accurately gauge its performance, especially when comparing two different implementations or parameter tunings.  Include a qualitative **and** quantitative discussion on this and how you settled on your final wall following algorithm in your team's briefing and report. We recommend creating visuals to help support your conclusion!
-
-Questions to help with evaluating your wall follower:
-- How do you know when your wall follower is performing well?
-- What data can you collect to quantitatively evaluate wall-following performance?
-- What race conditions (especially racecar speeds and racecar paths) should you test on to best determine performance?
-- What graphs/visuals can you create to help make evaluation easier?
+During Part 2, you will switch this drive topic using ROS parameters to make use of the muxes described above, put your code on the actual racecar, and tune your algorithm to better work in real life situations.
 
 ## Part 2: On The Racecar
-**Note: Your team will be receiving their racecar during lab on **Monday, March 4th**.  Don't worry about this part until then.**
 
 ### Using the Racecar
 #### Connections and Power
@@ -185,14 +202,13 @@ The 5ghz network provides a faster connection but has more limited range.
 Check the battery status on your racecar by pressing the power button on your car's primary battery.
 This may be the black energizer pictured below or the grey [XTPower](https://www.amazon.com/dp/B07JJTYH8F) battery.
 On the hokuyo cars, the battery sits right on top of the car.
-On the velodyne cars, the battery is velcroed under the car (be careful when pulling it out).
+
 When powered on, these batteries will remain on until power stops being drawn from them, so please remember to unplug your power cables when the car is not in use.
 
 ![hokuyo_battery](media/40500597871_792493a139_k.jpg)
-![velodyne_battery](media/39604959195_914cb8f59f_k.jpg)
 
 If your battery is low, charge it with the 18V adapter. 
-Do not charge your battery while it is plugged in to the TX2.   
+Do not charge your battery while it is plugged in to the jetson (board).   
 Please remember to charge your batteries when you are not working on the cars. 
 
 The battery lasts a surprisingly long time; so as long as you keep the battery charged when you are not working, it can last the entire lab. Remember to unplug it before putting your robot away.
@@ -201,27 +217,13 @@ The battery lasts a surprisingly long time; so as long as you keep the battery c
 
 Charge your motor battery by plugging it into the charger that looks like a blue block.
 Hold the start button for 2 seconds to charge - you should hear the battery fans begin to spin.
-This battery won't last as long, especially when you are going fast, so remember to charge it when the car is not moving. The TX2 will not be affected if the motor battery gets unplugged. 
-
-![motor_power](media/39790637494_e1ef9b0292_k.jpg)
-
-Connect the two power cables to the energizer/XTpower battery.
-One powers the lidar and the TX2 (compute board). 
-The other powers the USB hub (which powers the ZED camera and IMU).
-If everything is receiving power, you should see LEDs light up on the TX2 and IMU and you should hear the lidar spinning (listen closely).
-
-![energizer_plugged](media/39604959525_44ff049f74_k.jpg)
-
-Power on the TX2 by pressing the rightmost button on the port side of the car labeled "power".
-The button should light up green.
-
-![TX2](media/40500596601_71f9b0ede8_k.jpg)
+This battery won't last as long, especially when you are going fast, so remember to charge it when the car is not moving. The jetson will not be affected if the motor battery gets unplugged.
 
 #### SSH
 
-When you're connected to the wifi with the TX2 powered on, you can connect directly to the car from your computer.
+When you're connected to the wifi with the jetson powered on, you can connect directly to the car from your computer.
 
-If you're using the docker image, we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` (in your racecar_docker folder) and add the `extra_hosts` field `192.168.1.CAR_NUMBER` within `racecar`. For example, for car number 100 it would look something like:
+If you're using the docker image (on your local machine), we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` (in your racecar_docker folder) and add the `extra_hosts` field `192.168.1.CAR_NUMBER` within `racecar`. For example, for car number 100 it would look something like:
 
     services:
         racecar:
@@ -238,8 +240,6 @@ If you're not using the docker image you can connect with the same password and 
 
     ssh racecar@192.168.1.YOUR_CAR_NUMBER
 
-If you can't connect, make sure you are still on the correct Wi-Fi network. To switch back to a local ROS master, just change the hostname back to `127.0.0.1` and restart the image (down and up).
-
 The car is running Ubuntu, which is very similar to the Debian docker image.
 It should be familiar, but poke around to get comfortable with the structure.
 Just like in the simulator, you will often need multiple terminal windows open in order to launch different ros nodes.
@@ -247,21 +247,18 @@ You can do this through the Docker image GUI, but here are a couple ways to do t
 
 - Open multiple windows on your local machine and ```ssh racecar``` in each one of them. You can even ssh from multiple computers at the same time, but make sure you are communicating with your team members if you do this.
 - Use [tmux](https://github.com/tmux/tmux/wiki) or [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
-- Use ```ssh``` with the ```-X``` flag to enable X11 forwarding. With this flag you can launch graphical programs in the ```ssh``` client and have them displayed on your local machine. For example, you could run ```xterm &``` to get a new terminal window. 
-Consider making bash aliases to make these steps easier.
 
 #### Car Setup Instructions
 - Make sure you've modified the docker-compose.yml file with your car’s IP (see SSH section)
 - SSH into the racecar
-- Start the car's Docker container using the startup script (Use ```cd``` to get back to the home directory if you aren't already there)
-    - ```./run_rostorch.sh```
-    - **You will need to do this step each time you restart your racecar to access its Docker container**
-- Everyone in the group: use scp to pull the src directory from the car to your local machine
-    - You can use this file as a backup later in the semester if one of your changes brings the car to an unrecoverable state
+- Start the car's Docker container using the startup script:
+    - ```spinup``` or ```cd && ./run_rostorch.sh```.
+    - **This should be done exactly once every restart to access the docker container! To connect to the container from a different terminal, use `connect`.**
+    - **We recommend doing ```spinup``` within a `tmux` session, since if this session dies, all of your connected terminals will close.
 - Git clone one of your team member’s wall following code from lab 2 into your local directory ~/racecar_ws/src/[WALL_FOLLOWER_CODE]
-- one person in the group: use scp to push the src directory from your docker to the racecar
+- one person in the group: use `rsync` or `scp` to push from your docker to the racecar
     - Note: Due to Docker permissions, you won't be able to put the files directly into the Docker's racecar_ws folder
-    - Instead, use SCP to put the folder somewhere else on the racecar and use the `sudo mv` command to move the folder into racecar_ws
+    - Instead, send your folder somewhere else on the racecar and use the `sudo mv` command to move the folder into racecar_ws
 - now you have all your code on the racecar! have fun! (continue steps below)
 - everyone in the group: use scp to pull the wall following directory from the racecar to your docker
 
@@ -270,11 +267,11 @@ Consider making bash aliases to make these steps easier.
 
 #### Manual Navigation
 
-When you are ready, plug in your TX2 battery (Energizer or XTPower) and motor battery (Traxxas) in.
+When you are ready, plug in your jetson battery (Energizer or XTPower) and motor battery (Traxxas) in.
 
 ![motor_plugged](media/39604958785_8e8161b88e_k.jpg)
 
-Turn on the TX2, and reconnect to the racecar if necessary.
+Turn on the jetson, and reconnect to the racecar if necessary.
 Place the car on your *brick* so its wheels do not touch the ground and are free to spin.
 Launch ```teleop``` just like in the simulator.
 Note that if you JUST plugged in the motor battery, it takes a few minutes for the VESC to be recognized, so if you run teleop, and get the error "Failed to connect to the VESC", wait a few seconds, and try running the command again.
@@ -282,7 +279,7 @@ Note that if you JUST plugged in the motor battery, it takes a few minutes for t
     teleop
 
 Now you should be able to move the car around with the joystick!
-**You need press and hold the right bumper (RB) before the car can move.**
+**You need press and hold the left bumper (RB) before the car can move.**
 This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) and it is an easy way to stop the car from crashing - just let go of the trigger.
 
 ##### Debugging: The car isn't moving!
@@ -312,6 +309,16 @@ to view the display.
 **Note:** There is only one shared display at the moment, so only one person can control the window at a time. 
 
 Try to see if you can visualize laser scans. To do that, right click in the display and open a terminal session. Then, type `rviz2`. Add a LaserScan message by topic to subscribe to `/scan`, and change the fixed frame to `/laser`. You can change the size of the points in the dropdown if they are hard to see. 
+#### RACECAR directory layout
+
+The RACECAR comes preinstalled with most of the software you will need throughout the course. We highly recommend you keep your own software organized on the car. It's possible your car will need to be reflashed or swapped throughout the course, so it would be good if you could easily restore your code.
+
+```bash
+~/
+  racecar_ws # This is where you should put your ROS modules on the car (alongside the base directory).
+  ros2_ws  # This workspace contains all base code for the car (it makes `teleop` work properly). In general you should not modify this without TA support. 
+
+```
 
 
 #### Cleaning Up
@@ -324,7 +331,7 @@ Before you get too far ahead, remember that when you are done using the racecar,
 
 #### Recording a Rosbag
 
-[rosbag](https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html) will be your invaluable friend this year for compiling lab reports, especially as we move to the final challenge and will have limited time at the Johnson Track, where it will be held.
+[rosbag](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html) will be your invaluable friend this year for compiling lab reports, especially as we move to the final challenge and will have limited time at the Johnson Track, where it will be held.
 
 In [Lab 1C](https://github.com/mit-rss/intro_to_ros), you recorded bagfiles from the racecar simulator and inspected bagfiles recorded from the real racecar. Make sure you are comfortable with recording bagfiles on your racecar, transferring them to your local machine (try `scp`), and playing them back to analyze the data.
 
@@ -342,7 +349,8 @@ __Please be careful when you are testing__. Always have your joystick ready to s
 
 Just as you did for the safety controller, get your team's updated wall following code onto the car. ***Remember to*** ```colcon build``` in the root of your workspace to rebuild it and then ```source ~/racecar_ws/install/setup.bash```.
 
-Before running the ```wall_follower``` change the ```drive_topic``` param to ```/vesc/low_level/input/navigation```. See the [muxes section](https://github.com/mit-rss/wall_follower#muxes) for more details. 
+You will find already on the car a `wall_follower` package that provides a simple example of how to execute driving commands. The node executable is called `example`. You may use this if you wish. See the [muxes section](https://github.com/mit-rss/wall_follower#muxes) for more details on the different topics. 
+
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal, launch
 
     ros2 launch wall_follower wall_follower.launch
@@ -354,23 +362,10 @@ To activate the wall follower, hold down the right bumper on the joystick (dead 
 
 Consider why performance on the robot might differ from performance in the simulator and what techniques you can use to improve your controller in deployment. Your final report on Lab 3 should briefly address these topics and include at least one evaluation metric.
 
-### Some reasons your code from Lab 2 may not be working
+# Troubleshooting + FAQ
 
-- The number of lidar beams is different than in the simulator
-- The field of view is different than in the simulator. 
-- If you have a velodyne car, the lidar is not pointed forwards, it is rotated by 60 degrees.
+We will populate this as the lab progresses!
+* Some reasons your code from Lab 2 may not be working
+  - The number of lidar beams is different than in the simulator
+  - The field of view is different than in the simulator.
 
-
-## RACECAR directory layout
-
-The RACECAR comes preinstalled with most of the software you will need throughout the course. We highly recommend you keep your own software organized on the car. It's possible your car will need to be reflashed or swapped throughout the course, so it would be good if you could easily restore your code.
-
-## ~/
-
-### racecar_ws/src
-
-This is where you should put your ROS modules on the car (alongside the base directory).
-
-### ros2_ws/
-
-This workspace contains all base code for the car (it makes `teleop` work properly). In general you should not modify this without TA support. 
