@@ -43,7 +43,7 @@ However, if you damage the car in an extreme way through obviously reckless beha
 
 ### Electrical Safety
 
-The racecar runs on relatively low voltage ([≤ 20V](https://www.amazon.com/Energizer-XP18000-Universal-External-Netbooks/dp/B002K8M9HC)) so we are not too concered about dangerous shocks.
+The racecar runs on relatively low voltage ([≤ 20V](https://www.amazon.com/Energizer-XP18000-Universal-External-Netbooks/dp/B002K8M9HC)) so we are not too concerned about dangerous shocks.
 But as with any electrical system, it is always important to take proper safety precautions.
 For example, ground yourself before touching any of the exposed circuit boards like the jetson.
 
