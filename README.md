@@ -2,7 +2,7 @@
 
 | Deliverable                                                                                      | Due Date                             |
 |--------------------------------------------------------------------------------------------------|--------------------------------------|
-| Briefing Slides (uploaded to yout team's [github pages](https://github.com/mit-rss/website2022)) | Monday, March 10th at 1:00PM EST     |
+| Briefing Slides (uploaded to your team's [github pages](https://github.com/mit-rss/website2022)) | Monday, March 10th at 1:00PM EST     |
 | Briefing (8 min presentation + 3 min Q&A)                                                        | Monday, March 10th during Lab Hours  |
 | Report (2500 word limit) (on [team github pages](https://github.com/mit-rss/website2022))|       | Monday, March 10th at 11:59PM EST    |
 | Pushed code to Git                                                                               | Monday, March 10th at 11:59PM EST    |
