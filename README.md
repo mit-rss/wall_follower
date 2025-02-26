@@ -54,7 +54,7 @@ Please have all members of your team read and sign the electrical safety form he
 ## Submission and Grading
 
 From now on, for each lab, your tasks may include:
-* publishing a report on your team's github pages website
+* publishing a report ([2500 words or less]) on your team's github pages website
 * giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team
 * uploading the briefing slides to your github pages website
 * submitting a team member assessment form
@@ -78,7 +78,7 @@ The capabilities you should demonstrate through your Lab 3 deliverables are:
 - Log into the physical car, manually drive, and visualize a rosbag of the laser scan.
 - Autonomously drive the racecar with your wall following code.
 
-Please include video, screen shots, etc. in your lab report as evidence of these deliverables. A good report will make **quantitative** and **qualitative** evaluations of your results
+Please include video, screen shots, etc. in your lab report as evidence of these deliverables. A good report will make **quantitative** and **qualitative** evaluations of your results.
 
 ### Check off Instructions
 
@@ -92,7 +92,7 @@ We have upgraded the hardware + software on the cars and are now running **ROS2 
 To keep simulation and real testing consistent, we are upgrading the student docker to run **ROS2 Humble** as well. Please pull the updated docker:
 
 ```bash
-TBD
+docker compose pull
 ```
 
 Unfortunately, while most of your code implementation will transfer perfectly fine, there may be some differences across platforms (e.g. rosparam management). We expect the changes to be minimal but we are available to help if you run into any unexpected issues!
@@ -252,9 +252,9 @@ You can do this through the Docker image GUI, but here are a couple ways to do t
 - Make sure you've modified the docker-compose.yml file with your car’s IP (see SSH section)
 - SSH into the racecar
 - Start the car's Docker container using the startup script:
-    - ```spinup``` or ```cd && ./run_rostorch.sh```.
+    - ```cd && ./run_rostorch.sh```.
     - **This should be done exactly once every restart to access the docker container! To connect to the container from a different terminal, use `connect`.**
-    - **We recommend doing ```spinup``` within a `tmux` session, since if this session dies, all of your connected terminals will close.
+    - **We recommend doing ```./run_rostorch.sh``` within a `tmux` session, since if this session dies, all of your connected terminals will close.
 - Git clone one of your team member’s wall following code from lab 2 into your local directory ~/racecar_ws/src/[WALL_FOLLOWER_CODE]
 - one person in the group: use `rsync` or `scp` to push from your docker to the racecar
     - Note: Due to Docker permissions, you won't be able to put the files directly into the Docker's racecar_ws folder
@@ -287,6 +287,7 @@ This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%
 - Make sure the joystick is connected and in the right mode by running `ros2 topic echo /vesc/joy`. When you press buttons on the joystick, you should see the messages on this topic update.
 - Are you pressing and holding the left bumper on the joystick?
 - Make sure the motor battery is plugged in and charged.
+- Make sure the lidar is turned on and connected.
 
 #### RViz
 
@@ -308,10 +309,10 @@ to view the display.
 
 **Note:** There is only one shared display at the moment, so only one person can control the window at a time. 
 
-Try to see if you can visualize laser scans. To do that, right click in the display and open a terminal session. Then, type `rviz2`. Add a LaserScan message by topic to subscribe to `/scan`, and change the fixed frame to `/laser`. You can change the size of the points in the dropdown if they are hard to see. 
+Try to see if you can visualize laser scans. To do that, open up the terminal by clicking on the left bottom button, selecting `System Tools`, and then selecting the last option, `Xterm`. Then, type `rviz2`. Add a LaserScan message by topic to subscribe to `/scan`, and change the fixed frame to `/laser`. You can change the size of the points in the dropdown if they are hard to see. 
 #### RACECAR directory layout
 
-The RACECAR comes preinstalled with most of the software you will need throughout the course. We highly recommend you keep your own software organized on the car. It's possible your car will need to be reflashed or swapped throughout the course, so it would be good if you could easily restore your code.
+The RACECAR comes preinstalled with most of the software you will need throughout the course. We highly recommend you keep your own software organized on the car. It's possible your car will need to be reflashed or swapped throughout the course, so it would be good if you could easily restore your code. If you want to install packages/`sudo apt-get update`/`sudo apt-get upgrade`, remember that you have to be connected to the internt.
 
 ```bash
 ~/
