@@ -64,7 +64,7 @@ From now on, for each lab, your tasks may include:
 
 See the deliverables chart at the top of this page for due dates and times.
 
-If you haven't already done so, follow the instructions for your team's [github pages website](https://github.com/mit-rss/website2022), which will be hosting your lab reports. As part of this you will need to create an organization for your team on github.com (not MIT's Github enterprise) called rss2024-[TEAM_NUMBER] and make sure all of your code is pushed there by the lab report deadline. At this time, the TAs will pull your team's report from your website. Please ensure that the report is complete and that you have linked to your presentation. Your team organization is also where you should push all of your lab code.
+If you haven't already done so, follow the instructions for your team's [github pages website](https://github.com/mit-rss/website2022), which will be hosting your lab reports. As part of this you will need to create an organization for your team on github.com (not MIT's Github enterprise) called rss2025-[TEAM_NUMBER] and make sure all of your code is pushed there by the lab report deadline. At this time, the TAs will pull your team's report from your website. Please ensure that the report is complete and that you have linked to your presentation. Your team organization is also where you should push all of your lab code.
 
 You can view the rubrics for the [lab report](https://canvas.mit.edu/courses/31106/assignments/393140) and the [briefing](https://canvas.mit.edu/courses/31106/assignments/385210) for more details on specific grading criteria. You will receive a grade out of 10 points for each. Your final lab grade will also be out of 10 points, based on the following weights:
 
