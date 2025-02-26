@@ -51,7 +51,7 @@ For example, ground yourself before touching any of the exposed circuit boards l
 Please have all members of your team read and sign the electrical safety form here before starting work on the racecar:
 [https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141](https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.4200)
 
-Your motor battery is a LiPo battery, which can be dangerous if not treated properly. We will provide storage bags for you to store them safely in between work sessions. See this [video](https://www.youtube.com/watch?v=aZOKLpOn_W4) for an example of a LiPo battery fire.
+The XT computer batteries are LiPO batteries, which can be dangerous if not treated properly. We will provide storage bags for you to store them safely in between work sessions. See this [video](https://www.youtube.com/watch?v=aZOKLpOn_W4) for an example of a LiPo battery fire. And please review [these notes](https://ehs.mit.edu/wp-content/uploads/2019/09/Lithium_Battery_Checklist.pdf) for how to operate them safely.
 
 ## Submission and Grading
 
