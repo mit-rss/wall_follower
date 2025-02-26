@@ -4,7 +4,7 @@
 |--------------------------------------------------------------------------------------------------|--------------------------------------|
 | Briefing Slides (uploaded to yout team's [github pages](https://github.com/mit-rss/website2022)) | Monday, March 10th at 1:00PM EST     |
 | Briefing (8 min presentation + 3 min Q&A)                                                        | Monday, March 10th during Lab Hours  |
-| Report (on [team github pages website](https://github.com/mit-rss/website2022))                  | Monday, March 10th at 11:59PM EST    |
+| Report (2500 word limit) (on [team github pages](https://github.com/mit-rss/website2022))|       | Monday, March 10th at 11:59PM EST    |
 | Pushed code to Git                                                                               | Monday, March 10th at 11:59PM EST    |
 | TA Checkoff + Team Member Assessment                                                             | Wednesday, March 12th at 11:59PM EST |
 
@@ -54,7 +54,7 @@ Please have all members of your team read and sign the electrical safety form he
 ## Submission and Grading
 
 From now on, for each lab, your tasks may include:
-* publishing a report (2500 words or less) on your team's github pages website
+* publishing a report on your team's github pages website
 * giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team
 * uploading the briefing slides to your github pages website
 * submitting a team member assessment form
