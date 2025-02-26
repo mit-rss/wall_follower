@@ -4,7 +4,6 @@
 |--------------------------------------------------------------------------------------------------|--------------------------------------|
 | Briefing Slides (uploaded to your team's [github pages](https://github.com/mit-rss/website2022)) | Monday, March 10th at 1:00PM EST     |
 | Briefing (8 min presentation + 3 min Q&A)                                                        | Monday, March 10th during Lab Hours  |
-|
 | Pushed code to Git                                                                               | Monday, March 10th at 11:59PM EST    |
 | TA Checkoff                                                                                      | Wednesday, March 12th at 11:59PM EST |
 | Report (2500 word limit*) (on [team github pages](https://github.com/mit-rss/website2022)) + [Team Member Assessment](https://forms.gle/1nrN7NqX2WTLV7T28)    | Friday, March 14th at 11:59PM EST    |
