@@ -54,7 +54,7 @@ Please have all members of your team read and sign the electrical safety form he
 ## Submission and Grading
 
 From now on, for each lab, your tasks may include:
-* publishing a report ([2500 words or less]) on your team's github pages website
+* publishing a report (2500 words or less) on your team's github pages website
 * giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team
 * uploading the briefing slides to your github pages website
 * submitting a team member assessment form
@@ -70,7 +70,6 @@ You can view the rubrics for the [lab report](https://docs.google.com/document/d
 |---------------|--------|
 | briefing grade (out of 10)  | 40%    |
 | lab report grade (out of 10) | 60%    |
-
 
 The capabilities you should demonstrate through your Lab 3 deliverables are:
 - Prevent crashes using your safety controller while maintaining flexibility.
