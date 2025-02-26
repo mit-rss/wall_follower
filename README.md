@@ -6,7 +6,7 @@
 | Briefing (8 min presentation + 3 min Q&A)                                                        | Monday, March 10th during Lab Hours  |
 | Report (2500 word limit) (on [team github pages](https://github.com/mit-rss/website2022))        | Monday, March 10th at 11:59PM EST    |
 | Pushed code to Git                                                                               | Monday, March 10th at 11:59PM EST    |
-| TA Checkoff + Team Member Assessment                                                             | Wednesday, March 12th at 11:59PM EST |
+| TA Checkoff + [Team Member Assessment](https://forms.gle/1nrN7NqX2WTLV7T28)                      | Wednesday, March 12th at 11:59PM EST |
 
 ## Link to Slides
 https://docs.google.com/presentation/d/1PP2RCcQ2XfO_T46vGBOYsNq3_t3xGHAf4YemcNutQBk/edit?usp=sharing
@@ -139,7 +139,7 @@ Questions to help with evaluating your wall follower:
 
 Unlike the simulation (in which you just publish to the `/drive` topic), the racecar has a command mux with different levels of priority that you will need in building your controllers.
 
-![Muxes](https://i.imgur.com/Y8oQCLe.png)
+![Muxes](media/mux-2025.png)
 
 The navigation topic you have been publishing to is an alias for the highest priority navigation topic in the mux ([defined here](https://github.mit.edu/2018-RSS/racecar_base_ros_install/blob/vm/racecar/racecar/launch/mux.launch)):
 
