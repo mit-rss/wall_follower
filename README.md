@@ -4,9 +4,10 @@
 |--------------------------------------------------------------------------------------------------|--------------------------------------|
 | Briefing Slides (uploaded to your team's [github pages](https://github.com/mit-rss/website2022)) | Monday, March 10th at 1:00PM EST     |
 | Briefing (8 min presentation + 3 min Q&A)                                                        | Monday, March 10th during Lab Hours  |
-| Report (2500 word limit*) (on [team github pages](https://github.com/mit-rss/website2022))       | Monday, March 10th at 11:59PM EST    |
+|
 | Pushed code to Git                                                                               | Monday, March 10th at 11:59PM EST    |
-| TA Checkoff + [Team Member Assessment](https://forms.gle/1nrN7NqX2WTLV7T28)                      | Wednesday, March 12th at 11:59PM EST |
+| TA Checkoff                                                                                      | Wednesday, March 12th at 11:59PM EST |
+| Report (2500 word limit*) (on [team github pages](https://github.com/mit-rss/website2022)) + [Team Member Assessment](https://forms.gle/1nrN7NqX2WTLV7T28)    | Friday, March 14th at 11:59PM EST    |
 
 ***There will be a 30% penalty applied for exceeding the word limit.**
 
@@ -51,6 +52,7 @@ For example, ground yourself before touching any of the exposed circuit boards l
 Please have all members of your team read and sign the electrical safety form here before starting work on the racecar:
 [https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.141](https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.4200)
 
+Your motor battery is a LiPo battery, which can be dangerous if not treated properly. We will provide storage bags for you to store them safely in between work sessions. See this [video](https://www.youtube.com/watch?v=aZOKLpOn_W4) for an example of a LiPo battery fire.
 
 ## Submission and Grading
 
@@ -99,6 +101,8 @@ Unfortunately, while most of your code implementation will transfer perfectly fi
 
 ## Part 0: Team Formation
 Before beginning on the lab, get to know your new team and prepare your team's website and Github organization.  You are going to be working with each other for the rest of the semester, so it will be helpful to know each other :).
+
+Please find your teams for Spring 2025 [here](https://docs.google.com/spreadsheets/d/1mdiUXepUFhYz6xHkXcs7tgB5JpW2UUqN/edit?gid=667950672#gid=667950672)!
 
 Each team will be using a Github website in order to organize and publish their reports and briefings.  Instructions on how to create this site can be found [here](https://github.com/mit-rss/website2022). 
 
