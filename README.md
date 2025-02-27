@@ -285,12 +285,13 @@ Note that if you JUST plugged in the motor battery, it takes a few minutes for t
     teleop
 
 Now you should be able to move the car around with the joystick!
-**You need press and hold the left bumper (RB) before the car can move.**
+**You need press and hold the left bumper (LB) before the car can move.**
 This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) and it is an easy way to stop the car from crashing - just let go of the trigger.
 
 ##### Debugging: The car isn't moving!
 
 - Make sure the joystick is connected and in the right mode by running `ros2 topic echo /vesc/joy`. When you press buttons on the joystick, you should see the messages on this topic update.
+    - The green light (next to the word mode) on the controller should be off. If it is on, click mode to change the mode back. 
 - Are you pressing and holding the left bumper on the joystick?
 - Make sure the motor battery is plugged in and charged.
 - Make sure the lidar is turned on and connected.
