@@ -361,7 +361,7 @@ You will find already on the car a `wall_follower` package that provides a simpl
 
 Get the car into a safe location and make sure ```teleop``` is running. In another terminal, launch
 
-    ros2 launch wall_follower wall_follower.launch
+    ros2 launch wall_follower wall_follower.launch.xml
     
 Hopefully this will work without any changes! (But it likely won't.)
 To activate the wall follower, hold down the right bumper on the joystick (dead man's switch).
