@@ -284,9 +284,10 @@ Note that if you JUST plugged in the motor battery, it takes a few minutes for t
 
     teleop
 
-Now you should be able to move the car around with the joystick!
-**You need press and hold the left bumper (LB) before the car can move.**
-This is a known as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) and it is an easy way to stop the car from crashing - just let go of the trigger.
+Now you should be able to move the car around with the joystick! To control the car manually with the joystick, **you need to press and hold the left bumper (LB)**.
+
+
+`teleop` also acts as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) and it is an easy way to stop the car from crashing - just let go of the trigger. While running any of your code, you will need to hold down the dead man's switch. **For the dead man's switch, hold down the right bumper (RB)**. Once holding the dead man's switch, your code should run. 
 
 ##### Debugging: The car isn't moving!
 
