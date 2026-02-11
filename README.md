@@ -22,8 +22,8 @@
 ## Introduction
 
 It's time to use the actual racecar!
-In this lab you will be improving on the wall following code that you ran in simulation and running it on the car.
-You will also be building a safety controller to prevent your racecar from crashing into obstacles. You will also meet your teammates for the rest of the semester!
+In this lab you will meet your team for the rest of the semester. You will then be selecting and improving the simulated wall follower code to run on real hardware. Additionally, your team will be required to implement a safety controller to prevent your racecar from crashing into obstacles (e.g chairs, tables, people, etc)
+ 
 
 ### Racecars
 Your team will be assigned a racecar to take care of during the semester.  These cars are expensive so please coordinate with your team to ensure that someone is always responsible for it and avoid leaving it unattended on campus.
@@ -31,20 +31,17 @@ Your team will be assigned a racecar to take care of during the semester.  These
 ### Safety
 
 The racecar platform is exciting and fast, but it is not a toy.
-The hardware we have on board
-[is](https://www.amazon.com/Waveshare-Jetson-Development-Embedded-Systems/dp/B0C1GFNB13/ref=sr_1_3?crid=1F85WOI96DE36&dib=eyJ2IjoiMSJ9.ts-Dij8a6d4dc4CyEGBqhEsxI5LFDAX1JjHAZXqTmbueaG7Xb-tKZYcmd9dk7bbP7rs51otZhw0cRf84_p7Lp-_pPhq0ZAPWzK-CI7umChTX_56CsXDbM-vnHEYAAvUDV1AF6KZQYYGuSFvmI-fAlTk5NuXzbY-y-qfOyCs-irEIj9c5inGCvFZAZ23cpA3g7D3rq2x9TXCYZz4I-_f64d7ilE1fOwSi_r8p9nHWK-zX_cATt04jKeLeGt1KHMXf7QfBuP63W8IgKdGTJtdb6NljCHVxd9WRcinmDJdIWjay76mddP7jMhQOzjn1os_QAehX25bd3eLzyoShegTxC_KhlJ8cd7edURDdfcFqn1M.1JqWiI6kvD2H_77qFw5qP9lfJ7hMXuJQz_5h8hpBl6g&dib_tag=se&keywords=jetson+orin&qid=1740515045&s=electronics&sprefix=jetson+orin%2Celectronics%2C120&sr=1-3)
-[extremely](https://www.spar3d.com/news/lidar/velodyne-cuts-vlp-16-lidar-price-4k/)
-[expensive](https://www.robotshop.com/en/hokuyo-ust-10lx-scanning-laser-rangefinder.html?gclid=Cj0KCQiAq6_UBRCEARIsAHyrgUxYmgjfz734t-zWCqa2U4l7LAVsZ1_cp2CuvuD3WalcBQ9tCp2_WmMaAjbAEALw_wcB),
-and it is your responsibility to keep it in good condition for future classes.
-The racecar can survive a couple light bumps, but if it goes flying into a wall it can be destroyed. The whole frame can split in half, the lidar can get scratched, the board can get damaged, etc. Any one of these repairs can cost hundreds, if not thousands of dollars, in addition to the dozens of hours your lovely TAs put into assembling and testing them.
+The hardware we have on board is extremely expensive, 
+and it is your responsibility to keep it in good condition for future iterations of this class.
+The racecar can survive a couple light bumps, but if it goes at top speed into a wall it can be destroyed. The whole frame can split in half, the lidar can get scratched, the board can get damaged, etc. Any one of these repairs can cost hundreds, if not thousands of dollars, in addition to the dozens of hours your lovely TAs put into assembling and testing them.
 
-If your car develops hardware issues for any reason, please tell the TAs immediately and we will do our best to repair it. Most teams will probably have some sort of hardware issue throughout the course, and it is typically not a big deal.
+If your car develops hardware issues for any reason, please tell the TAs immediately and we will do our best to repair it. We expect there to be at least some small issues throughout the semester, so its typically not a big deal. 
 However, if you damage the car in an extreme way through obviously reckless behaviour, you may find yourself working on the simulated car for the rest of the course.
 
 
 ### Electrical Safety
 
-The racecar runs on relatively low voltage ([≤ 20V](https://www.amazon.com/Energizer-XP18000-Universal-External-Netbooks/dp/B002K8M9HC)) so we are not too concerned about dangerous shocks.
+The racecar components run on relatively low voltages and current draw [≤ 20V] so we are not too concerned about dangerous shocks.
 But as with any electrical system, it is always important to take proper safety precautions.
 For example, ground yourself before touching any of the exposed circuit boards like the jetson.
 
@@ -87,25 +84,15 @@ Your pushed code and performance on a check off with your team's TA will count t
 
 At any point before the check-off deadline, please find your team's assigned TA (or another TA if they are not available) to complete a check-off. It will consist of a few test cases of your controller (both real-world and simulation are fair game), so make sure your code is ready to deploy, ROS parameters are easy to change, etc. Please  make sure your entire team is present, as we also want to check everyone's **individual** conceptual and technical understanding.
 
-## Before You Begin: Docker Upgrades
-We have upgraded the hardware + software on the cars and are now running **ROS2 Humble**! This is an upgrade from the previous version of **ROS2 (Foxy)** that is installed in your docker and which you used for Lab 2. 
 
-To keep simulation and real testing consistent, we are upgrading the student docker to run **ROS2 Humble** as well. Please pull the updated docker:
+## Part 0: Team Huddle (Meeting Your Team + Setting Up Website + Setting Up Communication Methods!
+Before beginning on the lab, get to know your team and prepare your team website and Github organization.  You are going to be working with each other for the rest of the semester, so please take some time to set up proper communication methods between all of you. This will help with keeping everyone on the same page about collaborative work times, practicing presentations, etc. :)
 
-```bash
-docker compose pull
-```
-
-Unfortunately, while most of your code implementation will transfer perfectly fine, there may be some differences across platforms (e.g. rosparam management). We expect the changes to be minimal but we are available to help if you run into any unexpected issues!
-
-## Part 0: Team Formation
-Before beginning on the lab, get to know your new team and prepare your team's website and Github organization.  You are going to be working with each other for the rest of the semester, so it will be helpful to know each other :).
-
-Please find your teams for Spring 2025 [here](https://docs.google.com/spreadsheets/d/1mdiUXepUFhYz6xHkXcs7tgB5JpW2UUqN/edit?gid=667950672#gid=667950672)!
+Please find your teams for Spring 2026 [here]()!
 
 Each team will be using a Github website in order to organize and publish their reports and briefings.  Instructions on how to create this site can be found [here](https://github.com/mit-rss/website2022). 
 
-## Part 1: Simulation + Understanding the Mux
+## Part 1: Simulation
 
 ### Safety Controller
 
@@ -137,7 +124,101 @@ Questions to help with evaluating your wall follower:
 - How do you know when your wall follower is performing well?
 - What data can you collect to quantitatively evaluate wall-following performance?
 - What race conditions (especially racecar speeds and racecar paths) should you test on to best determine performance?
-- What graphs/visuals can you create to help make evaluation easier?
+- What graphs/visuals can you create to help make evaluation easier
+
+
+
+
+## Part 2: Getting Started with the RACECAR Platform!
+
+### What's in your RACECAR bin? (Hardware Visual Guide + Setup)
+
+[Hardware Guide and Setup Reference]()!
+
+
+
+### Connecting To RACECAR
+#### Network Setup
+Now that you have found your RACECAR's number and your router has been plugged in, you are ready to start connecting to the RACECAR.
+
+From your laptop, please connect to one of these two wifi networks. When prompted, you should enter the password ```g0tRACECAR?```
+
+    RACECAR_AP_[YOUR_CAR_NUMBER]
+    RACECAR_AP_[YOUR_CAR_NUMBER]_5GHz
+
+The 5ghz network provides a faster connection but has a more limited range. You can access the racecar without the router being connected to internet.
+
+**NOTE: On the router, plug the ethernet cable into the BLUE slot, NOT the ORANGE. Otherwise, there will be networking issues.**
+
+#### SSHing into RACECAR
+
+If you're using the docker image (on your local machine), we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` (in your racecar_docker folder) and add the `extra_hosts` field `192.168.1.CAR_NUMBER` within `racecar`. For example, for car number 100 it would look something like:
+
+    services:
+        racecar:
+            extra_hosts:
+               racecar: 192.168.1.100
+     
+Then restart the docker image (docker compose down and docker compose up). You should be able to ssh into your racecar by simply typing:
+
+    ssh racecar
+        
+The password is ```racecar@mit```. 
+
+If you're not using the docker image you can connect with the same password and this command:
+
+    ssh racecar@192.168.1.YOUR_CAR_NUMBER
+
+
+
+Now that you are connected, take a few minutes to read through the next part to understand how the software inside the car works. 
+
+
+
+### Exploring the RACECAR Software Stack (Software Guide + Mux Guide + Software Setup)
+
+It should be familiar, but poke around to get comfortable with the structure.
+Just like in the simulator, you will often need multiple terminal windows open in order to launch different ros nodes.
+You can do this through the Docker image GUI, but here are a couple ways to do this through ```ssh``` as well:
+
+- Open multiple windows on your local machine and ```ssh racecar``` in each one of them. You can even ssh from multiple computers at the same time, but make sure you are communicating with your team members if you do this.
+- Use [tmux](https://github.com/tmux/tmux/wiki) or [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
+
+
+[Here]() is a short guide on what you may find on the jetson and docker image that helps to run the car!
+Please pay close attention the section on the Mux as you will need to understand which topic you must send your drive commands to on the real racecar!
+
+#### Car Setup Instructions
+- Make sure you've modified the docker-compose.yml file with your car’s IP (see SSH section)
+- SSH into the racecar
+- Start the car's Docker container using the startup script:
+    - ```cd && ./run_rostorch.sh```.
+    - **This should be done exactly once every restart to access the docker container! To connect to the container from a different terminal, use `connect`.**
+    - **We recommend doing ```./run_rostorch.sh``` within a `tmux` session, since if this session dies, all of your connected terminals will close.
+- Git clone one of your team member’s wall following code from lab 2 into your local directory ~/racecar_ws/src/[WALL_FOLLOWER_CODE]
+- one person in the group: use `rsync` or `scp` to push from your docker to the racecar
+    - Note: Due to Docker permissions, you won't be able to put the files directly into the Docker's racecar_ws folder
+    - Instead, send your folder somewhere else on the racecar and use the `sudo mv` command to move the folder into racecar_ws
+- now you have all your code on the racecar! have fun! (continue steps below)
+- everyone in the group: use scp to pull the wall following directory from the racecar to your docker
+
+
+<img src="https://user-images.githubusercontent.com/66264325/222078631-09e62662-d5c3-43c1-9e8b-54886410ba2a.png" width=50%>
+
+#### RACECAR directory layout
+
+The RACECAR comes preinstalled with most of the software you will need throughout the course. We highly recommend you keep your own software organized on the car. It's possible your car will need to be reflashed or swapped throughout the course, so it would be good if you could easily restore your code. If you want to install packages/`sudo apt-get update`/`sudo apt-get upgrade`, remember that you have to be connected to the internt.
+
+```bash
+~/
+  racecar_ws # This is where you should put your ROS modules on the car (alongside the base directory).
+  ros2_ws  # This workspace contains all base code for the car (it makes `teleop` work properly). In general you should not modify this without TA support. 
+
+```
+
+
+
+
 
 ### Muxes
 
@@ -179,108 +260,21 @@ __Note: These topics only exist on the physical racecar, not the simulation.__  
 
 For this section, feel free to just make the scaffold of a speed controller that issues a 0 velocity ```/drive``` AckermannDriveStamped publish to your simulated racecar whenever it reaches a situation that you think it should stop in.  Test your simulated safety controller by launching the racecar simulator and issuing some singular test drive commands that drive the racecar in the direction of an obstacle.  
 
-During Part 2, you will switch this drive topic using ROS parameters to make use of the muxes described above, put your code on the actual racecar, and tune your algorithm to better work in real life situations.
+During Part 4, you will switch this drive topic using ROS parameters to make use of the muxes described above, put your code on the actual racecar, and tune your algorithm to better work in real life situations.
 
-## Part 2: On The Racecar
-
-### Using the Racecar
-#### Connections and Power
-
-Once you have your car, search for its number. You can find it in two places; on top of the car's lidar and the top of your router. The car's number will be in block letter stickers. If you have an older car or router there might be other numbers written or labeled on it that you can ignore.
-
-![car_number](media/40500596821_e133bedd83_k.jpg)
-
-Plug your router into an outlet in your team's power strip. Make sure you are using the **12V power supply** that says "TP-Link" on it. **Using the other power supply will fry your router**. 
-
-Your router will not be connected to the internet unless you plug in the ethernet into an ethernet port (in the wall/table). 
-
-**NOTE: On the router, plug the ethernet cable into the BLUE slot, NOT the ORANGE. Otherwise, there will be networking issues.**
-
-Then connect to either of these two wifi networks on your laptop using the password ```g0tRACECAR?```:
-
-    RACECAR_AP_[YOUR_CAR_NUMBER]
-    RACECAR_AP_[YOUR_CAR_NUMBER]_5GHZ
-
-The 5ghz network provides a faster connection but has more limited range.
-
-![router](media/39605336515_5d5459a801_k.jpg)
-
-Check the battery status on your racecar by pressing the power button on your car's primary battery.
-This may be the black energizer pictured below or the grey [XTPower](https://www.amazon.com/dp/B07JJTYH8F) battery.
-On the hokuyo cars, the battery sits right on top of the car.
-
-When powered on, these batteries will remain on until power stops being drawn from them, so please remember to unplug your power cables when the car is not in use.
-
-![hokuyo_battery](media/40500597871_792493a139_k.jpg)
-
-If your battery is low, charge it with the 18V adapter. 
-Do not charge your battery while it is plugged in to the jetson (board).   
-Please remember to charge your batteries when you are not working on the cars. 
-
-The battery lasts a surprisingly long time; so as long as you keep the battery charged when you are not working, it can last the entire lab. Remember to unplug it before putting your robot away.
-
-![energizer_power](media/39791091874_4da61acfd2_k.jpg)
-
-Charge your motor battery by plugging it into the charger that looks like a blue block.
-Hold the start button for 2 seconds to charge - you should hear the battery fans begin to spin.
-This battery won't last as long, especially when you are going fast, so remember to charge it when the car is not moving. The jetson will not be affected if the motor battery gets unplugged.
-
-#### SSH
-
-When you're connected to the wifi with the jetson powered on, you can connect directly to the car from your computer.
-
-If you're using the docker image (on your local machine), we've included some infastructure that makes it easier to connect to the car. Open the `docker-compose.yml` (in your racecar_docker folder) and add the `extra_hosts` field `192.168.1.CAR_NUMBER` within `racecar`. For example, for car number 100 it would look something like:
-
-    services:
-        racecar:
-            extra_hosts:
-               racecar: 192.168.1.100
-     
-Then restart the docker image (docker compose down and docker compose up). You should be able to ssh into your racecar by simply typing:
-
-    ssh racecar
-        
-The password is ```racecar@mit```.
-
-If you're not using the docker image you can connect with the same password and this command:
-
-    ssh racecar@192.168.1.YOUR_CAR_NUMBER
-
-The car is running Ubuntu, which is very similar to the Debian docker image.
-It should be familiar, but poke around to get comfortable with the structure.
-Just like in the simulator, you will often need multiple terminal windows open in order to launch different ros nodes.
-You can do this through the Docker image GUI, but here are a couple ways to do this through ```ssh``` as well:
-
-- Open multiple windows on your local machine and ```ssh racecar``` in each one of them. You can even ssh from multiple computers at the same time, but make sure you are communicating with your team members if you do this.
-- Use [tmux](https://github.com/tmux/tmux/wiki) or [screen](https://kb.iu.edu/d/acuy) to open layered windows in terminal and navigate through them with key commands.
-
-#### Car Setup Instructions
-- Make sure you've modified the docker-compose.yml file with your car’s IP (see SSH section)
-- SSH into the racecar
-- Start the car's Docker container using the startup script:
-    - ```cd && ./run_rostorch.sh```.
-    - **This should be done exactly once every restart to access the docker container! To connect to the container from a different terminal, use `connect`.**
-    - **We recommend doing ```./run_rostorch.sh``` within a `tmux` session, since if this session dies, all of your connected terminals will close.
-- Git clone one of your team member’s wall following code from lab 2 into your local directory ~/racecar_ws/src/[WALL_FOLLOWER_CODE]
-- one person in the group: use `rsync` or `scp` to push from your docker to the racecar
-    - Note: Due to Docker permissions, you won't be able to put the files directly into the Docker's racecar_ws folder
-    - Instead, send your folder somewhere else on the racecar and use the `sudo mv` command to move the folder into racecar_ws
-- now you have all your code on the racecar! have fun! (continue steps below)
-- everyone in the group: use scp to pull the wall following directory from the racecar to your docker
-
-![image](https://user-images.githubusercontent.com/66264325/222078631-09e62662-d5c3-43c1-9e8b-54886410ba2a.png)
-
-
+## Part 3: RACECAR's First Lap! Let's get your car moving!
 #### Manual Navigation
 
 When you are ready, plug in your jetson battery (Energizer or XTPower) and motor battery (Traxxas) in.
 
-![motor_plugged](media/39604958785_8e8161b88e_k.jpg)
+<img src="media/39604958785_8e8161b88e_k.jpg" width=50% >
 
-Turn on the jetson, and reconnect to the racecar if necessary.
-Place the car on your *brick* so its wheels do not touch the ground and are free to spin.
-Launch ```teleop``` just like in the simulator.
-Note that if you JUST plugged in the motor battery, it takes a few minutes for the VESC to be recognized, so if you run teleop, and get the error "Failed to connect to the VESC", wait a few seconds, and try running the command again.
+Turn on the jetson and reconnect to the racecar if necessary.
+Place the car on your ```red brick``` so its wheels do not touch the ground and are free to spin.
+
+Launch ```teleop```.
+
+Note that if you JUST plugged in the motor battery, it takes a few seconds for the VESC to be recognized, so if you run teleop, and get the error "Failed to connect to the VESC", wait a few seconds, and try running the command again.
 
     teleop
 
@@ -288,6 +282,12 @@ Now you should be able to move the car around with the joystick! To control the 
 
 
 `teleop` also acts as a [dead man's switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch) and it is an easy way to stop the car from crashing - just let go of the trigger. While running any of your code, you will need to hold down the dead man's switch. **For the dead man's switch, hold down the right bumper (RB)**. Once holding the dead man's switch, your code should run. 
+
+
+#### Autonomous Navigation Intro
+
+
+
 
 ##### Debugging: The car isn't moving!
 
@@ -297,52 +297,20 @@ Now you should be able to move the car around with the joystick! To control the 
 - Make sure the motor battery is plugged in and charged.
 - Make sure the lidar is turned on and connected.
 
-#### RViz
 
-You can connect to RViz by connecting to your car's display. We have set this up for you as a vncserver accessible on port 6081 (your local racecar_docker is on 6080). This is hosted on the car. 
-
-To access this on your local machine, you need to forward port 6081. This can be done by adding the flag:
-
-```
-ssh -L 6081:localhost:6081 racecar@192.168.1.[CAR_NUMBER]
-```
-
-This only needs to be done once on your machine, and can be run either inside or outside of your racecar_docker image. If you notice the connection breaks, check to see whether this session died. 
-
-Then, you can navigate to the link
-
-http://localhost:6081/vnc.html?resize=remote
-
-to view the display. 
-
-**Note:** There is only one shared display at the moment, so only one person can control the window at a time. 
-
-Try to see if you can visualize laser scans. To do that, open up the terminal by clicking on the left bottom button, selecting `System Tools`, and then selecting the last option, `Xterm`. Then, type `rviz2`. Add a LaserScan message by topic to subscribe to `/scan`, and change the fixed frame to `/laser`. You can change the size of the points in the dropdown if they are hard to see. 
-#### RACECAR directory layout
-
-The RACECAR comes preinstalled with most of the software you will need throughout the course. We highly recommend you keep your own software organized on the car. It's possible your car will need to be reflashed or swapped throughout the course, so it would be good if you could easily restore your code. If you want to install packages/`sudo apt-get update`/`sudo apt-get upgrade`, remember that you have to be connected to the internt.
-
-```bash
-~/
-  racecar_ws # This is where you should put your ROS modules on the car (alongside the base directory).
-  ros2_ws  # This workspace contains all base code for the car (it makes `teleop` work properly). In general you should not modify this without TA support. 
-
-```
+## Part 4: IRL Safety Controller and Wall Following (The Technical Assignment)
 
 
-#### Cleaning Up
+#### Cleaning Up Procedure 
 
 Before you get too far ahead, remember that when you are done using the racecar, you **must unplug all power cables**. This includes 2 cables that connect to the energizer battery and the motor battery. Not doing this can destroy the batteries and the servo.
 
-![motor_unplugged](media/39604958985_bd32f3ea16_k.jpg)
-![energizer_unplugged](media/39791091494_1fee2d09a0_k.jpg)
+
+<img src="media/39604958985_bd32f3ea16_k.jpg" alt="motor_unplugged" width=47% >
+<img src="media/39791091494_1fee2d09a0_k.jpg" alt="xtpower_unplugged"width=47% >
 
 
-#### Recording a Rosbag
 
-[rosbag](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html) will be your invaluable friend this year for compiling lab reports, especially as we move to the final challenge and will have limited time at the Johnson Track, where it will be held.
-
-In [Lab 1C](https://github.com/mit-rss/intro_to_ros), you recorded bagfiles from the racecar simulator and inspected bagfiles recorded from the real racecar. Make sure you are comfortable with recording bagfiles on your racecar, transferring them to your local machine (try `scp`), and playing them back to analyze the data.
 
 ### Safety Controller
 
@@ -371,10 +339,50 @@ To activate the wall follower, hold down the right bumper on the joystick (dead 
 
 Consider why performance on the robot might differ from performance in the simulator and what techniques you can use to improve your controller in deployment. Your final report on Lab 3 should briefly address these topics and include at least one evaluation metric.
 
+
+
+
+
+
+
+## Data Visualization, Recording, and Analysis 
+#### RViz
+
+You can connect to RViz by connecting to your car's display. We have set this up for you as a vncserver accessible on port 6081 (your local racecar_docker is on 6080). This is hosted on the car. 
+
+To access this on your local machine, you need to forward port 6081. This can be done by adding the flag:
+
+```
+ssh -L 6081:localhost:6081 racecar@192.168.1.[CAR_NUMBER]
+```
+
+This only needs to be done once on your machine, and can be run either inside or outside of your racecar_docker image. If you notice the connection breaks, check to see whether this session died. 
+
+Then, you can navigate to the link
+
+http://localhost:6081/vnc.html?resize=remote
+
+to view the display. 
+
+**Note:** There is only one shared display at the moment, so only one person can control the window at a time. 
+
+Try to see if you can visualize laser scans. To do that, open up the terminal by clicking on the left bottom button, selecting `System Tools`, and then selecting the last option, `Xterm`. Then, type `rviz2`. Add a LaserScan message by topic to subscribe to `/scan`, and change the fixed frame to `/laser`. You can change the size of the points in the dropdown if they are hard to see. 
+
+
+#### Recording a Rosbag
+
+[rosbag](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html) will be your invaluable friend this year for compiling lab reports, especially as we move to the final challenge and will have limited time at the Johnson Track, where it will be held.
+
+In [Lab 1C](https://github.com/mit-rss/intro_to_ros), you recorded bagfiles from the racecar simulator and inspected bagfiles recorded from the real racecar. Make sure you are comfortable with recording bagfiles on your racecar, transferring them to your local machine (try `scp`), and playing them back to analyze the data.
+
+
+
 # Troubleshooting + FAQ
 
 We will populate this as the lab progresses!
 * Some reasons your code from Lab 2 may not be working
   - The number of lidar beams is different than in the simulator
   - The field of view is different than in the simulator.
+
+
 
