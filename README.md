@@ -22,7 +22,7 @@
 ## Introduction
 
 It's time to use the actual racecar!
-In this lab you will meet your team for the rest of the semester. You will then be selecting and improving the simulated wall follower code to run on real hardware. Additionally, your team will be required to implement a safety controller to prevent your racecar from crashing into obstacles (e.g chairs, tables, people, etc)
+In this lab you will meet your team for the rest of the semester. You will then be selecting and improving the simulated wall follower code to run on real hardware. Additionally, your team will be required to implement a safety controller to prevent your racecar from crashing into obstacles (e.g chairs, tables, people, etc). You will also be working on your ability to write high quality tests, and also data visualization and analysis skills. 
  
 
 ### Racecars
