@@ -2,22 +2,16 @@
 
 | Deliverable                                                                                      | Due Date                             |
 |--------------------------------------------------------------------------------------------------|--------------------------------------|
-| Briefing Slides (uploaded to your team's [github pages](https://github.com/mit-rss/website2022)) | Monday, March 10th at 1:00PM EST     |
-| Briefing (8 min presentation + 3 min Q&A)                                                        | Monday, March 10th during Lab Hours  |
-| Pushed code to Git                                                                               | Monday, March 10th at 11:59PM EST    |
-| TA Checkoff                                                                                      | Wednesday, March 12th at 11:59PM EST |
-| Report (2500 word limit*) (on [team github pages](https://github.com/mit-rss/website2022)) + [Team Member Assessment](https://forms.gle/1nrN7NqX2WTLV7T28)    | Friday, March 14th at 11:59PM EST    |
+| Briefing Slides (uploaded to your team's [github pages](https://github.com/mit-rss/website2022)) | Monday, March 9th at 1:00PM EST     |
+| Briefing (8 min presentation + 3 min Q&A)                                                        | Monday, March 9th during Lab Hours  |
+| Pushed code to Git                                                                               | Monday, March 9th at 11:59PM EST    |
+| TA Checkoff                                                                                      | Wednesday, March 11th at 11:59PM EST |
+| Report (2500 word limit*) (on [team github pages](https://github.com/mit-rss/website2022)) + [Team Member Assessment](https://forms.gle/1nrN7NqX2WTLV7T28)    | Friday, March 13th at 11:59PM EST    |
 
 ***There will be a 30% penalty applied for exceeding the word limit.**
 
-## [Link to Slides](https://docs.google.com/presentation/d/1aqZZFYzDALwZ8ZjYHXSnnIJKFKEttZsr/edit#slide=id.p8)
+## [Link to Slides](https://docs.google.com/presentation/d/1o9NIhjz9uiQ_X3LOo1nZf5e4xVVZMneH/edit?usp=sharing&ouid=112086719836319102493&rtpof=true&sd=true)
 
-## Quick Links
-- [Submission and Grading](#submission-and-grading)
-- [Muxes](#muxes)
-- [Hardware Setup](#using-the-racecar)
-- [Software Setup](#ssh)
-- [Troubleshooting + FAQ](#troubleshooting--faq)
 
 ## Introduction
 
