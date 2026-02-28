@@ -80,6 +80,44 @@ class SafetyController(Node):
 
         return subset_calculator
     
+    def polar_to_cartesian(self, polar_coords):
+        """
+        Returns a 2D array representing the polar form of a given array of cartesian points
+
+        Parameters:
+            - polar_coords: a 2D array of polar coordinates (r, theta)
+                - examples:
+                    - [(1, pi/4)]
+                    - [(2, pi/3), (1, 0)]
+        """
+        return np.array([[r * np.cos(theta), r*np.sin(theta), 0.0, 1.0] for r,theta in polar_coords])
+    
+    def cartesian_to_polar(self, cart_coords):
+        """
+        Returns a 2D array representing the cartesian form of a given array of polar points
+
+        Parameters:
+            - cart_coords: a 2D array of cartesian coordinates (x, y)
+                - examples:
+                    - [(3, 5)]
+                    - [(2, 8), (1, 2)]
+        """
+        return np.array([[np.sqrt(x**2 + y**2), np.arctan2(y/x)] for x,y in cart_coords])
+
+    def points_dist_from_line(self, m, b, points):
+        """
+        Returns a 2D array representing the distance of a given array of points to a line
+
+        Parameters:
+            - m: slope of the line
+            - b: y-intercept of the line
+            - points: a 2D array of cartesian points 
+                - examples: 
+                    - [(2,2)]
+                    - [(1,3), (4,2)]
+
+        """
+        return np.array([[abs(m * x - y + b) / np.sqrt(m**2 + 1**2)] for x,y in points])
         
     # TODO: Write your callback functions here
     def drive_callback(self, drive_msg):
