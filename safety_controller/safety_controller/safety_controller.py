@@ -151,7 +151,7 @@ class SafetyController(Node):
             - np array: 2d vector (x, y) of the end point of the projected line
         """
         projected_distance = self.SAFETY_CONTROLLER_CONST * velocity + self.SAFETY_RADIUS
-        return np.array([0, projected_distance])
+        return np.array([projected_distance, 0]) # x direction is forward
 
     # TODO: Write your callback functions here
 
