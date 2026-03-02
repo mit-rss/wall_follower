@@ -13,12 +13,14 @@ class SafetyController(Node):
         self.declare_parameter("scan_topic", "/scan")
         self.declare_parameter("drive_topic", "/drive")
         self.declare_parameter("safety_radius", 0.5)
+        self.declare_parameter("safety_controller_const", 0.1)
 
         # Fetch constants from the ROS parameter server
         # DO NOT MODIFY THIS! This is necessary for the tests to be able to test varying parameters!
         self.SCAN_TOPIC = self.get_parameter('scan_topic').get_parameter_value().string_value
         self.DRIVE_TOPIC = self.get_parameter('drive_topic').get_parameter_value().string_value
-
+        self.SAFETY_RADIUS = self.get_parameter('safety_radius').get_parameter_value().float_value
+        self.SAFETY_CONTROLLER_CONST = self.get_parameter('safety_controller_const').get_parameter_value().float_value
         ### Subscribers ###
         self.lidar_subscriber = self.create_subscription(
             LaserScan,
