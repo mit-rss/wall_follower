@@ -68,7 +68,7 @@ class SafetyController(Node):
         """
         def subset_calculator(angle_range = [lidar_angle_min, lidar_angle_max], distance_range = [0, float("inf")]):
             """
-            Returns the polar coordinates of the lidar points within a given range of angles
+            Returns the cartesian coordinates of the lidar points within a given range of angles
             and a given distance range.
 
             Args:
@@ -98,7 +98,9 @@ class SafetyController(Node):
             distance_mask = distance_min >= polar_coords[:,0] & polar_coords[:,0] <= distance_max
             polar_coords = polar_coords[distance_mask]
 
-            return polar_coords
+            cartesian_coords = self.polar_to_cartesian(polar_coords)
+
+            return cartesian_coords
 
         return subset_calculator
 
@@ -170,16 +172,18 @@ class SafetyController(Node):
             lidar_msg.ranges
         )
 
-        polar_coords = lidar_subset_calc(
-            angle_range = [-np.pi/4, np.pi/4],
-        )
-
         velocity = self.drive_msg.speed
         distance = velocity
-        mask = np.array([-0.5 <= item[0] <= 0.5 and item[1] <= distance for item in polar_coords])
-        filtered_polar = polar_coords[mask]
 
-        if filtered_polar:
+        cartesian_coords = lidar_subset_calc(
+            angle_range = [-np.pi/4, np.pi/4],
+            distance_range = [0, distance]
+        )
+       
+        mask = [-0.5 <= x <= 0.5 for x, y in cartesian_coords]
+        filtered_cartesian = cartesian_coords[mask]
+
+        if filtered_cartesian:
             new_msg = AckermannDriveStamped()
             drive_command = new_msg.drive
             drive_command.speed = 0.0
