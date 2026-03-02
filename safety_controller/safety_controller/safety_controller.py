@@ -12,13 +12,12 @@ class SafetyController(Node):
         # DO NOT MODIFY THIS!
         self.declare_parameter("scan_topic", "/scan")
         self.declare_parameter("drive_topic", "/drive")
-        self.declare_parameter("safety_controller_const", 0.1)
+        self.declare_parameter("safety_radius", 0.5)
 
         # Fetch constants from the ROS parameter server
         # DO NOT MODIFY THIS! This is necessary for the tests to be able to test varying parameters!
         self.SCAN_TOPIC = self.get_parameter('scan_topic').get_parameter_value().string_value
         self.DRIVE_TOPIC = self.get_parameter('drive_topic').get_parameter_value().string_value
-        self.SAFETY_CONTROLLER_CONST = self.get_parameter('safety_controller_const').get_parameter_value().value
 
         ### Subscribers ###
         self.lidar_subscriber = self.create_subscription(
@@ -62,17 +61,17 @@ class SafetyController(Node):
             lidar_angle_min (float): The minimum angle supported by the lidar
             lidar_angle_max (float): The maximum angle supported by the lidar
             lidar_angle_increment (float): The size of the increments in the range [lidar_angle_min, lidar_angle_max]
-            lidar_ranges (1D Array): The original lidar data: a 1D array indexed by angle with values corresponding to the distance of the point
+            lidar_ranges (1D Array): The original lidar data, an indexed by angle with values corresponding to the distance of the point
             from the lidar
         """
         def subset_calculator(angle_range = [lidar_angle_min, lidar_angle_max], distance_range = [0, float("inf")]):
             """
             Returns the polar coordinates of the lidar points within a given range of angles
+            and a given distance range.
 
-            Parameters:
-                - angle_range: The given range of angles
-                - distance_range: The given range of distance
-
+            Args:
+                angle_range (1D Array): The given range of angles
+                distance_range (1D Array): The given range of distance
             """
             angle_min, angle_max = angle_range
             distance_min, distance_max = distance_range
@@ -103,10 +102,10 @@ class SafetyController(Node):
 
     def polar_to_cartesian(self, polar_coords):
         """
-        Returns a 2D array representing the polar form of a given array of cartesian points
+        Returns a 2D array representing the polar form of a given array of cartesian points.
 
-        Parameters:
-            - polar_coords: a 2D array of polar coordinates (r, theta)
+        Args:
+            polar_coords (2D Array): an array of polar coordinates (r, theta)
                 - examples:
                     - [(1, pi/4)]
                     - [(2, pi/3), (1, 0)]
@@ -115,10 +114,10 @@ class SafetyController(Node):
 
     def cartesian_to_polar(self, cart_coords):
         """
-        Returns a 2D array representing the cartesian form of a given array of polar points
+        Returns a 2D array representing the cartesian form of a given array of polar points.
 
-        Parameters:
-            - cart_coords: a 2D array of cartesian coordinates (x, y)
+        Args:
+            cart_coords (2D Array): an array of cartesian coordinates (x, y)
                 - examples:
                     - [(3, 5)]
                     - [(2, 8), (1, 2)]
@@ -129,14 +128,13 @@ class SafetyController(Node):
         """
         Returns a 2D array representing the distance of a given array of points to a line
 
-        Parameters:
-            - m: slope of the line
-            - b: y-intercept of the line
-            - points: a 2D array of cartesian points
+        Args:
+            m (float): slope of the line
+            b (float): y-intercept of the line
+            points (2D Array): an array of cartesian points
                 - examples:
                     - [(2,2)]
                     - [(1,3), (4,2)]
-
         """
         return np.array([[abs(m * x - y + b) / np.sqrt(m**2 + 1**2)] for x,y in points])
 
@@ -154,7 +152,14 @@ class SafetyController(Node):
         return np.array([0, projected_distance])
 
     # TODO: Write your callback functions here
+
     def drive_callback(self, drive_msg):
+        """
+        Docstring for drive_callback
+
+        :param self: Description
+        :param drive_msg: Description
+        """
         lidar_msg = self.lidar_msg
         lidar_subset_calc = self.get_lidar_subset_calculator(
             lidar_msg.angle_min,
@@ -162,13 +167,25 @@ class SafetyController(Node):
             lidar_msg.angle_increment,
             lidar_msg.ranges
         )
+
         polar_coords = lidar_subset_calc(
             angle_range = [-np.pi/4, np.pi/4],
         )
 
         velocity = self.drive_msg.speed
-        m,b = self.line_projection(velocity)
-        self.points_dist_from_line(self, m, b, polar_coords)
+        distance = velocity
+        mask = np.array([-0.5 <= item[0] <= 0.5 and item[1] <= distance for item in polar_coords])
+        filtered_polar = polar_coords[mask]
+
+        if filtered_polar:
+            new_msg = AckermannDriveStamped()
+            drive_command = new_msg.drive
+            drive_command.speed = 0.0
+            drive_command.acceleration = 0.0
+
+            drive_command.jerk = 0.0
+
+            self.stop_publisher.publish(new_msg)
 
     def lidar_callback(self, lidar_msg):
         self.lidar_msg = lidar_msg
@@ -186,18 +203,23 @@ class SafetyController(Node):
 
         minimum_dist = np.min(polar_coords[:, 0])
         if minimum_dist < 0.3:
-            # https://docs.ros.org/en/jade/api/ackermann_msgs/html/msg/AckermannDriveStamped.html
-            new_msg = AckermannDriveStamped()
+            self.publish_stop()
 
-            # https://docs.ros.org/en/jade/api/ackermann_msgs/html/msg/AckermannDrive.html
-            drive_command = new_msg.drive
-            drive_command.speed = 0.0
-            drive_command.acceleration = 0.0
-            # jerk indicates a desired absolute rate of acceleration change in either direction (increasing or decreasing).
-            drive_command.jerk = 0.0
+    def publish_stop(self):
+        """
+        Publishes a command for the car to stop
+        """
+        # https://docs.ros.org/en/jade/api/ackermann_msgs/html/msg/AckermannDriveStamped.html
+        new_msg = AckermannDriveStamped()
 
-            self.stop_publisher.publish(new_msg)
+        # https://docs.ros.org/en/jade/api/ackermann_msgs/html/msg/AckermannDrive.html
+        drive_command = new_msg.drive
+        drive_command.speed = 0.0
+        drive_command.acceleration = 0.0
+        # jerk indicates a desired absolute rate of acceleration change in either direction (increasing or decreasing).
+        drive_command.jerk = 0.0
 
+        self.stop_publisher.publish(new_msg)
 
 def main():
     rclpy.init()
