@@ -22,8 +22,8 @@ class SafetyController(Node):
         self.SCAN_TOPIC = self.get_parameter('scan_topic').get_parameter_value().string_value
         self.DRIVE_TOPIC_LISTEN = self.get_parameter('drive_topic_listen').get_parameter_value().string_value
         self.DRIVE_TOPIC_PUBLISH = self.get_parameter('drive_topic_publish').get_parameter_value().string_value
-        self.SAFETY_RADIUS = self.get_parameter('safety_radius').get_parameter_value().float_value
-        self.SAFETY_CONTROLLER_CONST = self.get_parameter('safety_controller_const').get_parameter_value().float_value
+        self.SAFETY_RADIUS = self.get_parameter('safety_radius').get_parameter_value().value
+        self.SAFETY_CONTROLLER_CONST = self.get_parameter('safety_controller_const').get_parameter_value().value
         self.LOGGER_TOPIC = self.get_parameter('logger_topic').get_parameter_value().string_value
         ### Subscribers ###
         self.lidar_subscriber = self.create_subscription(
