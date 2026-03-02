@@ -90,7 +90,7 @@ class SafetyController(Node):
             polar_coords = np.stack((lidar_ranges[range_low_index:range_high_index+1], corresponding_angles), axis=-1)
 
             # Distance Subset
-            distance_mask = distance_min <= polar_coords[:,0] & polar_coords[:,0] <= distance_mask
+            distance_mask = distance_min >= polar_coords[:,0] & polar_coords[:,0] <= distance_max
             polar_coords = polar_coords[distance_mask]
 
             return polar_coords
