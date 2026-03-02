@@ -184,15 +184,17 @@ class SafetyController(Node):
         )
 
         velocity = self.drive_msg.speed
-        distance = velocity
+        line = self.line_projection(velocity)
 
         cartesian_coords = lidar_subset_calc(
-            angle_range = [-np.pi/4, np.pi/4],
-            distance_range = [0, distance]
+            angle_range = [-np.pi/4, np.pi/4]
+            distance_range= [0,np.linalg.norm(line)]
         )
 
-        mask = [-0.5 <= x <= 0.5 for x, y in cartesian_coords]
-        filtered_cartesian = cartesian_coords[mask]
+        distances = self.calculate_deltas(cartesian_coords, line)
+
+        mask = abs(distances) < self.SAFETY_RADIUS
+        filtered_cartesian = distances[mask]
 
         if filtered_cartesian:
             new_msg = AckermannDriveStamped()
