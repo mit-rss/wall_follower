@@ -187,6 +187,7 @@ class SafetyController(Node):
         :param drive_msg: AckermanDriveStamped msg from other controllers
         """
         lidar_msg = self.lidar_msg
+        self.get_logger().info(f'{len(lidar_msg.ranges)}')
         if lidar_msg is None: return
         # function to filter our laser data
         lidar_subset_calc = self.get_lidar_subset_calculator(
@@ -210,7 +211,7 @@ class SafetyController(Node):
         deltas = self.calculate_deltas(cartesian_coords, line)
         mask = abs(deltas) < self.SAFETY_RADIUS
         filtered_cartesian = deltas[mask]
-
+        self.get_logger().info(f'Deltas: {filtered_cartesian}')
         if len(filtered_cartesian) > 0:
             self.publish_stop()
 
