@@ -191,6 +191,9 @@ class SafetyController(Node):
             distance_range= [0,np.linalg.norm(line)]
         )
 
+        mask = [-0.5 <= x <= 0.5 for x, y in cartesian_coords]
+        filtered_cartesian = cartesian_coords[mask]
+
         distances = self.calculate_deltas(cartesian_coords, line)
 
         mask = abs(distances) < self.SAFETY_RADIUS
