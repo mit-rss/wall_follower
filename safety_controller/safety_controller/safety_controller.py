@@ -188,8 +188,8 @@ class SafetyController(Node):
         :param drive_msg: AckermanDriveStamped msg from other controllers
         """
         lidar_msg = self.lidar_msg
-        self.get_logger().info(f'{len(lidar_msg.ranges)}')
         if lidar_msg is None: return
+        self.get_logger().info(f'{len(lidar_msg.ranges)}')
         # function to filter our laser data
         lidar_subset_calc = self.get_lidar_subset_calculator(
             lidar_msg.angle_min,
