@@ -60,17 +60,17 @@ class SafetyController(Node):
             lidar_angle_min (float): The minimum angle supported by the lidar
             lidar_angle_max (float): The maximum angle supported by the lidar
             lidar_angle_increment (float): The size of the increments in the range [lidar_angle_min, lidar_angle_max]
-            lidar_ranges (1D Array): The original lidar data: a 1D array indexed by angle with values corresponding to the distance of the point
+            lidar_ranges (1D Array): The original lidar data, an indexed by angle with values corresponding to the distance of the point
             from the lidar
         """
         def subset_calculator(angle_range = [lidar_angle_min, lidar_angle_max], distance_range = [0, float("inf")]):
             """
             Returns the polar coordinates of the lidar points within a given range of angles
-
-            Parameters:
-                - angle_range: The given range of angles
-                - distance_range: The given range of distance
-
+            and a given distance range.
+            
+            Args:
+                angle_range (1D Array): The given range of angles
+                distance_range (1D Array): The given range of distance
             """
             angle_min, angle_max = angle_range
             distance_min, distance_max = distance_range
@@ -101,10 +101,10 @@ class SafetyController(Node):
 
     def polar_to_cartesian(self, polar_coords):
         """
-        Returns a 2D array representing the polar form of a given array of cartesian points
+        Returns a 2D array representing the polar form of a given array of cartesian points.
 
-        Parameters:
-            - polar_coords: a 2D array of polar coordinates (r, theta)
+        Args:
+            polar_coords (2D Array): an array of polar coordinates (r, theta)
                 - examples:
                     - [(1, pi/4)]
                     - [(2, pi/3), (1, 0)]
@@ -113,10 +113,10 @@ class SafetyController(Node):
 
     def cartesian_to_polar(self, cart_coords):
         """
-        Returns a 2D array representing the cartesian form of a given array of polar points
+        Returns a 2D array representing the cartesian form of a given array of polar points.
 
-        Parameters:
-            - cart_coords: a 2D array of cartesian coordinates (x, y)
+        Args:
+            cart_coords (2D Array): an array of cartesian coordinates (x, y)
                 - examples:
                     - [(3, 5)]
                     - [(2, 8), (1, 2)]
@@ -127,14 +127,13 @@ class SafetyController(Node):
         """
         Returns a 2D array representing the distance of a given array of points to a line
 
-        Parameters:
-            - m: slope of the line
-            - b: y-intercept of the line
-            - points: a 2D array of cartesian points
-                - examples:
+        Args:
+            m (float): slope of the line
+            b (float): y-intercept of the line
+            points (2D Array): an array of cartesian points 
+                - examples: 
                     - [(2,2)]
                     - [(1,3), (4,2)]
-
         """
         return np.array([[abs(m * x - y + b) / np.sqrt(m**2 + 1**2)] for x,y in points])
 
