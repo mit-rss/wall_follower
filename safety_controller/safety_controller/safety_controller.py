@@ -173,6 +173,7 @@ class SafetyController(Node):
         :param coords (list(tuple(float, float))): cartesian coords wrt to base_link of the scan
         :param line: vector to the projected location of base_link
         """
+        self.get_logger().info(f'calculate_deltas input: {len(coords)}')
         deltas = [ (np.abs(np.cross(line, np.array([x,y])))) / (np.linalg.norm(line)) for x, y in coords]
         # np.dot(coords, line/np.linalg.norm(line)) -- gives the projection
         return np.array(deltas)
@@ -209,6 +210,7 @@ class SafetyController(Node):
 
         # if any delta within the car safety radius, terminate the drive command
         deltas = self.calculate_deltas(cartesian_coords, line)
+        self.get_logger().info(f'pre-masked deltas: {len(deltas)}')
         mask = abs(deltas) < self.SAFETY_RADIUS
         filtered_cartesian = deltas[mask]
         self.get_logger().info(f'Deltas: {filtered_cartesian}')
