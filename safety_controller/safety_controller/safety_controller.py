@@ -12,11 +12,13 @@ class SafetyController(Node):
         # DO NOT MODIFY THIS!
         self.declare_parameter("scan_topic", "/scan")
         self.declare_parameter("drive_topic", "/drive")
+        self.declare_parameter("safety_controller_const", 0.1)
 
         # Fetch constants from the ROS parameter server
         # DO NOT MODIFY THIS! This is necessary for the tests to be able to test varying parameters!
         self.SCAN_TOPIC = self.get_parameter('scan_topic').get_parameter_value().string_value
         self.DRIVE_TOPIC = self.get_parameter('drive_topic').get_parameter_value().string_value
+        self.SAFETY_CONTROLLER_CONST = self.get_parameter('safety_controller_const').get_parameter_value().value
 
         ### Subscribers ###
         self.lidar_subscriber = self.create_subscription(
@@ -140,16 +142,16 @@ class SafetyController(Node):
 
     def line_projection(self, velocity):
         """
-        Returns parameters m (slope of the car) and b (y-intercept) with the car's position
-        as the origin.
+        Returns the vector representing the projected location of base_link with respect to base_link.
 
         Parameters:
             - velocity (float): the current velocity of the drive command
 
         Output:
-            - (m,b) (tuple): the projected line's slope and y-intercept
+            - np array: 2d vector (x, y) of the end point of the projected line
         """
-        pass
+        projected_distance = self.SAFETY_CONTROLLER_CONST * velocity + self.SAFETY_RADIUS
+        return np.array([0, projected_distance])
 
     # TODO: Write your callback functions here
     def drive_callback(self, drive_msg):
