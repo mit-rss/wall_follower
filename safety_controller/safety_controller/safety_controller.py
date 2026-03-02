@@ -54,23 +54,26 @@ class SafetyController(Node):
         Returns a function tuned to the lidar's base parameters (lidar_angle_min, lidar_angle_max, and lidar_angle_increment)
         that returns points within an angle range.
 
-        Parameters:
-            - lidar_angle_min: The minimum angle supported by the lidar
-            - lidar_angle_max: The maximum angle supported by the lidar
-            - lidar_angle_increment: The size of the increments in the range [lidar_angle_min, lidar_angle_max]
-            - lidar_ranges: The original lidar data: a 1D array indexed by angle with values corresponding to the distance of the point
+        Args:
+            lidar_angle_min (float): The minimum angle supported by the lidar
+            lidar_angle_max (float): The maximum angle supported by the lidar
+            lidar_angle_increment (float): The size of the increments in the range [lidar_angle_min, lidar_angle_max]
+            lidar_ranges (1D Array): The original lidar data: a 1D array indexed by angle with values corresponding to the distance of the point
             from the lidar
         """
-        def subset_calculator(angle_range = [lidar_angle_min, lidar_angle_max]):
+        def subset_calculator(angle_range = [lidar_angle_min, lidar_angle_max], distance_range = [0, float("inf")]):
             """
             Returns the polar coordinates of the lidar points within a given range of angles
             
             Parameters:
-                - angle_min: The minimum of the angle range
-                - angle_max: The maximum of the angle range
+                - angle_range: The given range of angles
+                - distance_range: The given range of distance
 
             """
-            angle_min, angle_max = angle_range             
+            angle_min, angle_max = angle_range 
+            distance_min, distance_max = distance_range
+
+            # Angle Subset            
             if angle_min > angle_max:
                 # Swap angles if given in wrong order
                 angle_min, angle_max = angle_max, angle_min
@@ -84,8 +87,13 @@ class SafetyController(Node):
 
             desired_indices = np.arange(range_low_index,range_high_index+1)
             corresponding_angles = lidar_angle_min + desired_indices * lidar_angle_increment
-            ret_array = np.stack((lidar_ranges[range_low_index:range_high_index+1], corresponding_angles), axis=-1)
-            return ret_array
+            polar_coords = np.stack((lidar_ranges[range_low_index:range_high_index+1], corresponding_angles), axis=-1)
+
+            # Distance Subset
+            distance_mask = distance_min <= polar_coords[:,0] & polar_coords[:,0] <= distance_mask
+            polar_coords = polar_coords[distance_mask]
+
+            return polar_coords
 
         return subset_calculator
     
@@ -143,7 +151,7 @@ class SafetyController(Node):
         polar_coords = lidar_subset_calc(
             angle_range = [-np.pi/4, np.pi/4],
         )
-        
+
         minimum_dist = np.min(polar_coords[:, 0])
         if minimum_dist < 0.3:
             # https://docs.ros.org/en/jade/api/ackermann_msgs/html/msg/AckermannDriveStamped.html
