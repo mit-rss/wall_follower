@@ -197,14 +197,7 @@ class SafetyController(Node):
         filtered_cartesian = distances[mask]
 
         if filtered_cartesian:
-            new_msg = AckermannDriveStamped()
-            drive_command = new_msg.drive
-            drive_command.speed = 0.0
-            drive_command.acceleration = 0.0
-
-            drive_command.jerk = 0.0
-
-            self.stop_publisher.publish(new_msg)
+            self.publish_stop()
 
     def lidar_callback(self, lidar_msg):
         self.lidar_msg = lidar_msg
