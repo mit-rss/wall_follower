@@ -197,7 +197,7 @@ class SafetyController(Node):
 
         # filter laser scan to desired range
         cartesian_coords = lidar_subset_calc(
-            angle_range = [-np.pi/4, np.pi/4]
+            angle_range = [-np.pi/4, np.pi/4],
             distance_range= [0,np.linalg.norm(line)]
         )
 
