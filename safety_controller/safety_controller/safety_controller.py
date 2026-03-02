@@ -175,7 +175,7 @@ class SafetyController(Node):
         """
         deltas = [ (np.abs(np.cross(line, np.array([x,y])))) / (np.linalg.norm(line)) for x, y in coords]
         # np.dot(coords, line/np.linalg.norm(line)) -- gives the projection
-        return deltas
+        return np.array(deltas)
 
     def drive_callback(self, drive_msg):
         """
