@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 import os
 
 class WallFollowerLogger(Node):
+# TODO: error metric: where we want it to stop - where it actually stopped
+# TODO: publish error metric WRT to different velocities
 
     def __init__(self):
         super().__init__('')
