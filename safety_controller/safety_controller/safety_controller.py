@@ -209,21 +209,6 @@ class SafetyController(Node):
     def lidar_callback(self, lidar_msg):
         self.lidar_msg = lidar_msg
 
-        lidar_subset_calc = self.get_lidar_subset_calculator(
-            lidar_msg.angle_min,
-            lidar_msg.angle_max,
-            lidar_msg.angle_increment,
-            lidar_msg.ranges
-        )
-
-        polar_coords = lidar_subset_calc(
-            angle_range = [-np.pi/4, np.pi/4],
-        )
-
-        minimum_dist = np.min(polar_coords[:, 0])
-        if minimum_dist < 0.3:
-            self.publish_stop()
-
     def publish_stop(self):
         """
         Publishes a command for the car to stop
