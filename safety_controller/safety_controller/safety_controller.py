@@ -9,7 +9,7 @@ class SafetyController(Node):
     def __init__(self):
         super().__init__("safety_controller")
         # Declare parameters to make them available for use
-        # DO NOT MODIFY THIS! 
+        # DO NOT MODIFY THIS!
         self.declare_parameter("scan_topic", "/scan")
         self.declare_parameter("drive_topic", "/drive")
 
@@ -35,8 +35,8 @@ class SafetyController(Node):
 
         ### Publishers ###
         self.stop_publisher = self.create_publisher(
-            AckermannDriveStamped, 
-            self.DRIVE_TOPIC, 
+            AckermannDriveStamped,
+            self.DRIVE_TOPIC,
             10
         )
 
@@ -47,7 +47,9 @@ class SafetyController(Node):
             [0.0, 0.0, 1.0, 0.0],
             [0.0, 0.0, 0.0, 1.0]
         ])
-    
+
+        self.lidar_msg = None
+
 
     def get_lidar_subset_calculator(self, lidar_angle_min, lidar_angle_max, lidar_angle_increment, lidar_ranges):
         """
@@ -64,16 +66,16 @@ class SafetyController(Node):
         def subset_calculator(angle_range = [lidar_angle_min, lidar_angle_max], distance_range = [0, float("inf")]):
             """
             Returns the polar coordinates of the lidar points within a given range of angles
-            
+
             Parameters:
                 - angle_range: The given range of angles
                 - distance_range: The given range of distance
 
             """
-            angle_min, angle_max = angle_range 
+            angle_min, angle_max = angle_range
             distance_min, distance_max = distance_range
 
-            # Angle Subset            
+            # Angle Subset
             if angle_min > angle_max:
                 # Swap angles if given in wrong order
                 angle_min, angle_max = angle_max, angle_min
@@ -96,7 +98,7 @@ class SafetyController(Node):
             return polar_coords
 
         return subset_calculator
-    
+
     def polar_to_cartesian(self, polar_coords):
         """
         Returns a 2D array representing the polar form of a given array of cartesian points
@@ -108,7 +110,7 @@ class SafetyController(Node):
                     - [(2, pi/3), (1, 0)]
         """
         return np.array([[r * np.cos(theta), r*np.sin(theta), 0.0, 1.0] for r,theta in polar_coords])
-    
+
     def cartesian_to_polar(self, cart_coords):
         """
         Returns a 2D array representing the cartesian form of a given array of polar points
@@ -128,19 +130,47 @@ class SafetyController(Node):
         Parameters:
             - m: slope of the line
             - b: y-intercept of the line
-            - points: a 2D array of cartesian points 
-                - examples: 
+            - points: a 2D array of cartesian points
+                - examples:
                     - [(2,2)]
                     - [(1,3), (4,2)]
 
         """
         return np.array([[abs(m * x - y + b) / np.sqrt(m**2 + 1**2)] for x,y in points])
-        
-    # TODO: Write your callback functions here
-    def drive_callback(self, drive_msg):
+
+    def line_projection(self, velocity):
+        """
+        Returns parameters m (slope of the car) and b (y-intercept) with the car's position
+        as the origin.
+
+        Parameters:
+            - velocity (float): the current velocity of the drive command
+
+        Output:
+            - (m,b) (tuple): the projected line's slope and y-intercept
+        """
         pass
 
+    # TODO: Write your callback functions here
+    def drive_callback(self, drive_msg):
+        lidar_msg = self.lidar_msg
+        lidar_subset_calc = self.get_lidar_subset_calculator(
+            lidar_msg.angle_min,
+            lidar_msg.angle_max,
+            lidar_msg.angle_increment,
+            lidar_msg.ranges
+        )
+        polar_coords = lidar_subset_calc(
+            angle_range = [-np.pi/4, np.pi/4],
+        )
+
+        velocity = self.drive_msg.speed
+        m,b = self.line_projection(velocity)
+        self.points_dist_from_line(self, m, b, polar_coords)
+
     def lidar_callback(self, lidar_msg):
+        self.lidar_msg = lidar_msg
+
         lidar_subset_calc = self.get_lidar_subset_calculator(
             lidar_msg.angle_min,
             lidar_msg.angle_max,
