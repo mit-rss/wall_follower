@@ -157,6 +157,17 @@ class SafetyController(Node):
 
     # TODO: Write your callback functions here
 
+    def calculate_deltas(self, coords, line):
+        """
+        Docstring for calculate_deltas
+
+        :param self: Description
+        :param coords: Description
+        :param line: Description
+        """
+        deltas = np.dot(coords, line/np.linalg.norm(line))
+        return deltas
+
     def drive_callback(self, drive_msg):
         """
         Docstring for drive_callback
@@ -179,7 +190,7 @@ class SafetyController(Node):
             angle_range = [-np.pi/4, np.pi/4],
             distance_range = [0, distance]
         )
-       
+
         mask = [-0.5 <= x <= 0.5 for x, y in cartesian_coords]
         filtered_cartesian = cartesian_coords[mask]
 
