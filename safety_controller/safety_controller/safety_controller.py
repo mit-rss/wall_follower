@@ -99,7 +99,10 @@ class SafetyController(Node):
             polar_coords = np.stack((lidar_ranges[range_low_index:range_high_index+1], corresponding_angles), axis=-1)
 
             # Distance Subset
-            distance_mask = distance_min >= polar_coords[:,0] & polar_coords[:,0] <= distance_max
+            distance_mask = (
+                (distance_min >= polar_coords[:,0]) &
+                (polar_coords[:,0] <= distance_max)
+            )
             polar_coords = polar_coords[distance_mask]
 
             cartesian_coords = self.polar_to_cartesian(polar_coords)
@@ -118,7 +121,7 @@ class SafetyController(Node):
                     - [(1, pi/4)]
                     - [(2, pi/3), (1, 0)]
         """
-        return np.array([[r * np.cos(theta), r*np.sin(theta), 0.0, 1.0] for r,theta in polar_coords])
+        return np.array([[r * np.cos(theta), r*np.sin(theta)] for r,theta in polar_coords])
 
     def cartesian_to_polar(self, cart_coords):
         """
@@ -130,7 +133,7 @@ class SafetyController(Node):
                     - [(3, 5)]
                     - [(2, 8), (1, 2)]
         """
-        return np.array([[np.sqrt(x**2 + y**2), np.arctan2(y/x)] for x,y in cart_coords])
+        return np.array([[np.sqrt(x**2 + y**2), np.arctan2(y, x)] for x,y in cart_coords])
 
     def points_dist_from_line(self, m, b, points):
         """
@@ -167,10 +170,11 @@ class SafetyController(Node):
         distance to the line of our projected path for base_link.
 
         :param self: the Node
-        :param coords: cartesian coords wrt to base_link of the scan
+        :param coords (list(tuple(float, float))): cartesian coords wrt to base_link of the scan
         :param line: vector to the projected location of base_link
         """
-        deltas = np.dot(coords, line/np.linalg.norm(line))
+        deltas = [ (np.abs(np.cross(line, np.array([x,y])))) / (np.linalg.norm(line)) for x, y in coords]
+        # np.dot(coords, line/np.linalg.norm(line)) -- gives the projection
         return deltas
 
     def drive_callback(self, drive_msg):
@@ -183,6 +187,7 @@ class SafetyController(Node):
         :param drive_msg: AckermanDriveStamped msg from other controllers
         """
         lidar_msg = self.lidar_msg
+        if lidar_msg is None: return
         # function to filter our laser data
         lidar_subset_calc = self.get_lidar_subset_calculator(
             lidar_msg.angle_min,
@@ -192,7 +197,7 @@ class SafetyController(Node):
         )
 
         # calculate the vector for our projected location
-        velocity = drive_msg.speed
+        velocity = drive_msg.drive.speed
         line = self.line_projection(velocity)
 
         # filter laser scan to desired range
@@ -206,7 +211,7 @@ class SafetyController(Node):
         mask = abs(deltas) < self.SAFETY_RADIUS
         filtered_cartesian = deltas[mask]
 
-        if filtered_cartesian:
+        if len(filtered_cartesian) > 0:
             self.publish_stop()
 
     def lidar_callback(self, lidar_msg):
