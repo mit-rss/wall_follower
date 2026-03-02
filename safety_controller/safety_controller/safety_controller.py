@@ -12,7 +12,7 @@ class SafetyController(Node):
         # DO NOT MODIFY THIS!
         self.declare_parameter("scan_topic", "/scan")
         self.declare_parameter("drive_topic_listen", "/vesc/high_level/input/nav_1") # publish to the highest priority to override other drive commands
-        self.declare_parameter('drive_topic_publish', "/vesc/high_level/input/nav_0")
+        self.declare_parameter('drive_topic_publish', "/vesc/low_level/input/safety")
         self.declare_parameter("safety_radius", 0.5)
         self.declare_parameter("safety_controller_const", 0.1)
         self.declare_parameter("logger_topic", "/crash_points")
@@ -22,8 +22,8 @@ class SafetyController(Node):
         self.SCAN_TOPIC = self.get_parameter('scan_topic').get_parameter_value().string_value
         self.DRIVE_TOPIC_LISTEN = self.get_parameter('drive_topic_listen').get_parameter_value().string_value
         self.DRIVE_TOPIC_PUBLISH = self.get_parameter('drive_topic_publish').get_parameter_value().string_value
-        self.SAFETY_RADIUS = self.get_parameter('safety_radius').get_parameter_value().value
-        self.SAFETY_CONTROLLER_CONST = self.get_parameter('safety_controller_const').get_parameter_value().value
+        self.SAFETY_RADIUS = self.get_parameter('safety_radius').get_parameter_value().double_value
+        self.SAFETY_CONTROLLER_CONST = self.get_parameter('safety_controller_const').get_parameter_value().double_value
         self.LOGGER_TOPIC = self.get_parameter('logger_topic').get_parameter_value().string_value
         ### Subscribers ###
         self.lidar_subscriber = self.create_subscription(
