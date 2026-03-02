@@ -11,7 +11,7 @@ class SafetyController(Node):
         # Declare parameters to make them available for use
         # DO NOT MODIFY THIS!
         self.declare_parameter("scan_topic", "/scan")
-        self.declare_parameter("drive_topic_listen", "/vesc/high_level/input/nav_1") # publish to the highest priority to override other drive commands
+        self.declare_parameter("drive_topic_listen", "/vesc/low_level/achermann_cmd") # publish to the highest priority to override other drive commands
         self.declare_parameter('drive_topic_publish', "/vesc/low_level/input/safety")
         self.declare_parameter("safety_radius", 0.5)
         self.declare_parameter("safety_controller_const", 0.1)
