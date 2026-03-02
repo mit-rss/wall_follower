@@ -18,7 +18,7 @@ class SafetyController(Node):
         # DO NOT MODIFY THIS! This is necessary for the tests to be able to test varying parameters!
         self.SCAN_TOPIC = self.get_parameter('scan_topic').get_parameter_value().string_value
         self.DRIVE_TOPIC = self.get_parameter('drive_topic').get_parameter_value().string_value
-        self.SAFETY_RADIUS = self.get_parameter('safet_radius').get_parameter_value().float_value
+        self.SAFETY_RADIUS = self.get_parameter('safet_radius').get_parameter_value().value
 
         ### Subscribers ###
         self.lidar_subscriber = self.create_subscription(
@@ -69,7 +69,7 @@ class SafetyController(Node):
             """
             Returns the polar coordinates of the lidar points within a given range of angles
             and a given distance range.
-            
+
             Args:
                 angle_range (1D Array): The given range of angles
                 distance_range (1D Array): The given range of distance
@@ -132,8 +132,8 @@ class SafetyController(Node):
         Args:
             m (float): slope of the line
             b (float): y-intercept of the line
-            points (2D Array): an array of cartesian points 
-                - examples: 
+            points (2D Array): an array of cartesian points
+                - examples:
                     - [(2,2)]
                     - [(1,3), (4,2)]
         """
