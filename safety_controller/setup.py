@@ -25,7 +25,8 @@ setup(
     entry_points={
         'console_scripts': [
             'controller = safety_controller.safety_controller:main',
-            'tester = safety_controller.safety_tester:main'
+            'tester = safety_controller.safety_tester:main',
+            'logger = safety_controller.logger_node:main'
         ],
     },
 )
