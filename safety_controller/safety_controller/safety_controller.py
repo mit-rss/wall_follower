@@ -183,18 +183,23 @@ class SafetyController(Node):
 
         minimum_dist = np.min(polar_coords[:, 0])
         if minimum_dist < 0.3:
-            # https://docs.ros.org/en/jade/api/ackermann_msgs/html/msg/AckermannDriveStamped.html
-            new_msg = AckermannDriveStamped()
+            self.publish_stop()
 
-            # https://docs.ros.org/en/jade/api/ackermann_msgs/html/msg/AckermannDrive.html
-            drive_command = new_msg.drive
-            drive_command.speed = 0.0
-            drive_command.acceleration = 0.0
-            # jerk indicates a desired absolute rate of acceleration change in either direction (increasing or decreasing).
-            drive_command.jerk = 0.0
+    def publish_stop(self):
+        """
+        Publishes a command for the car to stop
+        """
+        # https://docs.ros.org/en/jade/api/ackermann_msgs/html/msg/AckermannDriveStamped.html
+        new_msg = AckermannDriveStamped()
 
-            self.stop_publisher.publish(new_msg)
+        # https://docs.ros.org/en/jade/api/ackermann_msgs/html/msg/AckermannDrive.html
+        drive_command = new_msg.drive
+        drive_command.speed = 0.0
+        drive_command.acceleration = 0.0
+        # jerk indicates a desired absolute rate of acceleration change in either direction (increasing or decreasing).
+        drive_command.jerk = 0.0
 
+        self.stop_publisher.publish(new_msg)
 
 def main():
     rclpy.init()
