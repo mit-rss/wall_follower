@@ -10,7 +10,7 @@ class SafetyTester(Node):
         super().__init__("safety_tester")
         # Declare parameters to make them available for use
         # DO NOT MODIFY THIS!
-        self.declare_parameter("drive_topic", "/drive/nav_1")
+        self.declare_parameter("drive_topic", "/vesc/high_level/input/nav_1")
 
         # Fetch constants from the ROS parameter server
         # DO NOT MODIFY THIS! This is necessary for the tests to be able to test varying parameters!
