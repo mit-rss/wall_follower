@@ -11,7 +11,7 @@ class SafetyController(Node):
         # Declare parameters to make them available for use
         # DO NOT MODIFY THIS!
         self.declare_parameter("scan_topic", "/scan")
-        self.declare_parameter("drive_topic", "/drive")
+        self.declare_parameter("drive_topic", "/drive/nav_0") # publish to the highest priority to override other drive commands
         self.declare_parameter("safety_radius", 0.5)
         self.declare_parameter("safety_controller_const", 0.1)
 
@@ -159,23 +159,27 @@ class SafetyController(Node):
 
     def calculate_deltas(self, coords, line):
         """
-        Docstring for calculate_deltas
+        Takes in the lidar scan points in the desired range and calculates their
+        distance to the line of our projected path for base_link.
 
-        :param self: Description
-        :param coords: Description
-        :param line: Description
+        :param self: the Node
+        :param coords: cartesian coords wrt to base_link of the scan
+        :param line: vector to the projected location of base_link
         """
         deltas = np.dot(coords, line/np.linalg.norm(line))
         return deltas
 
     def drive_callback(self, drive_msg):
         """
-        Docstring for drive_callback
+        Based on a drive command, interrupt the drive command with a stop command
+        if it would lead to a collision. Collision determined based on a point in
+        the angle and distance range being too close to the projected path of the car
 
-        :param self: Description
-        :param drive_msg: Description
+        :param self: safety controller node
+        :param drive_msg: AckermanDriveStamped msg from other controllers
         """
         lidar_msg = self.lidar_msg
+        # function to filter our laser data
         lidar_subset_calc = self.get_lidar_subset_calculator(
             lidar_msg.angle_min,
             lidar_msg.angle_max,
@@ -183,21 +187,20 @@ class SafetyController(Node):
             lidar_msg.ranges
         )
 
-        velocity = self.drive_msg.speed
+        # calculate the vector for our projected location
+        velocity = drive_msg.speed
         line = self.line_projection(velocity)
 
+        # filter laser scan to desired range
         cartesian_coords = lidar_subset_calc(
             angle_range = [-np.pi/4, np.pi/4]
             distance_range= [0,np.linalg.norm(line)]
         )
 
-        mask = [-0.5 <= x <= 0.5 for x, y in cartesian_coords]
-        filtered_cartesian = cartesian_coords[mask]
-
-        distances = self.calculate_deltas(cartesian_coords, line)
-
-        mask = abs(distances) < self.SAFETY_RADIUS
-        filtered_cartesian = distances[mask]
+        # if any delta within the car safety radius, terminate the drive command
+        deltas = self.calculate_deltas(cartesian_coords, line)
+        mask = abs(deltas) < self.SAFETY_RADIUS
+        filtered_cartesian = deltas[mask]
 
         if filtered_cartesian:
             self.publish_stop()
