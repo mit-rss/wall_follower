@@ -12,11 +12,13 @@ class SafetyController(Node):
         # DO NOT MODIFY THIS!
         self.declare_parameter("scan_topic", "/scan")
         self.declare_parameter("drive_topic", "/drive")
+        self.declare_parameter("safety_radius", 0.5)
 
         # Fetch constants from the ROS parameter server
         # DO NOT MODIFY THIS! This is necessary for the tests to be able to test varying parameters!
         self.SCAN_TOPIC = self.get_parameter('scan_topic').get_parameter_value().string_value
         self.DRIVE_TOPIC = self.get_parameter('drive_topic').get_parameter_value().string_value
+        self.SAFETY_RADIUS = self.get_parameter('safet_radius').get_parameter_value().float_value
 
         ### Subscribers ###
         self.lidar_subscriber = self.create_subscription(
@@ -152,7 +154,14 @@ class SafetyController(Node):
         pass
 
     # TODO: Write your callback functions here
+
     def drive_callback(self, drive_msg):
+        """
+        Docstring for drive_callback
+
+        :param self: Description
+        :param drive_msg: Description
+        """
         lidar_msg = self.lidar_msg
         lidar_subset_calc = self.get_lidar_subset_calculator(
             lidar_msg.angle_min,
@@ -160,13 +169,25 @@ class SafetyController(Node):
             lidar_msg.angle_increment,
             lidar_msg.ranges
         )
+
         polar_coords = lidar_subset_calc(
             angle_range = [-np.pi/4, np.pi/4],
         )
 
         velocity = self.drive_msg.speed
-        m,b = self.line_projection(velocity)
-        self.points_dist_from_line(self, m, b, polar_coords)
+        distance = velocity
+        mask = np.array([-0.5 <= item[0] <= 0.5 and item[1] <= distance for item in polar_coords])
+        filtered_polar = polar_coords[mask]
+
+        if filtered_polar:
+            new_msg = AckermannDriveStamped()
+            drive_command = new_msg.drive
+            drive_command.speed = 0.0
+            drive_command.acceleration = 0.0
+
+            drive_command.jerk = 0.0
+
+            self.stop_publisher.publish(new_msg)
 
     def lidar_callback(self, lidar_msg):
         self.lidar_msg = lidar_msg
