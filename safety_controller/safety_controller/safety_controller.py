@@ -100,12 +100,14 @@ class SafetyController(Node):
 
             # Distance Subset
             distance_mask = (
-                (distance_min >= polar_coords[:,0]) &
+                (distance_min <= polar_coords[:,0]) &
                 (polar_coords[:,0] <= distance_max)
             )
             polar_coords = polar_coords[distance_mask]
 
+            self.get_logger().info(f'{len(dist)}')
             cartesian_coords = self.polar_to_cartesian(polar_coords)
+
 
             return cartesian_coords
 
@@ -207,6 +209,7 @@ class SafetyController(Node):
             angle_range = [-np.pi/4, np.pi/4],
             distance_range= [0,np.linalg.norm(line)]
         )
+        # PROBLEM: this is giving us absolutely nothing
 
         # if any delta within the car safety radius, terminate the drive command
         deltas = self.calculate_deltas(cartesian_coords, line)
