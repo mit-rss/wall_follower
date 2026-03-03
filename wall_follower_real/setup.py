@@ -10,7 +10,7 @@ setup(
     version='0.0.0',
     packages=find_packages(exclude=['test']),
     data_files=[
-        ('share/'+package_name, ['package.xml', "wall_follower/params.yaml"]),
+        ('share/'+package_name, ['package.xml', "wall_follower_rover/params.yaml"]),
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/wall_follower_rover/launch', glob.glob(os.path.join('launch', '*launch.xml'))),
@@ -25,9 +25,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'wall_follower = wall_follower.wall_follower:main',
-            'viz_example = wall_follower.viz_example:main',
-            'test_wall_follower = wall_follower.test_wall_follower:main',
+            'wall_follower = wall_follower_rover.wall_follower:main',
+            'viz_example = wall_follower_rover.viz_example:main',
+            'test_wall_follower = wall_follower_rover.test_wall_follower:main',
         ],
     },
 )
