@@ -105,7 +105,7 @@ class SafetyController(Node):
             )
             polar_coords = polar_coords[distance_mask]
 
-            self.get_logger().info(f'{len(dist)}')
+            # self.get_logger().info(f'{len(dist)}')
             cartesian_coords = self.polar_to_cartesian(polar_coords)
 
 
