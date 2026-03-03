@@ -17,7 +17,7 @@ def generate_launch_description():
     ### Define test nodes and all their parameters
     ############################################################################
     test1 = Node(
-        package="wall_follower",
+        package="wall_follower_rover",
         executable="test_wall_follower",
         namespace='test1',
         parameters=[
@@ -44,7 +44,7 @@ def generate_launch_description():
     )
 
     test2 = Node(
-        package="wall_follower",
+        package="wall_follower_rover",
         executable="test_wall_follower",
         namespace='test2',
         parameters=[
@@ -71,7 +71,7 @@ def generate_launch_description():
     )
     
     test3 = Node(
-        package="wall_follower",
+        package="wall_follower_rover",
         executable="test_wall_follower",
         namespace='test3',
         parameters=[
@@ -98,7 +98,7 @@ def generate_launch_description():
     )
     
     test4 = Node(
-        package="wall_follower",
+        package="wall_follower_rover",
         executable="test_wall_follower",
         namespace='test4',
         parameters=[
@@ -125,7 +125,7 @@ def generate_launch_description():
     )
     
     test5 = Node(
-        package="wall_follower",
+        package="wall_follower_rover",
         executable="test_wall_follower",
         namespace='test5',
         parameters=[
@@ -152,7 +152,7 @@ def generate_launch_description():
     )
     
     test6 = Node(
-        package="wall_follower",
+        package="wall_follower_rover",
         executable="test_wall_follower",
         namespace='test6',
         parameters=[
@@ -183,7 +183,7 @@ def generate_launch_description():
     ### Define wall follower node
     ############################################################################
     wall_follower = Node(
-        package="wall_follower",
+        package="wall_follower_rover",
         executable="wall_follower",
         namespace='wall_follower_ns',
         parameters=[

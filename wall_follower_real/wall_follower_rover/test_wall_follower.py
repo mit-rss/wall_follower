@@ -8,7 +8,7 @@ from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Pose
 from ackermann_msgs.msg import AckermannDriveStamped
 from visualization_msgs.msg import Marker
-from wall_follower.np_encrypt import encode
+from wall_follower_rover.np_encrypt import encode
 from scipy.spatial.transform import Rotation as R
 from tf2_ros import TransformException
 from tf2_ros.buffer import Buffer

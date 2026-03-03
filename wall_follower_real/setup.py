@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages
 from setuptools import setup
 
-package_name = 'wall_follower'
+package_name = 'wall_follower_rover'
 
 setup(
     name=package_name,
@@ -13,8 +13,8 @@ setup(
         ('share/'+package_name, ['package.xml', "wall_follower/params.yaml"]),
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
-        ('share/wall_follower/launch', glob.glob(os.path.join('launch', '*launch.xml'))),
-        ('share/wall_follower/launch', glob.glob(os.path.join('launch', '*launch.py')))],
+        ('share/wall_follower_rover/launch', glob.glob(os.path.join('launch', '*launch.xml'))),
+        ('share/wall_follower_rover/launch', glob.glob(os.path.join('launch', '*launch.py')))],
 
     install_requires=['setuptools'],
     zip_safe=True,
@@ -26,8 +26,8 @@ setup(
     entry_points={
         'console_scripts': [
             'wall_follower = wall_follower.wall_follower:main',
-	        'viz_example = wall_follower.viz_example:main',
-        	'test_wall_follower = wall_follower.test_wall_follower:main',
+            'viz_example = wall_follower.viz_example:main',
+            'test_wall_follower = wall_follower.test_wall_follower:main',
         ],
     },
 )
