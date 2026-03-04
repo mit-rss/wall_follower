@@ -196,8 +196,8 @@ class SafetyController(Node):
     def visualize_line(self, line_end_point):
         end_x, end_y = line_end_point
         VisualizationTools.plot_line(
-            x = [0, end_x],
-            y = [0, end_y],
+            x = [0.0, float(end_x)],
+            y = [0.0, float(end_y)],
             publisher = self.line_publisher,
         )
         

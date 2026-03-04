@@ -30,7 +30,7 @@ class VisualizationTools:
         line_strip.color.a = 1.0
         line_strip.color.r = color[0]
         line_strip.color.g = color[1]
-        line_strip.color.g = color[2]
+        line_strip.color.b = color[2]
 
         # Fill the line with the desired values
         for xi, yi in zip(x, y):
