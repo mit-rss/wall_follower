@@ -56,129 +56,8 @@ class SafetyController(Node):
         ])
 
         self.lidar_msg = None
-
-
-    def get_lidar_subset_calculator(self, lidar_angle_min, lidar_angle_max, lidar_angle_increment, lidar_ranges):
-        """
-        Returns a function tuned to the lidar's base parameters (lidar_angle_min, lidar_angle_max, and lidar_angle_increment)
-        that returns points within an angle range.
-
-        Args:
-            lidar_angle_min (float): The minimum angle supported by the lidar
-            lidar_angle_max (float): The maximum angle supported by the lidar
-            lidar_angle_increment (float): The size of the increments in the range [lidar_angle_min, lidar_angle_max]
-            lidar_ranges (1D Array): The original lidar data, an indexed by angle with values corresponding to the distance of the point
-            from the lidar
-        """
-        def subset_calculator(angle_range = [lidar_angle_min, lidar_angle_max], distance_range = [0, float("inf")]):
-            """
-            Returns the cartesian coordinates of the lidar points within a given range of angles
-            and a given distance range.
-
-            Args:
-                angle_range (1D Array): The given range of angles
-                distance_range (1D Array): The given range of distance
-            """
-            angle_min, angle_max = angle_range
-            distance_min, distance_max = distance_range
-
-            # Angle Subset
-            if angle_min > angle_max:
-                # Swap angles if given in wrong order
-                angle_min, angle_max = angle_max, angle_min
-
-            #clip angles to the minimum and maximum angles supported by the lidar
-            angle_min = max(angle_min, lidar_angle_min)
-            angle_max = min(angle_max, lidar_angle_max)
-
-            range_low_index = int((angle_min - lidar_angle_min) / lidar_angle_increment)
-            range_high_index = int((angle_max - lidar_angle_min) / lidar_angle_increment)
-
-            desired_indices = np.arange(range_low_index,range_high_index+1)
-            corresponding_angles = lidar_angle_min + desired_indices * lidar_angle_increment
-            polar_coords = np.stack((lidar_ranges[range_low_index:range_high_index+1], corresponding_angles), axis=-1)
-
-            # Distance Subset
-            distance_mask = (
-                (distance_min <= polar_coords[:,0]) &
-                (polar_coords[:,0] <= distance_max)
-            )
-            polar_coords = polar_coords[distance_mask]
-
-            # self.get_logger().info(f'{len(dist)}')
-            cartesian_coords = self.polar_to_cartesian(polar_coords)
-
-
-            return cartesian_coords
-
-        return subset_calculator
-
-    def polar_to_cartesian(self, polar_coords):
-        """
-        Returns a 2D array representing the polar form of a given array of cartesian points.
-
-        Args:
-            polar_coords (2D Array): an array of polar coordinates (r, theta)
-                - examples:
-                    - [(1, pi/4)]
-                    - [(2, pi/3), (1, 0)]
-        """
-        return np.array([[r * np.cos(theta), r*np.sin(theta)] for r,theta in polar_coords])
-
-    def cartesian_to_polar(self, cart_coords):
-        """
-        Returns a 2D array representing the cartesian form of a given array of polar points.
-
-        Args:
-            cart_coords (2D Array): an array of cartesian coordinates (x, y)
-                - examples:
-                    - [(3, 5)]
-                    - [(2, 8), (1, 2)]
-        """
-        return np.array([[np.sqrt(x**2 + y**2), np.arctan2(y, x)] for x,y in cart_coords])
-
-    def points_dist_from_line(self, m, b, points):
-        """
-        Returns a 2D array representing the distance of a given array of points to a line
-
-        Args:
-            m (float): slope of the line
-            b (float): y-intercept of the line
-            points (2D Array): an array of cartesian points
-                - examples:
-                    - [(2,2)]
-                    - [(1,3), (4,2)]
-        """
-        return np.array([[abs(m * x - y + b) / np.sqrt(m**2 + 1**2)] for x,y in points])
-
-    def line_projection(self, velocity):
-        """
-        Returns the vector representing the projected location of base_link with respect to base_link.
-
-        Parameters:
-            - velocity (float): the current velocity of the drive command
-
-        Output:
-            - np array: 2d vector (x, y) of the end point of the projected line
-        """
-        projected_distance = self.SAFETY_CONTROLLER_CONST * velocity + self.SAFETY_RADIUS
-        return np.array([projected_distance, 0]) # x direction is forward
-
+    
     # TODO: Write your callback functions here
-
-    def calculate_deltas(self, coords, line):
-        """
-        Takes in the lidar scan points in the desired range and calculates their
-        distance to the line of our projected path for base_link.
-
-        :param self: the Node
-        :param coords (list(tuple(float, float))): cartesian coords wrt to base_link of the scan
-        :param line: vector to the projected location of base_link
-        """
-        self.get_logger().info(f'calculate_deltas input: {len(coords)}')
-        deltas = [ (np.abs(np.cross(line, np.array([x,y])))) / (np.linalg.norm(line)) for x, y in coords]
-        # np.dot(coords, line/np.linalg.norm(line)) -- gives the projection
-        return np.array(deltas)
 
     def drive_callback(self, drive_msg):
         """
@@ -238,6 +117,126 @@ class SafetyController(Node):
         drive_command.jerk = 0.0
 
         self.stop_publisher.publish(new_msg)
+        
+    def get_lidar_subset_calculator(self, lidar_angle_min, lidar_angle_max, lidar_angle_increment, lidar_ranges):
+        """
+        Returns a function tuned to the lidar's base parameters (lidar_angle_min, lidar_angle_max, and lidar_angle_increment)
+        that returns points within an angle range.
+
+        Args:
+            lidar_angle_min (float): The minimum angle supported by the lidar
+            lidar_angle_max (float): The maximum angle supported by the lidar
+            lidar_angle_increment (float): The size of the increments in the range [lidar_angle_min, lidar_angle_max]
+            lidar_ranges (1D Array): The original lidar data, an indexed by angle with values corresponding to the distance of the point
+            from the lidar
+        """
+        def subset_calculator(angle_range = [lidar_angle_min, lidar_angle_max], distance_range = [0, float("inf")]):
+            """
+            Returns the cartesian coordinates of the lidar points within a given range of angles
+            and a given distance range.
+
+            Args:
+                angle_range (1D Array): The given range of angles
+                distance_range (1D Array): The given range of distance
+            """
+            angle_min, angle_max = angle_range
+            distance_min, distance_max = distance_range
+
+            # Angle Subset
+            if angle_min > angle_max:
+                # Swap angles if given in wrong order
+                angle_min, angle_max = angle_max, angle_min
+
+            #clip angles to the minimum and maximum angles supported by the lidar
+            angle_min = max(angle_min, lidar_angle_min)
+            angle_max = min(angle_max, lidar_angle_max)
+
+            range_low_index = int((angle_min - lidar_angle_min) / lidar_angle_increment)
+            range_high_index = int((angle_max - lidar_angle_min) / lidar_angle_increment)
+
+            desired_indices = np.arange(range_low_index,range_high_index+1)
+            corresponding_angles = lidar_angle_min + desired_indices * lidar_angle_increment
+            polar_coords = np.stack((lidar_ranges[range_low_index:range_high_index+1], corresponding_angles), axis=-1)
+
+            # Distance Subset
+            distance_mask = (
+                (distance_min <= polar_coords[:,0]) &
+                (polar_coords[:,0] <= distance_max)
+            )
+            polar_coords = polar_coords[distance_mask]
+
+            # self.get_logger().info(f'{len(dist)}')
+            cartesian_coords = self.polar_to_cartesian(polar_coords)
+
+
+            return cartesian_coords
+
+        return subset_calculator
+        
+    def line_projection(self, velocity):
+        """
+        Returns the vector representing the projected location of base_link with respect to base_link.
+
+        Parameters:
+            - velocity (float): the current velocity of the drive command
+
+        Output:
+            - np array: 2d vector (x, y) of the end point of the projected line
+        """
+        projected_distance = self.SAFETY_CONTROLLER_CONST * velocity + self.SAFETY_RADIUS
+        return np.array([projected_distance, 0]) # x direction is forward
+    
+    def calculate_deltas(self, coords, line):
+        """
+        Takes in the lidar scan points in the desired range and calculates their
+        distance to the line of our projected path for base_link.
+
+        :param self: the Node
+        :param coords (list(tuple(float, float))): cartesian coords wrt to base_link of the scan
+        :param line: vector to the projected location of base_link
+        """
+        self.get_logger().info(f'calculate_deltas input: {len(coords)}')
+        deltas = [ (np.abs(np.cross(line, np.array([x,y])))) / (np.linalg.norm(line)) for x, y in coords]
+        # np.dot(coords, line/np.linalg.norm(line)) -- gives the projection
+        return np.array(deltas)
+
+    def polar_to_cartesian(self, polar_coords):
+        """
+        Returns a 2D array representing the polar form of a given array of cartesian points.
+
+        Args:
+            polar_coords (2D Array): an array of polar coordinates (r, theta)
+                - examples:
+                    - [(1, pi/4)]
+                    - [(2, pi/3), (1, 0)]
+        """
+        return np.array([[r * np.cos(theta), r*np.sin(theta)] for r,theta in polar_coords])
+
+    def cartesian_to_polar(self, cart_coords):
+        """
+        Returns a 2D array representing the cartesian form of a given array of polar points.
+
+        Args:
+            cart_coords (2D Array): an array of cartesian coordinates (x, y)
+                - examples:
+                    - [(3, 5)]
+                    - [(2, 8), (1, 2)]
+        """
+        return np.array([[np.sqrt(x**2 + y**2), np.arctan2(y, x)] for x,y in cart_coords])
+
+    def points_dist_from_line(self, m, b, points):
+        """
+        Returns a 2D array representing the distance of a given array of points to a line
+
+        Args:
+            m (float): slope of the line
+            b (float): y-intercept of the line
+            points (2D Array): an array of cartesian points
+                - examples:
+                    - [(2,2)]
+                    - [(1,3), (4,2)]
+        """
+        return np.array([[abs(m * x - y + b) / np.sqrt(m**2 + 1**2)] for x,y in points])
 
 def main():
     rclpy.init()
