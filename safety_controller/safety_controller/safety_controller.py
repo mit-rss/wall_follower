@@ -147,28 +147,36 @@ class SafetyController(Node):
                 # Swap angles if given in wrong order
                 angle_min, angle_max = angle_max, angle_min
 
-            #clip angles to the minimum and maximum angles supported by the lidar
+            # Clip angles to the minimum and maximum angles supported by the lidar
             angle_min = max(angle_min, lidar_angle_min)
             angle_max = min(angle_max, lidar_angle_max)
 
+            # Compute the range indices associated with the minumum and maximum angle 
             range_low_index = int((angle_min - lidar_angle_min) / lidar_angle_increment)
             range_high_index = int((angle_max - lidar_angle_min) / lidar_angle_increment)
 
+            # Create array of indices associated with each value in our valid range
             desired_indices = np.arange(range_low_index,range_high_index+1)
+            # Scale to increment based on given value, giving us each angle
             corresponding_angles = lidar_angle_min + desired_indices * lidar_angle_increment
-            polar_coords = np.stack((lidar_ranges[range_low_index:range_high_index+1], corresponding_angles), axis=-1)
-
-            # Distance Subset
-            distance_mask = (
-                (distance_min <= polar_coords[:,0]) &
-                (polar_coords[:,0] <= distance_max)
-            )
-            polar_coords = polar_coords[distance_mask]
-
-            # self.get_logger().info(f'{len(dist)}')
-            cartesian_coords = self.polar_to_cartesian(polar_coords)
-
-
+            # Use the min and max index values to clip ranges to valid points
+            corresponding_ranges = np.array(lidar_ranges[range_low_index:range_high_index+1], dtype="float32")
+            
+            # Distance mask to filter out points outside given range
+            distance_mask = (distance_min <= corresponding_ranges) & (corresponding_ranges <= distance_max)
+            
+            # Apply distance mask to angles
+            valid_angles = corresponding_angles[distance_mask]
+            # Apply distance mask to ranges
+            valid_ranges = corresponding_ranges[distance_mask]
+            
+            # Convert valid points to Cartesian coordinates
+            x = valid_ranges * np.cos(valid_angles)
+            y = valid_ranges * np.sin(valid_angles)
+            
+            # Stack Cartestian coordinates together and transpose
+            cartesian_coords = np.vstack((x, y)).T # Shape: (num_points, 2)
+            
             return cartesian_coords
 
         return subset_calculator
