@@ -65,8 +65,8 @@ class SafetyController(Node):
         if it would lead to a collision. Collision determined based on a point in
         the angle and distance range being too close to the projected path of the car
 
-        :param self: safety controller node
-        :param drive_msg: AckermanDriveStamped msg from other controllers
+        Args:
+            - drive_msg (AckermannDriveStamped): AckermanDriveStamped msg from other controllers
         """
         lidar_msg = self.lidar_msg
         if lidar_msg is None: return
@@ -104,7 +104,7 @@ class SafetyController(Node):
 
     def publish_stop(self):
         """
-        Publishes a command for the car to stop
+        Publishes a command for the car to stop.
         """
         # https://docs.ros.org/en/jade/api/ackermann_msgs/html/msg/AckermannDriveStamped.html
         new_msg = AckermannDriveStamped()
@@ -124,11 +124,14 @@ class SafetyController(Node):
         that returns points within an angle range.
 
         Args:
-            lidar_angle_min (float): The minimum angle supported by the lidar
-            lidar_angle_max (float): The maximum angle supported by the lidar
-            lidar_angle_increment (float): The size of the increments in the range [lidar_angle_min, lidar_angle_max]
-            lidar_ranges (1D Array): The original lidar data, an indexed by angle with values corresponding to the distance of the point
+            - lidar_angle_min (float): The minimum angle supported by the lidar
+            - lidar_angle_max (float): The maximum angle supported by the lidar
+            - lidar_angle_increment (float): The size of the increments in the range [lidar_angle_min, lidar_angle_max]
+            - lidar_ranges (array): The original lidar data, an indexed by angle with values corresponding to the distance of the point
             from the lidar
+            
+        Output:
+            - (function): The subset calculator tuned to the lidar's base parameters.
         """
         def subset_calculator(angle_range = [lidar_angle_min, lidar_angle_max], distance_range = [0, float("inf")]):
             """
@@ -136,8 +139,8 @@ class SafetyController(Node):
             and a given distance range.
 
             Args:
-                angle_range (1D Array): The given range of angles
-                distance_range (1D Array): The given range of distance
+                angle_range (array): The given range of angles
+                distance_range (array): The given range of distance
             """
             angle_min, angle_max = angle_range
             distance_min, distance_max = distance_range
@@ -147,28 +150,36 @@ class SafetyController(Node):
                 # Swap angles if given in wrong order
                 angle_min, angle_max = angle_max, angle_min
 
-            #clip angles to the minimum and maximum angles supported by the lidar
+            # Clip angles to the minimum and maximum angles supported by the lidar
             angle_min = max(angle_min, lidar_angle_min)
             angle_max = min(angle_max, lidar_angle_max)
 
+            # Compute the range indices associated with the minumum and maximum angle 
             range_low_index = int((angle_min - lidar_angle_min) / lidar_angle_increment)
             range_high_index = int((angle_max - lidar_angle_min) / lidar_angle_increment)
 
+            # Create array of indices associated with each value in our valid range
             desired_indices = np.arange(range_low_index,range_high_index+1)
+            # Scale to increment based on given value, giving us each angle
             corresponding_angles = lidar_angle_min + desired_indices * lidar_angle_increment
-            polar_coords = np.stack((lidar_ranges[range_low_index:range_high_index+1], corresponding_angles), axis=-1)
-
-            # Distance Subset
-            distance_mask = (
-                (distance_min <= polar_coords[:,0]) &
-                (polar_coords[:,0] <= distance_max)
-            )
-            polar_coords = polar_coords[distance_mask]
-
-            # self.get_logger().info(f'{len(dist)}')
-            cartesian_coords = self.polar_to_cartesian(polar_coords)
-
-
+            # Use the min and max index values to clip ranges to valid points
+            corresponding_ranges = np.array(lidar_ranges[range_low_index:range_high_index+1], dtype="float32")
+            
+            # Distance mask to filter out points outside given range
+            distance_mask = (distance_min <= corresponding_ranges) & (corresponding_ranges <= distance_max)
+            
+            # Apply distance mask to angles
+            valid_angles = corresponding_angles[distance_mask]
+            # Apply distance mask to ranges
+            valid_ranges = corresponding_ranges[distance_mask]
+            
+            # Convert valid points to Cartesian coordinates
+            x = valid_ranges * np.cos(valid_angles)
+            y = valid_ranges * np.sin(valid_angles)
+            
+            # Stack Cartestian coordinates together and transpose
+            cartesian_coords = np.vstack((x, y)).T # Shape: (num_points, 2)
+            
             return cartesian_coords
 
         return subset_calculator
@@ -177,66 +188,36 @@ class SafetyController(Node):
         """
         Returns the vector representing the projected location of base_link with respect to base_link.
 
-        Parameters:
-            - velocity (float): the current velocity of the drive command
+        Args:
+            - velocity (float) : the current velocity of the drive command
 
         Output:
-            - np array: 2d vector (x, y) of the end point of the projected line
+            - line (ndarray) : (1, 2) 2d vector (x, y) of the end point of the projected line.
         """
         projected_distance = self.SAFETY_CONTROLLER_CONST * velocity + self.SAFETY_RADIUS
-        return np.array([projected_distance, 0]) # x direction is forward
+        line = np.array([projected_distance, 0]) # x direction is forward
+        return line
     
     def calculate_deltas(self, coords, line):
         """
         Takes in the lidar scan points in the desired range and calculates their
         distance to the line of our projected path for base_link.
 
-        :param self: the Node
-        :param coords (list(tuple(float, float))): cartesian coords wrt to base_link of the scan
-        :param line: vector to the projected location of base_link
+        Args:
+            - coords (ndarray) : (num_points, 2) Cartesian coordinates of each scan point w.r.t. base link. 
+            - line (ndarray) : (1, 2) Vector to the projected location of base_link.
         """
         self.get_logger().info(f'calculate_deltas input: {len(coords)}')
-        deltas = [ (np.abs(np.cross(line, np.array([x,y])))) / (np.linalg.norm(line)) for x, y in coords]
-        # np.dot(coords, line/np.linalg.norm(line)) -- gives the projection
-        return np.array(deltas)
-
-    def polar_to_cartesian(self, polar_coords):
-        """
-        Returns a 2D array representing the polar form of a given array of cartesian points.
-
-        Args:
-            polar_coords (2D Array): an array of polar coordinates (r, theta)
-                - examples:
-                    - [(1, pi/4)]
-                    - [(2, pi/3), (1, 0)]
-        """
-        return np.array([[r * np.cos(theta), r*np.sin(theta)] for r,theta in polar_coords])
-
-    def cartesian_to_polar(self, cart_coords):
-        """
-        Returns a 2D array representing the cartesian form of a given array of polar points.
-
-        Args:
-            cart_coords (2D Array): an array of cartesian coordinates (x, y)
-                - examples:
-                    - [(3, 5)]
-                    - [(2, 8), (1, 2)]
-        """
-        return np.array([[np.sqrt(x**2 + y**2), np.arctan2(y, x)] for x,y in cart_coords])
-
-    def points_dist_from_line(self, m, b, points):
-        """
-        Returns a 2D array representing the distance of a given array of points to a line
-
-        Args:
-            m (float): slope of the line
-            b (float): y-intercept of the line
-            points (2D Array): an array of cartesian points
-                - examples:
-                    - [(2,2)]
-                    - [(1,3), (4,2)]
-        """
-        return np.array([[abs(m * x - y + b) / np.sqrt(m**2 + 1**2)] for x,y in points])
+        
+        # Calculate the unit vector associated with the line
+        unit_vec = line/np.linalg.norm(line)
+        
+        # Calculate the cross product between each coordinate and the unit vector
+        # This gets distances to the projected path line
+        deltas = np.cross(coords, unit_vec)
+        
+        # Return distances to projected path line
+        return deltas
 
 def main():
     rclpy.init()
