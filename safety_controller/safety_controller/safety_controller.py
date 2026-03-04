@@ -16,7 +16,7 @@ class SafetyController(Node):
         self.declare_parameter("scan_topic", "/scan")
         self.declare_parameter("drive_topic_listen", "/vesc/low_level/ackermann_cmd") # publish to the highest priority to override other drive commands
         self.declare_parameter('drive_topic_publish', "/vesc/low_level/input/safety")
-        self.declare_parameter("safety_radius", 0.5)
+        self.declare_parameter("safety_radius", 0.25)
         self.declare_parameter("safety_controller_const", 0.25)
         self.declare_parameter("logger_topic", "/crash_points")
         
@@ -194,6 +194,16 @@ class SafetyController(Node):
         return subset_calculator
     
     def visualize_line(self, line_end_point):
+        """
+        Returns None
+
+        Visualizes the line starting at (0,0) to the given end point in
+        the base_link frame.
+
+        Args:
+            - line_end_point (ndarray) : the (x,y) of the end point
+        """
+
         end_x, end_y = line_end_point
         VisualizationTools.plot_line(
             x = [0.0, float(end_x)],
