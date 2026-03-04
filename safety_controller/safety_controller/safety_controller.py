@@ -196,9 +196,16 @@ class SafetyController(Node):
         :param line: vector to the projected location of base_link
         """
         self.get_logger().info(f'calculate_deltas input: {len(coords)}')
-        deltas = [ (np.abs(np.cross(line, np.array([x,y])))) / (np.linalg.norm(line)) for x, y in coords]
-        # np.dot(coords, line/np.linalg.norm(line)) -- gives the projection
-        return np.array(deltas)
+        
+        # Calculate the unit vector associated with the line
+        unit_vec = line/np.linalg.norm(line)
+        
+        # Calculate the cross product between each coordinate and the unit vector
+        # This gets distances to the projected path line
+        deltas = np.cross(coords, unit_vec)
+        
+        # Return distances to projected path line
+        return deltas
 
     def polar_to_cartesian(self, polar_coords):
         """
