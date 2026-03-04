@@ -3,6 +3,9 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from ackermann_msgs.msg import AckermannDriveStamped
+from visualization_msgs.msg import Marker
+
+from safety_controller.visualization_tools import VisualizationTools
 
 class SafetyController(Node):
 
@@ -14,9 +17,9 @@ class SafetyController(Node):
         self.declare_parameter("drive_topic_listen", "/vesc/low_level/ackermann_cmd") # publish to the highest priority to override other drive commands
         self.declare_parameter('drive_topic_publish', "/vesc/low_level/input/safety")
         self.declare_parameter("safety_radius", 0.5)
-        self.declare_parameter("safety_controller_const", 0.1)
+        self.declare_parameter("safety_controller_const", 0.25)
         self.declare_parameter("logger_topic", "/crash_points")
-
+        
         # Fetch constants from the ROS parameter server
         # DO NOT MODIFY THIS! This is necessary for the tests to be able to test varying parameters!
         self.SCAN_TOPIC = self.get_parameter('scan_topic').get_parameter_value().string_value
@@ -44,6 +47,12 @@ class SafetyController(Node):
         self.stop_publisher = self.create_publisher(
             AckermannDriveStamped,
             self.DRIVE_TOPIC_PUBLISH,
+            10
+        )
+
+        self.line_publisher = self.create_publisher(
+            Marker,
+            "line",
             10
         )
 
@@ -82,6 +91,9 @@ class SafetyController(Node):
         # calculate the vector for our projected location
         velocity = drive_msg.drive.speed
         line = self.line_projection(velocity)
+        
+        # visualize the projected path to location in RViz
+        self.visualize_line(line)
 
         # filter laser scan to desired range
         cartesian_coords = lidar_subset_calc(
@@ -129,9 +141,6 @@ class SafetyController(Node):
             - lidar_angle_increment (float): The size of the increments in the range [lidar_angle_min, lidar_angle_max]
             - lidar_ranges (array): The original lidar data, an indexed by angle with values corresponding to the distance of the point
             from the lidar
-            
-        Output:
-            - (function): The subset calculator tuned to the lidar's base parameters.
         """
         def subset_calculator(angle_range = [lidar_angle_min, lidar_angle_max], distance_range = [0, float("inf")]):
             """
@@ -183,6 +192,14 @@ class SafetyController(Node):
             return cartesian_coords
 
         return subset_calculator
+    
+    def visualize_line(self, line_end_point):
+        end_x, end_y = line_end_point
+        VisualizationTools.plot_line(
+            x = [0, end_x],
+            y = [0, end_y],
+            publisher = self.line_publisher,
+        )
         
     def line_projection(self, velocity):
         """
@@ -192,7 +209,7 @@ class SafetyController(Node):
             - velocity (float) : the current velocity of the drive command
 
         Output:
-            - line (ndarray) : (1, 2) 2d vector (x, y) of the end point of the projected line.
+            - line (ndarray): (1, 2) 2d vector (x, y) of the end point of the projected line.
         """
         projected_distance = self.SAFETY_CONTROLLER_CONST * velocity + self.SAFETY_RADIUS
         line = np.array([projected_distance, 0]) # x direction is forward
@@ -204,7 +221,7 @@ class SafetyController(Node):
         distance to the line of our projected path for base_link.
 
         Args:
-            - coords (ndarray) : (num_points, 2) Cartesian coordinates of each scan point w.r.t. base link. 
+            - coords (ndarray): (num_points, 2) Cartesian coordinates of each scan point w.r.t. base link. 
             - line (ndarray) : (1, 2) Vector to the projected location of base_link.
         """
         self.get_logger().info(f'calculate_deltas input: {len(coords)}')

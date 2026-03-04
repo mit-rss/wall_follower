@@ -11,10 +11,12 @@ class SafetyTester(Node):
         # Declare parameters to make them available for use
         # DO NOT MODIFY THIS!
         self.declare_parameter("drive_topic", "/vesc/high_level/input/nav_1")
+        self.declare_parameter("drive_speed",1)
 
         # Fetch constants from the ROS parameter server
         # DO NOT MODIFY THIS! This is necessary for the tests to be able to test varying parameters!
         self.DRIVE_TOPIC = self.get_parameter('drive_topic').get_parameter_value().string_value
+        self.SPEED = self.get_parameter('drive_speed').get_parameter_value().double_value
 
         self.timer = self.create_timer(0.05, self.drive_timer_callback)
         ### Publishers ###
@@ -40,7 +42,7 @@ class SafetyTester(Node):
         """ Basic Drive Command """
         new_msg = AckermannDriveStamped()
         drive_command = new_msg.drive
-        drive_command.speed = 1.0
+        drive_command.speed = self.SPEED
         drive_command.acceleration = 0.0
         drive_command.jerk = 0.0
         self.drive_test_publisher.publish(new_msg)
