@@ -2,11 +2,11 @@
 
 | Deliverable                                                                                                                                                | Due Date                             |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
-| Briefing Slides (uploaded to [canvas](https://canvas.mit.edu/courses/36874/assignments/449541) for grading )                                                           | Monday, March 9th at 1:00PM EST      |
+| Briefing Slides (uploaded to your team's website and[canvas](https://canvas.mit.edu/courses/36874/assignments/449541) for grading )                                                           | Monday, March 9th at 1:00PM EST      |
 | Briefing (8 min presentation + 3 min Q&A)                                                                                                                   | Monday, March 9th during Lab Hours   |
 | Pushed code to Git                                                                                                                                         | Monday, March 9th at 11:59PM EST     |
 | TA Checkoff                                                                                                                                                | Wednesday, March 11th at 11:59PM EST |
-| Report (2500 word limit*) (on [canvas](https://canvas.mit.edu/courses/36874/assignments/449543)) + [Team Member Assessment](https://forms.gle/rjoboMrpYDUpEaGk9) | Friday, March 13th at 11:59PM EST    |
+| Report (2500 word limit*) (on your team's website and [canvas](https://canvas.mit.edu/courses/36874/assignments/449543)) + [Team Member Assessment](https://forms.gle/rjoboMrpYDUpEaGk9) | Friday, March 13th at 11:59PM EST    |
 
 ***There will be a 30% penalty applied for exceeding the word limit.**
 
@@ -47,9 +47,9 @@ If for some reason they become puffy, let us know IMMEDIATELY so we can deal wit
 ## Submission and Grading
 
 From now on, for each lab, your tasks may include:
-- Publishing a report on your team's github pages website
+- Publishing a report on your team's github pages website, and uploading it to [Canvas](https://canvas.mit.edu/courses/36874/assignments/449543) for grading
 - Giving an 8 minute briefing presentation (plus 3 minutes Q&A) together with your team
-- Uploading the briefing slides to your github pages website
+- Uploading the briefing slides to your github pages website and uploading it to [Canvas](https://canvas.mit.edu/courses/36874/assignments/449541) for grading
 - Submitting a team member assessment form
 - Completing a check off with your team's assigned TA
 
@@ -83,7 +83,7 @@ be provided at the end of this document, but it is up to your team to decide wha
 
 Your pushed code and performance on a mid-lab check-in and a post-lab check off with your team's TA will count toward your **participation grade.**
 
-There will be 1 check-in mid-lab, on Wednesday, March 4th, which gives us an opportunity to make sure your team is on track. There will also be a check-off with your whole team, which can be completed any time from the day of the briefings until the last OH / lab session before the report deadline. For this lab that would be Thursday, March 5th. 
+There will be 1 check-in mid-lab, on Wednesday, March 4th, which gives us an opportunity to make sure your team is on track. There will also be a check-off with your whole team, which can be completed any time from the day of the briefings until the last OH / lab session before the report deadline. For this lab that would be Thursday, March 12th. 
 
 We will come to you for the mid-lab check-in so make sure your whole team is in attendance on mid-lab check-in day. Then, at any point before the check-off deadline, please find your team's assigned TA (or another TA if they are not available) to complete a check-off. It will consist of a few test cases of your controller (both real-world and simulation are fair game), so make sure your code is ready to deploy, ROS parameters are easy to change, etc. Please make sure your entire team is present, as we also want to check everyone's **individual** conceptual and technical understanding. Make sure each teammate knows the inputs/outputs of all the components in the system, and how what each teammate worked on fits into it. 
 
