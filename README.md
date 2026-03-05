@@ -2,11 +2,11 @@
 
 | Deliverable                                                                                                                                                | Due Date                             |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
-| Briefing Slides (uploaded to your team's [github pages](https://github.com/mit-rss/website2022))                                                           | Monday, March 9th at 1:00PM EST      |
-| Briefing (8 min presentation + 3 min Q&A)                                                                                                                  | Monday, March 9th during Lab Hours   |
+| Briefing Slides (uploaded to [canvas](https://canvas.mit.edu/courses/36874/assignments/449541) for grading )                                                           | Monday, March 9th at 1:00PM EST      |
+| Briefing (8 min presentation + 3 min Q&A)                                                                                                                   | Monday, March 9th during Lab Hours   |
 | Pushed code to Git                                                                                                                                         | Monday, March 9th at 11:59PM EST     |
 | TA Checkoff                                                                                                                                                | Wednesday, March 11th at 11:59PM EST |
-| Report (2500 word limit*) (on [team github pages](https://github.com/mit-rss/website2022)) + [Team Member Assessment](https://forms.gle/rjoboMrpYDUpEaGk9) | Friday, March 13th at 11:59PM EST    |
+| Report (2500 word limit*) (on [canvas](https://canvas.mit.edu/courses/36874/assignments/449543)) + [Team Member Assessment](https://forms.gle/rjoboMrpYDUpEaGk9) | Friday, March 13th at 11:59PM EST    |
 
 ***There will be a 30% penalty applied for exceeding the word limit.**
 
