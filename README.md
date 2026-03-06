@@ -1,12 +1,13 @@
 # Lab 3: Wall-Following on the Racecar
 
-| Deliverable                                                                                                                                                | Due Date                             |
-|------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
-| Briefing Slides (uploaded to your team's website and[canvas](https://canvas.mit.edu/courses/36874/assignments/449541) for grading )                                                           | Monday, March 9th at 1:00PM EST      |
-| Briefing (8 min presentation + 3 min Q&A)                                                                                                                   | Monday, March 9th during Lab Hours   |
-| Pushed code to Git                                                                                                                                         | Monday, March 9th at 11:59PM EST     |
-| TA Checkoff                                                                                                                                                | Wednesday, March 11th at 11:59PM EST |
-| Report (2500 word limit*) (on your team's website and [canvas](https://canvas.mit.edu/courses/36874/assignments/449543)) + [Team Member Assessment](https://forms.gle/rjoboMrpYDUpEaGk9) | Friday, March 13th at 11:59PM EST    |
+| Deliverable                                                                                                                       | Due Date                             |
+|-----------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|
+| Briefing Slides (uploaded to your team's website and [Canvas](https://canvas.mit.edu/courses/36874/assignments/449541))           | Monday, March 9th at 1:00PM EST      |
+| Briefing (8 min presentation + 3 min Q&A)                                                                                         | Monday, March 9th during Lab Hours   |
+| Pushed code to Git                                                                                                                | Monday, March 9th at 11:59PM EST     |
+| TA Checkoff                                                                                                                       | Wednesday, March 11th at 11:59PM EST |
+| Report (2500 word limit*) (uploaded to your team's website and [Canvas](https://canvas.mit.edu/courses/36874/assignments/449543)) | Friday, March 13th at 11:59PM EST    |
+| [Team Member Assessment](https://forms.gle/rjoboMrpYDUpEaGk9)                                                                     | Friday, March 13th at 11:59PM EST    |
 
 ***There will be a 30% penalty applied for exceeding the word limit.**
 
