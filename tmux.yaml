@@ -1,0 +1,14 @@
+session_name: rss_lab1c
+windows:
+  - window_name: team2_tmux_template
+    layout: tiled
+    panes:
+      - shell_command:
+          - colcon build --symlink-install
+          - source install/setup.bash
+      - shell_command:
+          - source install/setup.bash
+      - shell_command:
+          - source install/setup.bash
+      - shell_command:
+          - source install/setup.bash
